@@ -1,7 +1,34 @@
+# Ziique Music Maker
 ![alt text](https://ziique.dk/assets/ZiiQue-Logo.png)
+![alt text](https://img.shields.io/appveyor/build/zeroject/Ziique) ![alt text](https://img.shields.io/tokei/lines/github/zeroject/Ziique) ![alt text](https://img.shields.io/github/downloads/zeroject/Ziique/latest/total)
+
+## Ziique is a full project with backend and a frontend for WEB and APP (Android Only) that can produce beats.
+
+Ziique was first build in 2022 as a Exam project, and now has been picked opped agian to be remade from the bottom with new knowledge that has been learned from earlier project. Ziique main feature is to build beats fast and easy, the second objective is making produces work together on a beat in real time with the help of Beat-It-Together feature.
+
+Ziique is capple of theese things:
+* Creating Beats and store them in the cloud.
+* Be able to create Beats together.
+* Premade sounds to be used in your beats.
+* Able to pick op where u left off.
+* The abilty to download your beats as sound files.
+* Upload your own sounds to Ziique to be used.
+* Sound effects to create unique sounds.
 
 # Deescription
-Ziique is a music maker application for mobile phone and website, with the option to make beats together online in real time, with our premuim feature Beat-It-Together™
+Ziique is a music maker application for mobile phone and website, with the option to make beats together online in real time, with our premuim feature Beat-It-Together™. Ziique is build for the ease use, that means Ziique can adapt to whatever screen you are using, so what is important stays the most visible. Ziique is builed with the framework Flutter that is one of the reason why Ziique can adapt to nearly any scenario, the backend is hosted on google firebase. That goes for the users data, login credentials and the beats + sound files.
+
+# How to use Ziique's API
+-- TODO WRITE HOW TO USE THE API IF IT IS CHOSED TO MAKE IT A PUBLIC ACCES API
+
+# Download Ziique
+-- LINK TO DOWNLOAD Ziique APK
+
+# Know issues with Ziique
+* CURENTLY NO KNOW BUGS.
+
+# Example what Ziique is caple of
+-- Link to a audio file created with Ziique.
 
 # Copyright
 
