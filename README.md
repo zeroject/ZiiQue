@@ -16,4 +16,6 @@ This Copyright Notice constitutes the entire agreement between you and ZomR with
 ZomR reserves the right to modify or update this Copyright Notice at any time without prior notice. You agree to be bound by any such modifications or updates, which shall be effective immediately upon posting on the ZomR website.
 
 If you have any questions or concerns regarding this Copyright Notice or the Software, please contact ZomR at [kasper@ziique.dk].
+
+
 ![alt text](https://ziique.dk/assets/madebyzomr.png)
