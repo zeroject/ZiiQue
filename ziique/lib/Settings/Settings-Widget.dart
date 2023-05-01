@@ -35,8 +35,7 @@ class SettingsPageMobile extends StatelessWidget {
           ],
           ),
         )
-      ),
-    );
+      );
   }
 }
 
