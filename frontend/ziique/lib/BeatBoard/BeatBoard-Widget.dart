@@ -7,7 +7,17 @@ class BeatBoardApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Text("Hello"),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/grey-background.png"),
+                fit: BoxFit.none),
+          ),
+          child: Container(
+            child: Row(
+              children: [Text("APP")],
+            ),
+          )),
     );
   }
 }
@@ -19,8 +29,18 @@ class BeatBoardDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Text("Small Hello"),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/grey-background.png"),
+              fit: BoxFit.none,
+            ),
+          ),
+          child: Container(
+            child: Row(
+              children: [Text("DESKTOP")],
+            ),
+          )),
     );
   }
 }
-
