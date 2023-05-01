@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ziique/Settings/Settings-Widget.dart';
 import 'firebase_options.dart';
 
 void main() async {
-
   runApp(const MyApp());
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-  
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,15 +35,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SettingsPageMobile(context)));
+              },
+              child: Text("Settings")),
+        ],
+      ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth < 750) {
             return BeatBoardApp(context);
-          } else{
+          } else {
             return BeatBoardDesktop(context);
           }
         },
