@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
 class BeatBoardApp extends StatelessWidget {
-  BeatBoardApp({Key key}) : super(key: key);
+  BeatBoardApp(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold(
+      body: Text("Hello"),
+    );
   }
 }
 
 class BeatBoardDesktop extends StatelessWidget {
-  BeatBoardDesktop({Key key}) : super(key: key);
+  BeatBoardDesktop(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold(
+      body: Text("Small Hello"),
+    );
   }
 }
 
