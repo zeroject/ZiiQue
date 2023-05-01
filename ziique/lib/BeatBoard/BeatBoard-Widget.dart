@@ -37,8 +37,38 @@ class BeatBoardDesktop extends StatelessWidget {
             ),
           ),
           child: Container(
-            child: Row(
-              children: [Text("DESKTOP")],
+            child: Column(
+              children: [
+                AppBar(
+                  backgroundColor: Color.fromARGB(255, 44, 41, 41),
+                  leading: Center(
+                    child: Image.asset(
+                      "assets/images/madebyzomr.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  leadingWidth: 90,
+                  title: Center(
+                    child: Image.asset(
+                      "assets/images/ZiiQue-Logo.png",
+                      fit: BoxFit.cover,
+                      scale: 10,
+                    ),
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 44, 41, 41)
+                      ),
+                      child: Image.asset(
+                        "assets/images/menu-icon.png",
+                      ),
+                    ),
+                  ],
+                ),
+                Container(),
+              ],
             ),
           )),
     );

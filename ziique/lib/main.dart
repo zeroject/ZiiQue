@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ziique/Settings/Settings-Widget.dart';
 import 'firebase_options.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -18,6 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return const MaterialApp(
       title: 'ZiiQue',
       home: MyHomePage(title: 'ZiiQue'),
@@ -52,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth < 750) {
+          if (Platform.isAndroid) {
             return BeatBoardApp(context);
           } else {
             return BeatBoardDesktop(context);
