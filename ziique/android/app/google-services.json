@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "781887836387",
+    "firebase_url": "https://ziique-7aa1b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ziique-7aa1b",
+    "storage_bucket": "ziique-7aa1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781887836387:android:e6a96438252d7725b1b5d6",
+        "android_client_info": {
+          "package_name": "com.example.ziique"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781887836387-5gmn8mqibf9dakv4s2f6pi0lo4aouifm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPH9nc7rJYVMjgUar09MVkKjnxDRny12w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781887836387-5gmn8mqibf9dakv4s2f6pi0lo4aouifm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
