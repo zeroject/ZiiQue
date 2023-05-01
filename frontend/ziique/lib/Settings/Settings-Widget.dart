@@ -19,11 +19,13 @@ class SettingsPageMobile extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("")
-          )
+            image: AssetImage("assets/images/grey-background.png"),
+            fit: BoxFit.cover,
+          ),
         ),
-      )
-    )
+        child: null,
+      ),
+    );
   }
 }
 

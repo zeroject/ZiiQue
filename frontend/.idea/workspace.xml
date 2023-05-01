@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b15cc683-4f17-4c3c-8bd6-dbfd3d0b7f00" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ziique/lib/Settings/Settings-Widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/ziique/lib/Settings/Settings-Widget.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
