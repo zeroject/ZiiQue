@@ -5,7 +5,7 @@ class SettingsPageDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold();
   }
 }
 
@@ -23,7 +23,18 @@ class SettingsPageMobile extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 1036,
+              height: 1002,
+              color: Colors.black26,
+            )
+          ],
+          ),
+        )
       ),
     );
   }
