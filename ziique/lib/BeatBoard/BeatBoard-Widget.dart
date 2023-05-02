@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Settings/Settings-Widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BeatBoardApp extends StatelessWidget {
   BeatBoardApp(BuildContext context);
@@ -53,73 +54,107 @@ class BeatBoardDesktop extends StatelessWidget {
       endDrawer: Container(
         width: 450,
         child: Drawer(
+          backgroundColor: Color.fromARGB(255, 76, 76, 76),
           child: ListView(
             children: <Widget>[
-              SizedBox(
-                height: 64,
-                child: DrawerHeader(
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        bottom: 8.0,
-                        left: 4.0,
-                        child: Text(
-                          "YOUR BEATS",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+              if (FirebaseAuth.instance.currentUser != null) ...[
+                SizedBox(
+                  height: 64,
+                  child: DrawerHeader(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 8.0,
+                          left: 4.0,
+                          child: Text(
+                            "YOUR BEATS",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 44, 41, 41),
+                    ),
                   ),
-                  decoration: BoxDecoration(color: Colors.amber),
                 ),
-              ),
-              for (var i in test)
-                ListTile(
-                  title: Text(i.toString()),
-                  tileColor: Colors.pinkAccent,
-                ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: SizedBox(
-                        width: 290,
-                        height: 60,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SettingsPageMobile(context)));
-                          },
-                          child: Text("Account Settings"),
+                for (var i in test)
+                  ListTile(
+                    title: Text(i.toString()),
+                    tileColor: Color.fromARGB(255, 217, 217, 217),
+                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: SizedBox(
+                          width: 290,
+                          height: 60,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SettingsPageMobile(context)));
+                            },
+                            child: Text("Account Settings",
+                                style: TextStyle(color: Colors.white)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: SizedBox(
-                        width: 290,
-                        height: 60,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SettingsPageMobile(context)));
-                          },
-                          child: Text("Log Out"),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: SizedBox(
+                          width: 290,
+                          height: 60,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SettingsPageMobile(context)));
+                            },
+                            child: Text(
+                              "Log Out",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ] else ...[
+                Column(
+                  children: [
+                    Align(
+                      child: Text("It seems you are not logged in"),
+                      alignment: Alignment.center,
+                    ),
+                    Align(
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        child: Text("Create Account"),
+                      ),
+                    ),
+                    Align(
+                      child: Text("Already have an account?"),
+                      alignment: Alignment.center,
+                    ),
+                    Align(
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        child: Text("Log in"),
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ],
           ),
         ),
