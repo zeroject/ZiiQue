@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 
 class LoginDesktop extends StatelessWidget {
-  LoginDesktop({Key key}) : super(key: key);
+  LoginDesktop(BuildContext context)
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold(
+
+    );
   }
 }
 
 class LoginMobile extends StatelessWidget {
-  LoginMobile({Key key}) : super(key: key);
+  LoginMobile(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold(
+
+  );
   }
 }
