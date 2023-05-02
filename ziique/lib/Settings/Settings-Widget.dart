@@ -15,6 +15,21 @@ class SettingsPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth < 750) {
+            return Build1(context);
+          } else{
+            return Build1(context);
+          };
+        }
+    ),
+    );
+  }
+}
+
+Widget Build1(BuildContext context){
+  return Scaffold(
       appBar: AppBar(title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -25,7 +40,7 @@ class SettingsPageMobile extends StatelessWidget {
             width: 10
           ),
         ],
-      ), backgroundColor: Colors.black26,),
+      ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -43,24 +58,32 @@ class SettingsPageMobile extends StatelessWidget {
               height: MediaQuery.of(context).size.height - 56,
               color: Colors.black26.withOpacity(1),
               child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  OutlinedButton(onPressed: (){}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),))
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OutlinedButton(onPressed: (){}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),))
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Account Name', style: TextStyle(color: Colors.white),)
+                    ],
+                  )
                 ],
               ),
-            )
+            ),
             ],
             ),
             ),
             );
-  }
 }
-
-
 

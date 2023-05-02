@@ -1,18 +1,23 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ziique/Settings/Settings-Widget.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
   runApp(const MyApp());
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
+  FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
+  FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ZiiQue',
       home: MyHomePage(title: 'ZiiQue'),
     );
@@ -42,18 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingsPageMobile(context)));
-              },
-              child: Text("Settings")),
-        ],
-      ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (Platform.isAndroid) {
