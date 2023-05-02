@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,7 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (Platform.isAndroid) {
+          if (kIsWeb){
+            return BeatBoardDesktop(context);
+          }
+          else if (Platform.isAndroid) {
             return BeatBoardApp(context);
           } else {
             return BeatBoardDesktop(context);
