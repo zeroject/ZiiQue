@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
@@ -143,18 +144,18 @@ class BeatBoardDesktop extends StatelessWidget {
                     Align(
                       child: OutlinedButton(
                         onPressed: () {
-                          if (Platform.isAndroid){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CreateMobile(context)));
-                          } else{
+                          if (kIsWeb){
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CreateDesktop(context)));
+                          } else{
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CreateMobile(context)));
                           }
                         },
                         child: Text("Create Account"),
@@ -167,18 +168,18 @@ class BeatBoardDesktop extends StatelessWidget {
                     Align(
                       child: OutlinedButton(
                         onPressed: () {
-                          if (Platform.isAndroid){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        LoginMobile(context)));
-                          } else{
+                          if (kIsWeb){
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         LoginDesktop(context)));
+                          } else{
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LoginMobile(context)));
                           }
                         },
                         child: Text("Log in"),
