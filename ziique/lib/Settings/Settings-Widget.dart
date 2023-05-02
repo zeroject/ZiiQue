@@ -15,6 +15,22 @@ class SettingsPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Responsive app Test')),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth < 750) {
+            return Build1(context);
+          } else{
+            return Build1(context);
+          };
+        }
+    ),
+    );
+  }
+}
+
+Widget Build1(BuildContext context){
+  return Scaffold(
       appBar: AppBar(title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -59,8 +75,5 @@ class SettingsPageMobile extends StatelessWidget {
             ),
             ),
             );
-  }
 }
-
-
 
