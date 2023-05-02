@@ -11,7 +11,7 @@ class CollectionNames{
 }
 
 class BeatService{
-  Stream<Iterable<Beat>> getBeats(User user){
+  Stream<Iterable<Beat>> GetBeats(User user){
     return FirebaseFirestore.instance
     .collection(CollectionNames.beats)
     .where(OwnerKeys.uid, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -24,7 +24,7 @@ class BeatService{
     .map((querySnapshot) => querySnapshot.docs.map((e) => e.data()));
   }
 
-  Future<void> Savebeat(User user, String beatstring) async {
+  Future<void> SaveBeat(User user, String beatstring) async {
     final owner = Owner(
         uid: user.uid,
         displayName: user.displayName ?? '',
