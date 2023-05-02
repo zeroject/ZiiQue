@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CreateDesktop extends StatelessWidget {
-  CreateDesktop({Key key}) : super(key: key);
+  CreateDesktop(BuildContext context)
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold();
   }
 }
 
 class CreateMobile extends StatelessWidget {
-  CreateMobile({Key key}) : super(key: key);
+  CreateMobile(BuildContext context)
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return Scaffold();
   }
 }
 
