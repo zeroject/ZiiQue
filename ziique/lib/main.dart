@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ZiiQue',
       home: MyHomePage(title: 'ZiiQue'),
     );
@@ -41,18 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SettingsPageMobile(context)));
-              },
-              child: Text("Settings")),
-        ],
-      ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (Platform.isAndroid) {
