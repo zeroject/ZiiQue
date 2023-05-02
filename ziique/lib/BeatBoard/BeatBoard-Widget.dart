@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:ziique/login-create/Create-Widget.dart';
+import 'package:ziique/login-create/Login-Widget.dart';
 
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -138,7 +142,21 @@ class BeatBoardDesktop extends StatelessWidget {
                     ),
                     Align(
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (Platform.isAndroid){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CreateMobile(context)));
+                          } else{
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CreateDesktop(context)));
+                          }
+                        },
                         child: Text("Create Account"),
                       ),
                     ),
@@ -148,10 +166,35 @@ class BeatBoardDesktop extends StatelessWidget {
                     ),
                     Align(
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (Platform.isAndroid){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LoginMobile(context)));
+                          } else{
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LoginDesktop(context)));
+                          }
+                        },
                         child: Text("Log in"),
                       ),
-                    )
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SettingsPageMobile(context)));
+                      },
+                      child: Text("Account Settings",
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ],
                 ),
               ],
