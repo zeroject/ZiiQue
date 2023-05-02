@@ -151,7 +151,18 @@ class BeatBoardDesktop extends StatelessWidget {
                         onPressed: () {},
                         child: Text("Log in"),
                       ),
-                    )
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SettingsPageMobile(context)));
+                      },
+                      child: Text("Account Settings",
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ],
                 ),
               ],
