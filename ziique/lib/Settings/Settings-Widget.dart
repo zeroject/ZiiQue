@@ -15,7 +15,6 @@ class SettingsPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Responsive app Test')),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth < 750) {
@@ -41,7 +40,7 @@ Widget Build1(BuildContext context){
             width: 10
           ),
         ],
-      ), backgroundColor: Colors.black26,),
+      ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
