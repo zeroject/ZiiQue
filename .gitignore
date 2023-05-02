@@ -141,3 +141,7 @@ app.*.symbols
 
 ziique/google-services.json
 google-services.json
+ziique/android/app/google-services.json
+ziique/ios/firebase_app_id_file.json
+ziique/android/app/google-services.json
+ziique/macos/firebase_app_id_file.json

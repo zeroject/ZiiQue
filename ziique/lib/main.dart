@@ -13,14 +13,22 @@ import 'FireService/Fire_BeatBoard.dart';
 import 'FireService/Fire_Login-Create.dart';
 
 void main() async {
-  runApp(const MyApp());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  if(kIsWeb){
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.web,
+    );
+  } else if(Platform.isAndroid){
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
   FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
   FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
