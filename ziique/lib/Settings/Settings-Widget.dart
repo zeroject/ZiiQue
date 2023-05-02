@@ -58,18 +58,29 @@ Widget Build1(BuildContext context){
               height: MediaQuery.of(context).size.height - 56,
               color: Colors.black26.withOpacity(1),
               child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  OutlinedButton(onPressed: (){}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),))
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OutlinedButton(onPressed: (){}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),))
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Account Name', style: TextStyle(color: Colors.white),)
+                    ],
+                  )
                 ],
               ),
-            )
+            ),
             ],
             ),
             ),

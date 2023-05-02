@@ -140,3 +140,4 @@ app.*.symbols
 !.vscode/settings.json
 
 ziique/google-services.json
+google-services.json
