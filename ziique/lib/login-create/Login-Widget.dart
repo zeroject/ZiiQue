@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginDesktop extends StatelessWidget {
-  LoginDesktop({Key key}) : super(key: key);
+  LoginDesktop(BuildContext context)
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginDesktop extends StatelessWidget {
 }
 
 class LoginMobile extends StatelessWidget {
-  LoginMobile({Key key}) : super(key: key);
+  LoginMobile(BuildContext context)
 
   @override
   Widget build(BuildContext context) {
