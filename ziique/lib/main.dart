@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 
 void main() async {
   runApp(const MyApp());
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -1,34 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'user.dart';
+import 'owner.dart';
 
-class MessageKeys {
+class BeatKeys {
   static const lastEdited = 'lastEdited';
   static const from = 'from';
   static const beatString = 'beatString';
 }
 
-class Message {
+class Beat {
   final String id;
   final DateTime? lastEdited;
-  final User from;
+  final Owner from;
   final String beatString;
 
-  Message(
+  Beat(
       {required this.id,
       required this.lastEdited,
       required this.from,
       required this.beatString});
 
-  Message.fromMap(this.id, Map<String, dynamic> data)
-      : lastEdited = (data[MessageKeys.lastEdited] as Timestamp?)?.toDate(),
-        from = User.fromMap(data[MessageKeys.from]),
-        beatString = data[MessageKeys.beatString];
+  Beat.fromMap(this.id, Map<String, dynamic> data)
+      : lastEdited = (data[BeatKeys.lastEdited] as Timestamp?)?.toDate(),
+        from = Owner.fromMap(data[BeatKeys.from]),
+        beatString = data[BeatKeys.beatString];
 
   Map<String, dynamic> toMap() {
     return {
-      MessageKeys.lastEdited: lastEdited,
-      MessageKeys.from: from,
-      MessageKeys.beatString: beatString
+      BeatKeys.lastEdited: lastEdited,
+      BeatKeys.from: from,
+      BeatKeys.beatString: beatString
     };
   }
 }
