@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
-import '../models/user.dart';
+import '../models/fire_user.dart';
 
 class CollectionNames{
   static const beats = 'beats';

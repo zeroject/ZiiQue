@@ -9,4 +9,12 @@ class UserService{
     .doc(userId)
     .get();
   }
+
+  Future<void> CreateUser(var userId) async {
+    await FirebaseFirestore.instance
+    .collection('users')
+    .add({
+      
+    })
+  }
 }
