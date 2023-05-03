@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
-import '../models/fire_user.dart';
+import '../models/fire_user.dart' as fireUser;
 
 class CollectionNames{
   static const beats = 'beats';
@@ -17,10 +17,11 @@ String generateId() {
 }
 
 class BeatService{
-  Stream<Iterable<Beat>> GetBeats(User user){
+  Stream<Iterable<Beat>> GetBeats(fireUser.User user){
     return FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .doc(user.uid)
     .collection(CollectionNames.beats)
-    .where(OwnerKeys.uid, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
       fromFirestore: (snapshot, options) => Beat.fromMap(snapshot.id, snapshot.data()!), 
@@ -30,13 +31,15 @@ class BeatService{
     .map((querySnapshot) => querySnapshot.docs.map((e) => e.data()));
   }
 
-  Future<void> SaveBeat(User user, String beatstring) async {
+  Future<void> SaveBeat(fireUser.User user, String beatstring) async {
     String id = generateId();
     final owner = Owner(
         uid: user.uid,
         displayName: user.displayName ?? '',
         email: user.email ?? 'Unknown');
     await FirebaseFirestore.instance
+        .collection(CollectionNames.users)
+        .doc(user.uid)
         .collection(CollectionNames.beats)
         .doc(id)
         .set({
@@ -47,8 +50,10 @@ class BeatService{
         });
   }
 
-  Future<void> UpdateBeat(User user, var beatId, String beatstring) async{
+  Future<void> UpdateBeat(fireUser.User user, var beatId, String beatstring) async{
     await FirebaseFirestore.instance
+        .collection(CollectionNames.users)
+        .doc(user.uid)
         .collection(CollectionNames.beats)
         .doc(beatId)
         .update({
@@ -57,8 +62,10 @@ class BeatService{
         });
   }
 
-  Future<void> DeleteBeat(var beatId) async{
+  Future<void> DeleteBeat(fireUser.User user, var beatId) async{
     await FirebaseFirestore.instance
+        .collection(CollectionNames.users)
+        .doc(user.uid)
         .collection(CollectionNames.beats)
         .doc(beatId)
         .delete();
