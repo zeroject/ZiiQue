@@ -9,8 +9,8 @@ import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
-import 'FireService/Fire_BeatBoard.dart';
-import 'FireService/Fire_Login-Create.dart';
+import 'FireService/Fire_BeatService.dart';
+import 'FireService/Fire_AuthService.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +23,10 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-  if(!kReleaseMode){
-    FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
-    FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
-    FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
+  if (!kReleaseMode){
+  FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
+  FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
+  FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
   }
 
   runApp(const MyApp());
@@ -68,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
           else if (Platform.isAndroid) {
             return BeatBoardApp(context);
           } else {
-            SignUpService().SignUpWithEmailAndPassword("emailgg", "passwordgg");
             return BeatBoardDesktop(context);
             
           }

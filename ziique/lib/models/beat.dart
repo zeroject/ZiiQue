@@ -4,7 +4,7 @@ import 'owner.dart';
 class BeatKeys {
   static const id = 'id';
   static const lastEdited = 'lastEdited';
-  static const from = 'from';
+  static const by = 'by';
   static const beatString = 'beatString';
   static const description = 'description';
 }
@@ -12,16 +12,16 @@ class BeatKeys {
 class Beat {
   final String id;
   final DateTime? lastEdited;
-  final Owner from;
+  final Owner by;
   final String beatString;
   final String description;
 
   Beat(
-      {required this.id, required this.lastEdited, required this.from, required this.beatString, required this.description});
+      {required this.id, required this.lastEdited, required this.by, required this.beatString, required this.description});
 
   Beat.fromMap(this.id, Map<String, dynamic> data)
       : lastEdited = (data[BeatKeys.lastEdited] as Timestamp?)?.toDate(),
-        from = Owner.fromMap(data[BeatKeys.from]),
+        by = Owner.fromMap(data[BeatKeys.by]),
         beatString = data[BeatKeys.beatString],
         description = data[BeatKeys.description];
 
@@ -29,7 +29,7 @@ class Beat {
     return {
       BeatKeys.id: id,
       BeatKeys.lastEdited: lastEdited,
-      BeatKeys.from: from,
+      BeatKeys.by: by,
       BeatKeys.beatString: beatString,
       BeatKeys.description: description
     };

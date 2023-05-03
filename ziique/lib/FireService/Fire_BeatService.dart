@@ -1,4 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ziique/models/owner.dart';
@@ -8,6 +10,10 @@ import '../models/user.dart';
 class CollectionNames{
   static const beats = 'beats';
   static const users = 'users';
+}
+
+String generateId() {
+  return Random().nextInt(2 ^ 53).toString();
 }
 
 class BeatService{
@@ -25,31 +31,36 @@ class BeatService{
   }
 
   Future<void> SaveBeat(User user, String beatstring) async {
+    String id = generateId();
     final owner = Owner(
         uid: user.uid,
         displayName: user.displayName ?? '',
         email: user.email ?? 'Unknown');
     await FirebaseFirestore.instance
         .collection(CollectionNames.beats)
-        .add({
-      BeatKeys.lastEdited: FieldValue.serverTimestamp(),
-      BeatKeys.from: owner.toMap(),
-      BeatKeys.beatString: beatstring
-    });
+        .doc(id)
+        .set({
+          BeatKeys.id: id,
+          BeatKeys.lastEdited: FieldValue.serverTimestamp(),
+          BeatKeys.by: owner.toMap(),
+          BeatKeys.beatString: beatstring
+        });
   }
 
   Future<void> UpdateBeat(User user, var beatId, String beatstring) async{
-    final owner = Owner(
-        uid: user.uid,
-        displayName: user.displayName ?? '',
-        email: user.email ?? 'Unknown');
     await FirebaseFirestore.instance
         .collection(CollectionNames.beats)
-        .doc()
-        .update()
+        .doc(beatId)
+        .update({
+          BeatKeys.lastEdited: FieldValue.serverTimestamp(),
+          BeatKeys.beatString: beatstring
+        });
   }
 
-  void DeleteBeat(){
-
+  Future<void> DeleteBeat(var beatId) async{
+    await FirebaseFirestore.instance
+        .collection(CollectionNames.beats)
+        .doc(beatId)
+        .delete();
   }
 }
