@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ziique/FireService/Fire_Login-Create.dart';
 
 class LoginDesktop extends StatelessWidget {
   LoginDesktop(BuildContext context);
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +46,20 @@ class LoginDesktop extends StatelessWidget {
                       SizedBox(height: 20,),
                       SizedBox(
                         width: 400,
-                          child: TextFormField(decoration: InputDecoration(hintText: "Email"),)),
+                          child: TextFormField(controller: emailController,decoration: InputDecoration(hintText: "Email"),)),
                       SizedBox(
                         height: 20,
                       ),
                       SizedBox(
                         width: 400,
-                          child: TextFormField(obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
+                          child: TextFormField(controller: passwordController ,obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
                       SizedBox(
                         height: 50,
                       ),
                       SizedBox(
                         width: 200,
                           height: 40,
-                          child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)),onPressed: (){}, child: Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
+                          child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)),onPressed: (){SignInService().SignInWithEmailAndPassword(emailController.text, passwordController.text);}, child: Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
                       ),
                       SizedBox(
                         height: 20,
