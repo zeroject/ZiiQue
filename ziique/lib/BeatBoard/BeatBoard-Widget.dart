@@ -59,7 +59,7 @@ class BeatBoardDesktop extends StatelessWidget {
       endDrawer: Container(
         width: 450,
         child: Drawer(
-          backgroundColor: Color.fromARGB(255, 76, 76, 76),
+          backgroundColor: Color.fromARGB(255, 44, 41, 41),
           child: ListView(
             children: <Widget>[
               if (FirebaseAuth.instance.currentUser != null) ...[
@@ -137,54 +137,79 @@ class BeatBoardDesktop extends StatelessWidget {
               ] else ...[
                 Column(
                   children: [
+                    SizedBox(
+                      height: 360,
+                    ),
                     Align(
-                      child: Text("It seems you are not logged in"),
+                      child: Text(
+                        "It seems you are not logged in",
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
+                      alignment: Alignment.center,
+                    ),
+                    SizedBox(height: 20,),
+                    Align(
+                      child: SizedBox(
+                        height: 40,
+                        width: 200,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 77, 77, 77)),
+                          onPressed: () {
+                            if (kIsWeb) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CreateDesktop(context)));
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CreateMobile(context)));
+                            }
+                          },
+                          child: Text(
+                            "Create Account",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25,),
+                    Align(
+                      child: Text(
+                        "Already have an account?",
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
                       alignment: Alignment.center,
                     ),
                     Align(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          if (kIsWeb){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CreateDesktop(context)));
-                          } else{
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CreateMobile(context)));
-                          }
-                        },
-                        child: Text("Create Account"),
+                      child: SizedBox(
+                        height: 40,
+                        width: 100,
+                        child: TextButton(
+                          onPressed: () {
+                            if (kIsWeb) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginDesktop(context)));
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LoginMobile(context)));
+                            }
+                          },
+                          child: Text("Log in", style: TextStyle(decoration: TextDecoration.underline, fontSize: 25),),
+                        ),
                       ),
                     ),
-                    Align(
-                      child: Text("Already have an account?"),
-                      alignment: Alignment.center,
-                    ),
-                    Align(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          if (kIsWeb){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        LoginDesktop(context)));
-                          } else{
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        LoginMobile(context)));
-                          }
-                        },
-                        child: Text("Log in"),
-                      ),
-                    ),
+                    SizedBox(height: 50,),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.push(
