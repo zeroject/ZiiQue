@@ -13,20 +13,23 @@ import 'FireService/Fire_BeatService.dart';
 import 'FireService/Fire_AuthService.dart';
 
 void main() async {
+  String host = "";
   WidgetsFlutterBinding.ensureInitialized();
   if(kIsWeb){
+    host = "localhost";
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.web,
     );
   } else if(Platform.isAndroid){
+    host = "10.0.2.2";
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
   if (!kReleaseMode){
-  FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
-  FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
-  FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
+    FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
+    FirebaseAuth.instance.useAuthEmulator(host, 9099);
+    FirebaseStorage.instance.useStorageEmulator(host, 9199);
   }
 
   runApp(const MyApp());
