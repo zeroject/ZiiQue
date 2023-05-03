@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ziique/FireService/Fire_Login-Create.dart';
 
 class CreateDesktop extends StatelessWidget {
   CreateDesktop(BuildContext context);
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController eMailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confrimPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +34,7 @@ class CreateDesktop extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
+                Functions().isLoading ? CircularProgressIndicator() :
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -46,6 +54,7 @@ class CreateDesktop extends StatelessWidget {
                         SizedBox(
                           width: 400,
                           child: TextFormField(
+                            controller: firstNameController,
                             decoration: InputDecoration(hintText: "First Name"),
                           ),
                         ),
@@ -55,6 +64,7 @@ class CreateDesktop extends StatelessWidget {
                         SizedBox(
                           width: 400,
                           child: TextFormField(
+                            controller: lastNameController,
                             decoration: InputDecoration(hintText: "Last Name"),
                           ),
                         ),
@@ -64,6 +74,7 @@ class CreateDesktop extends StatelessWidget {
                         SizedBox(
                           width: 400,
                           child: TextFormField(
+                            controller: eMailController,
                             decoration: InputDecoration(hintText: "Email"),
                           ),
                         ),
@@ -73,6 +84,7 @@ class CreateDesktop extends StatelessWidget {
                         SizedBox(
                           width: 400,
                           child: TextFormField(
+                            controller: passwordController,
                             obscureText: true,
                             decoration: InputDecoration(hintText: "Password"),
                           ),
@@ -83,6 +95,7 @@ class CreateDesktop extends StatelessWidget {
                         SizedBox(
                           width: 400,
                           child: TextFormField(
+                            controller: confrimPasswordController,
                             obscureText: true,
                             decoration:
                                 InputDecoration(hintText: "Confirm Password"),
@@ -98,10 +111,13 @@ class CreateDesktop extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     Color.fromARGB(255, 217, 217, 217)),
-                            onPressed: () {},
+                            onPressed: () {
+                              Functions().validateAndSumbit(eMailController.text, passwordController.text);
+                            },
                             child: Text(
                               "Create Account",
-                              style: TextStyle(color: Colors.black, fontSize: 24),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 24),
                             ),
                           ),
                         ),
@@ -114,6 +130,15 @@ class CreateDesktop extends StatelessWidget {
             ),
           )),
     );
+  }
+}
+
+class Functions{
+  bool isLoading = false;
+  Future<void> validateAndSumbit(email, password) async{
+    isLoading = true;
+    await SignUpService().SignUpWithEmailAndPassword(email, password);
+    isLoading = false;
   }
 }
 
