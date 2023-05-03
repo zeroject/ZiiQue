@@ -23,10 +23,11 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-
-  FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
-  FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
-  FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
+  if(!kReleaseMode){
+    FirebaseFirestore.instance.useFirestoreEmulator("10.0.2.2", 8000, sslEnabled: false);
+    FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
+    FirebaseStorage.instance.useStorageEmulator("10.0.2.2", 9199);
+  }
 
   runApp(const MyApp());
 }
