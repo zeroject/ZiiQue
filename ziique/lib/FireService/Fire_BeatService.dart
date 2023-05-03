@@ -38,8 +38,15 @@ class BeatService{
     });
   }
 
-  void UpdateBeat(){
-
+  Future<void> UpdateBeat(User user, var beatId, String beatstring) async{
+    final owner = Owner(
+        uid: user.uid,
+        displayName: user.displayName ?? '',
+        email: user.email ?? 'Unknown');
+    await FirebaseFirestore.instance
+        .collection(CollectionNames.beats)
+        .doc()
+        .update()
   }
 
   void DeleteBeat(){
