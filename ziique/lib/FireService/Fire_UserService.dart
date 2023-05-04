@@ -15,15 +15,14 @@ class UserService{
     .get();
   }
 
-  Future<void> CreateUser(fireUser.User user, String firstName, String lastName, DateTime birthday) async {
+  Future<void> CreateUser(fireUser.User? user, String firstName, String lastName) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user.uid)
+    .doc(user!.uid)
     .set({
           UserKeys.uid: user.uid,
           UserKeys.firstname: firstName,
-          UserKeys.lastname: lastName,
-          UserKeys.birthday: birthday
+          UserKeys.lastname: lastName
         });
   }
 }
