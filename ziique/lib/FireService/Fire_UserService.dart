@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: library_prefixes, file_names, non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user.dart';
 import '../models/fire_user.dart' as fireUser;
 
@@ -15,15 +16,14 @@ class UserService{
     .get();
   }
 
-  Future<void> CreateUser(fireUser.User user, String firstName, String lastName, DateTime birthday) async {
+  Future<void> CreateUser(fireUser.User? user, String firstName, String lastName) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user.uid)
+    .doc(user!.uid)
     .set({
           UserKeys.uid: user.uid,
           UserKeys.firstname: firstName,
-          UserKeys.lastname: lastName,
-          UserKeys.birthday: birthday
+          UserKeys.lastname: lastName
         });
   }
 }

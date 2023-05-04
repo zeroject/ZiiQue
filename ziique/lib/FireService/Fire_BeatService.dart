@@ -1,8 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, library_prefixes
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
 import '../models/fire_user.dart' as fireUser;
