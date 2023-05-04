@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 
+bool isLoading = false;
+
 class CreateDesktop extends StatelessWidget {
   CreateDesktop(BuildContext context);
 
@@ -34,7 +36,7 @@ class CreateDesktop extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Functions().isLoading ? CircularProgressIndicator() :
+                isLoading ? CircularProgressIndicator() :
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -134,7 +136,6 @@ class CreateDesktop extends StatelessWidget {
 }
 
 class Functions{
-  bool isLoading = false;
   Future<void> validateAndSumbit(email, password) async{
     isLoading = true;
     await SignUpService().SignUpWithEmailAndPassword(email, password);
