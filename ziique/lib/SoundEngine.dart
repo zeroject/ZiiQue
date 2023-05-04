@@ -2,20 +2,27 @@ import 'package:audioplayers/audioplayers.dart';
 
 class SoundEngine {
 
-AudioCache A = AudioCache(prefix: "assets/sounds/808.mp3");
-AudioCache B = AudioCache(prefix: "assets/sounds/Hard_Kick.mp3");
-AudioCache C = AudioCache(prefix: "assets/sounds/Hihat.mp3");
-AudioCache D = AudioCache(prefix: "assets/sounds/Ride.mp3");
-AudioCache E = AudioCache(prefix: "assets/sounds/snare_Claps.mp3");
+AudioCache cache = AudioCache();
+AudioPlayer player = AudioPlayer();
 
+String sourceFolder = "assets/sounds/";
+Map soundFiles = {
+  "A": "808.mp3",
+  "B": "Hard_Kick.mp3",
+  "C": "Hihat.mp3",
+  "D": "Ride.mp3",
+  "E": "snare_Claps.mp3"
+};
 
 int bpm = 120;
 
 SoundEngine()
 {
-  //load the sound files into each cache
-  
-
+  //load all sounds into cache
+  soundFiles.forEach((key, value) {
+    cache.load(sourceFolder + value);
+  });
+  player.audioCache = cache;
 }
 
 //function to change bpm by parameter
@@ -25,41 +32,9 @@ void changeBPM(int newBPM)
 
 }
 
-//function to play a sound from the cache using a audio player
-void playDemoSound(String beatNote)
+void playSingleSound(String soundName)
 {
-
-  AudioPlayer player = AudioPlayer();
-  //make a switch case that checks if beatNote mathces any of the audio cache objecs by name
-  switch(beatNote)
-  {
-    case "A":
-    player.audioCache = A;
-    break;
-
-    case "B":
-    player.audioCache = B;
-    break;
-
-    case "C":
-    player.audioCache = C;;
-    break;
-
-    case "D":
-    player.audioCache = D;
-    break;
-
-    case "E":
-    player.audioCache = E;
-    break;
-
-    default:
-    print("No sound found");
-    break;
-  }
-
-  //play the sound
-  player.play;
+  player.play(AssetSource(sourceFolder + soundFiles[soundName]));
 }
 }
 
