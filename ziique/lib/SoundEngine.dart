@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:audioplayers/audioplayers.dart';
 
 class SoundEngine {
@@ -7,7 +5,7 @@ class SoundEngine {
 AudioCache cache = AudioCache();
 AudioPlayer player = AudioPlayer();
 
-String sourceFolder = "assets/samples/";
+String sourceFolder = "assets/";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
@@ -20,13 +18,7 @@ int bpm = 120;
 
 SoundEngine()
 {
-    //load all sounds into cache
-  soundFiles.forEach((key, value) {
-    cache.load(sourceFolder + value);
-    print("loaded " + sourceFolder + value);
-
-  });
-  player.audioCache = cache;
+  
 }
 
 //function to change bpm by parameter
@@ -40,7 +32,8 @@ void playSingleSound(String soundName)
 {
   try
   {
-     player.play(AssetSource(sourceFolder + soundFiles[soundName]));
+    print(soundName);
+     player.play(DeviceFileSource("assets/" + soundFiles[soundName]));
   }
   catch(e)
   {

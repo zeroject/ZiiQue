@@ -16,6 +16,7 @@ class BeatBoardApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -23,9 +24,7 @@ class BeatBoardApp extends StatelessWidget {
                 fit: BoxFit.none),
           ),
           child: Container(
-            child: Row(
-              children: [Text("APP")],
-            ),
+            child: ElevatedButton(onPressed: () { SoundEngine().playSingleSound("E"); }, child: Text("masik"),),
           )),
     );
   }
@@ -253,7 +252,7 @@ class BeatBoardDesktop extends StatelessWidget {
                 Container(
                 ),
                 Container(
-                  child: ElevatedButton(onPressed: () { SoundEngine().playSingleSound("E"); }, child: Text("masik"),),
+                  child: ElevatedButton(onPressed: () { SoundEngine().playSingleSound("A"); }, child: Text("masik"),),
                 ),
               ],
             ),
