@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
+import 'package:ziique/FireService/Fire_UserService.dart';
 
 bool isLoading = false;
 
@@ -114,7 +117,12 @@ class CreateDesktop extends StatelessWidget {
                                 backgroundColor:
                                     Color.fromARGB(255, 217, 217, 217)),
                             onPressed: () {
-                              Functions().validateAndSumbit(eMailController.text, passwordController.text);
+                              Functions().validateAndSumbit(
+                                eMailController.text, 
+                                passwordController.text, 
+                                firstNameController.text, 
+                                lastNameController.text, 
+                                context);
                             },
                             child: Text(
                               "Create Account",
@@ -136,10 +144,13 @@ class CreateDesktop extends StatelessWidget {
 }
 
 class Functions{
-  Future<void> validateAndSumbit(email, password) async{
+  Future<void> validateAndSumbit(email, password, firstName, lastName, context) async{
     isLoading = true;
     await SignUpService().SignUpWithEmailAndPassword(email, password);
+    await SignInService().SignInWithEmailAndPassword(email, password);
+    await UserService().CreateUser(FirebaseAuth.instance.currentUser, firstName, lastName);
     isLoading = false;
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
   }
 }
 
