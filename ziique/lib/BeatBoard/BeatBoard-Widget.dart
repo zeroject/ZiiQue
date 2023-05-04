@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
 
@@ -147,7 +148,9 @@ class BeatBoardDesktop extends StatelessWidget {
                       ),
                       alignment: Alignment.center,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Align(
                       child: SizedBox(
                         height: 40,
@@ -177,7 +180,9 @@ class BeatBoardDesktop extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25,),
+                    SizedBox(
+                      height: 25,
+                    ),
                     Align(
                       child: Text(
                         "Already have an account?",
@@ -205,11 +210,18 @@ class BeatBoardDesktop extends StatelessWidget {
                                           LoginMobile(context)));
                             }
                           },
-                          child: Text("Log in", style: TextStyle(decoration: TextDecoration.underline, fontSize: 25),),
+                          child: Text(
+                            "Log in",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 25),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 50,),
+                    SizedBox(
+                      height: 50,
+                    ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.push(
@@ -238,8 +250,11 @@ class BeatBoardDesktop extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Container(),
-                Container(),
+                Container(
+                ),
+                Container(
+                  child: ElevatedButton(onPressed: () { SoundEngine().playSingleSound("E"); }, child: Text("masik"),),
+                ),
               ],
             ),
           )),
