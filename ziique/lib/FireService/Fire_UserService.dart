@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: library_prefixes, file_names, non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user.dart';
 import '../models/fire_user.dart' as fireUser;
 

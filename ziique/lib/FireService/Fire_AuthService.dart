@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, file_names
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInService{
