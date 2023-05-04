@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:audioplayers/audioplayers.dart';
 
 class SoundEngine {
@@ -5,22 +7,24 @@ class SoundEngine {
 AudioCache cache = AudioCache();
 AudioPlayer player = AudioPlayer();
 
-String sourceFolder = "assets/sounds/";
+String sourceFolder = "assets/samples/";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
   "C": "Hihat.mp3",
   "D": "Ride.mp3",
-  "E": "snare_Claps.mp3"
+  "E": "Snare_Claps.mp3"
 };
 
 int bpm = 120;
 
 SoundEngine()
 {
-  //load all sounds into cache
+    //load all sounds into cache
   soundFiles.forEach((key, value) {
     cache.load(sourceFolder + value);
+    print("loaded " + sourceFolder + value);
+
   });
   player.audioCache = cache;
 }
@@ -34,7 +38,15 @@ void changeBPM(int newBPM)
 
 void playSingleSound(String soundName)
 {
-  player.play(AssetSource(sourceFolder + soundFiles[soundName]));
+  try
+  {
+     player.play(AssetSource(sourceFolder + soundFiles[soundName]));
+  }
+  catch(e)
+  {
+    throw Exception("Sound not found");
+  } 
+  
 }
 }
 
