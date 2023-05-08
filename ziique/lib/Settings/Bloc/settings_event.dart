@@ -9,3 +9,7 @@ class SceneSelected extends SettingsEvent{
 
   SceneSelected({required this.scene});
 }
+
+class DeleteUser extends SettingsEvent{
+  DeleteUser();
+}

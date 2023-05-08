@@ -122,7 +122,7 @@ class BeatBoardDesktop extends StatelessWidget {
                           height: 60,
                           child: OutlinedButton(
                             onPressed: () {
-                              SignOutService();
+                              SignOutService().SignOut();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

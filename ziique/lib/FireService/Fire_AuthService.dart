@@ -16,7 +16,7 @@ class SignUpService{
 }
 
 class SignOutService{
-  Future<void> SignUpWithEmailAndPassword(String email, String password) async {
+  Future<void> SignOut() async {
     await FirebaseAuth.instance
     .signOut();
   }

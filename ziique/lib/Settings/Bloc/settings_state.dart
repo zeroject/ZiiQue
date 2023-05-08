@@ -1,16 +1,16 @@
 part of 'settings_bloc.dart';
 
 @immutable
-abstract class SettingsState {
- String scene;
+abstract class SettingsState {}
 
- SettingsState({required this.scene});
+class SettingsInitial extends SettingsState {}
+
+class UserDeleting extends SettingsState{
+  @override
+  List<Object?> get props => [];
 }
 
-class SettingsInitial extends SettingsState {
-  SettingsInitial(): super(scene: 'Account');
-}
-
-class SettingsSelected extends SettingsState{
-  SettingsSelected({required super.scene});
+class UserDeleted extends SettingsState{
+  @override
+  List<Object?> get props => [];
 }

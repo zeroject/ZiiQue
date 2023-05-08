@@ -1,7 +1,11 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'Bloc/settings_bloc.dart';
 
 
 class SettingsPageDesktop extends StatelessWidget {
@@ -15,7 +19,6 @@ class SettingsPageDesktop extends StatelessWidget {
 
 class SettingsPageMobile extends StatelessWidget {
     SettingsPageMobile(BuildContext context);
-
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +100,13 @@ Widget Build1(BuildContext context){
                             ),
                             Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
                             Text(friendcode, style: TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
-                            OutlinedButton(onPressed: (){Clipboard.setData(ClipboardData(text: friendcode)).then((value){ScaffoldMessenger.of(context).showSnackBar(snackBar);});}, child: Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
+                            OutlinedButton(onPressed: (){
+                              Clipboard.setData(ClipboardData(text: friendcode))
+                              .then((value){ScaffoldMessenger
+                              .of(context)
+                              .showSnackBar(snackBar);});
+                              }, 
+                              child: Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
                           ],
                         )
                       ),
@@ -179,3 +188,10 @@ Widget Build2(BuildContext context){
   );
 }
 
+class Functions{
+  Future<void> DeleteUser(context) async{
+    BlocProvider.of<SettingsBloc>(context as BuildContext).add(
+      DeleteUser(context) as SettingsEvent
+    );
+  }
+}
