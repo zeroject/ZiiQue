@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -38,6 +39,7 @@ class BeatBoardDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<int> test = [1, 2, 3, 4];
+    List<int> beat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -249,16 +251,160 @@ class BeatBoardDesktop extends StatelessWidget {
               fit: BoxFit.none,
             ),
           ),
-          child: Container(
-            child: Column(
-              children: [
-                Container(
-                ),
-                Container(
-                  child: ElevatedButton(onPressed: () { SoundEngine().playSingleSound("E"); }, child: Text("masik"),),
-                ),
-              ],
-            ),
+          child: Column(
+            children: [
+              ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(20.0),
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: Flexible(
+                              child: SizedBox(
+                                width: 200,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Color.fromARGB(255, 81, 81, 81),
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                    color: Color.fromARGB(255, 81, 81, 81),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          width: 65,
+                                          height: 65,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text("Play"),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          width: 100,
+                                          height: 65,
+                                          child: TextFormField(
+                                              decoration: InputDecoration(hintText: "BPM")),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1095,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var i in beat)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 42, 42, 42),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 65,
+                                  width: 65,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(""),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var i in beat)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 42, 42, 42),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 65,
+                                  width: 65,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(""),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var i in beat)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 42, 42, 42),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 65,
+                                  width: 65,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(""),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var i in beat)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 42, 42, 42),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 65,
+                                  width: 65,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(""),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
           )),
     );
   }
