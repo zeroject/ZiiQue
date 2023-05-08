@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
@@ -496,11 +497,12 @@ class BeatBoardDesktop extends StatelessWidget {
                           height: 60,
                           child: OutlinedButton(
                             onPressed: () {
+                              SignOutService().SignOut();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SettingsPageMobile(context)));
+                                          BeatBoardDesktop(context)));
                             },
                             child: Text(
                               "Log Out",

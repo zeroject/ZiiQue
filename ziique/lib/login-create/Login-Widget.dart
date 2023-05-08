@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 
 class LoginDesktop extends StatelessWidget {
@@ -59,7 +60,11 @@ class LoginDesktop extends StatelessWidget {
                       SizedBox(
                         width: 200,
                           height: 40,
-                          child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)),onPressed: (){SignInService().SignInWithEmailAndPassword(emailController.text, passwordController.text);}, child: Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
+                          child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)), 
+                          onPressed: (){ 
+                            Functions().ValidateAndSumbit(emailController.text, passwordController.text, context);
+                            }, 
+                          child: Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
                       ),
                       SizedBox(
                         height: 20,
@@ -102,5 +107,12 @@ class LoginMobile extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class Functions{
+  Future<void> ValidateAndSumbit(email, password, context) async{
+    await SignInService().SignInWithEmailAndPassword(email, password);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
   }
 }

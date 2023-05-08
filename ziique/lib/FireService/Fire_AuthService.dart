@@ -14,3 +14,10 @@ class SignUpService{
     .createUserWithEmailAndPassword(email: email, password: password);
   }
 }
+
+class SignOutService{
+  Future<void> SignOut() async {
+    await FirebaseAuth.instance
+    .signOut();
+  }
+}
