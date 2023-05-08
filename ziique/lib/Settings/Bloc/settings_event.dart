@@ -1,4 +1,11 @@
 part of 'settings_bloc.dart';
 
 @immutable
-abstract class SettingsEvent {}
+abstract class SettingsEvent {
+}
+
+class SceneSelected extends SettingsEvent{
+  String scene;
+
+  SceneSelected({required this.scene});
+}
