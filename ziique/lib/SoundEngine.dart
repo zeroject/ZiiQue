@@ -1,8 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 
 class SoundEngine {
-
-AudioCache cache = AudioCache();
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
@@ -33,11 +31,11 @@ void changeBPM(int newBPM)
 
 //function that converts bpm to correct time by placement¨
 // where placement 1 is equal to the first beat of the bar
-num convertBPMToTime(num placement)
+double convertBPMToTime(int placement)
 {
   //divedes 60 by bpm to get the time of one beat, times 1000 to get the time in milliseconds
-  num time = 0;
-  num beatTime = (60 / bpm * 1000);
+  double time = 0;
+  double beatTime = (60 / bpm * 1000);
   time = placement * beatTime;
   return time;
 }
@@ -82,7 +80,7 @@ List<Node> convertStringToNodes(String beatString)
     placement = beatList[i].substring(0,1);
     time = beatList[i].substring(1);
     //converts the time string to int
-    num timeInt = int.parse(time);
+    int timeInt = int.parse(time);
     //creates a node with the source and time
     Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
     //adds the node to the list
@@ -96,7 +94,7 @@ List<Node> convertStringToNodes(String beatString)
 
 class Node
 {
-  num time;
+  double time;
   String source;
 
   Node(this.time, this.source);
