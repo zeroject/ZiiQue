@@ -28,7 +28,7 @@ class BeatBoardApp extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        leadingWidth: 90,
+        leadingWidth: 45,
         title: Center(
           child: Image.asset(
             "assets/images/ZiiQue-Logo.png",
@@ -237,7 +237,7 @@ class BeatBoardApp extends StatelessWidget {
                   Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -245,7 +245,7 @@ class BeatBoardApp extends StatelessWidget {
                           Align(
                             child: Flexible(
                               child: SizedBox(
-                                width: 110,
+                                width: 160,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
@@ -263,13 +263,13 @@ class BeatBoardApp extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: SizedBox(
-                                          width: 33,
-                                          height: 33,
+                                          width: 45,
+                                          height: 45,
                                           child: ElevatedButton(
                                             onPressed: () {},
                                             child: Text(
                                               "Play",
-                                              style: TextStyle(fontSize: 5),
+                                              style: TextStyle(fontSize: 6),
                                             ),
                                           ),
                                         ),
@@ -277,8 +277,8 @@ class BeatBoardApp extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: SizedBox(
-                                          width: 50,
-                                          height: 33,
+                                          width: 80,
+                                          height: 45,
                                           child: TextFormField(
                                               decoration: InputDecoration(
                                                   hintText: "BPM")),
@@ -291,7 +291,7 @@ class BeatBoardApp extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 587,
+                            width: 739,
                           ),
                         ],
                       ),
@@ -306,13 +306,13 @@ class BeatBoardApp extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: SizedBox(
-                                  height: 33,
-                                  width: 33,
+                                  height: 45,
+                                  width: 45,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('A') : SoundEngine().playSingleSound('A');},
                                     child: i == 1
                                         ? Text(
                                             "A",
@@ -336,13 +336,13 @@ class BeatBoardApp extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: SizedBox(
-                                  height: 33,
-                                  width: 33,
+                                  height: 45,
+                                  width: 45,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i==1 ? SoundEngine().playSingleSound('B'): SoundEngine().playSingleSound('B');},
                                     child: i == 1 ? Text("B") : Text(""),
                                   ),
                                 ),
@@ -361,13 +361,13 @@ class BeatBoardApp extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: SizedBox(
-                                  height: 33,
-                                  width: 33,
+                                  height: 45,
+                                  width: 45,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('C') : SoundEngine().playSingleSound('C');},
                                     child: i == 1 ? Text("C") : Text(""),
                                   ),
                                 ),
@@ -386,13 +386,13 @@ class BeatBoardApp extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: SizedBox(
-                                  height: 33,
-                                  width: 33,
+                                  height: 45,
+                                  width: 45,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('D') : SoundEngine().playSingleSound('D');},
                                     child: i == 1 ? Text("D") : Text(""),
                                   ),
                                 ),
@@ -709,7 +709,7 @@ class BeatBoardDesktop extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('A') : SoundEngine().playSingleSound('A');},
                                     child: i == 1 ? Text("A") : Text(""),
                                   ),
                                 ),
@@ -734,7 +734,7 @@ class BeatBoardDesktop extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('B') : SoundEngine().playSingleSound('B');},
                                     child: i == 1 ? Text("B") : Text(""),
                                   ),
                                 ),
@@ -759,7 +759,7 @@ class BeatBoardDesktop extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('C') : SoundEngine().playSingleSound('C');},
                                     child: i == 1 ? Text("C") : Text(""),
                                   ),
                                 ),
@@ -784,7 +784,7 @@ class BeatBoardDesktop extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () {},
+                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('D') : SoundEngine().playSingleSound('D');},
                                     child: i == 1 ? Text("D") : Text(""),
                                   ),
                                 ),
