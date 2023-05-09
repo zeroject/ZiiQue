@@ -61,11 +61,11 @@ void main() {
     String beatString = "A1;B2;C3;D4;E5;A6;B7;C8;D9;E10;A11;B12;C13;D14;E15;A16;";
     String sourceFolder = "assets/";
     Map soundFiles = {
-  "A": "808.mp3",
-  "B": "Hard_Kick.mp3",
-  "C": "Hihat.mp3",
-  "D": "Ride.mp3",
-  "E": "Snare_Claps.mp3"
+    "A": "808.mp3",
+    "B": "Hard_Kick.mp3",
+    "C": "Hihat.mp3",
+    "D": "Ride.mp3",
+    "E": "Snare_Claps.mp3"
 };
     List<Node> expectedNodes = [
       Node(500, sourceFolder + soundFiles["A"]),
@@ -87,8 +87,11 @@ void main() {
     ];
     //act
     List<Node> nodes = soundEngine.convertStringToNodes(beatString);
+
     //assert
-    expect(listEquals(nodes, expectedNodes), true);
+    for (var i = 0; i < expectedNodes.length; i++) {
+      expect(nodes[i].time == expectedNodes[i].time && nodes[i].source == expectedNodes[i].source, true);
+    }
   });
   });
 }
