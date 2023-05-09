@@ -5,7 +5,7 @@ import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
 
-import '../Settings/Account-Settings-Widget.dart';
+import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
@@ -84,7 +84,7 @@ class BeatBoardApp extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SettingsPage(context)));
+                                          SettingsPageMobile(context)));
                             },
                             child: Text("Account Settings",
                                 style: TextStyle(color: Colors.white)),
@@ -104,7 +104,7 @@ class BeatBoardApp extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SettingsPage(context)));
+                                          SettingsPageMobile(context)));
                             },
                             child: Text(
                               "Log Out",
@@ -209,7 +209,7 @@ class BeatBoardApp extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    SettingsPage(context)));
+                                    SettingsPageMobile(context)));
                       },
                       child: Text("Account Settings",
                           style: TextStyle(color: Colors.white)),
@@ -481,7 +481,7 @@ class BeatBoardDesktop extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SettingsPage(context)));
+                                          SettingsPageMobile(context)));
                             },
                             child: Text("Account Settings",
                                 style: TextStyle(color: Colors.white)),
@@ -607,7 +607,7 @@ class BeatBoardDesktop extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    SettingsPage(context)));
+                                    SettingsPageMobile(context)));
                       },
                       child: Text("Account Settings",
                           style: TextStyle(color: Colors.white)),

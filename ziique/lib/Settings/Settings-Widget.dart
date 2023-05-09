@@ -1,39 +1,45 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Bloc/settings_bloc.dart';
 
-String scene = 'Account';
-String friendcode = '1234';
 
-const snackBar = SnackBar(content: Text('Code has been copied!'));
+class SettingsPageDesktop extends StatelessWidget {
 
-class SettingsPage extends StatelessWidget {
-    SettingsPage(BuildContext context);
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold();
+  }
+}
+
+class SettingsPageMobile extends StatelessWidget {
+    SettingsPageMobile(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (kIsWeb) {
-            return DesktopBuild(context);
-          } else if(Platform.isAndroid){
-            return MobileBuild(context);
-          } else{
-            return DesktopBuild(context);
-          }
+          if (scene.contains('Account')) {
+            return Build1(context);
+          } else if(scene.contains('Payment')){
+            return Build2(context);
+          };
+          return Build1(context);
         }
     ),
     );
   }
 }
+String scene = 'Account';
+String friendcode = '1234';
 
-Widget DesktopBuild(BuildContext context){
+const snackBar = SnackBar(content: Text('Code has been copied!'));
+
+Widget Build1(BuildContext context){
 
   return Scaffold(
       appBar: AppBar(title: Row(
@@ -107,13 +113,13 @@ Widget DesktopBuild(BuildContext context){
                 ),
              ),
             ),
-          ],
-        ),
-      ),
+            ],
+            ),
+            ),
   );
 }
 
-Widget MobileBuild(BuildContext context){
+Widget Build2(BuildContext context){
   return Scaffold(
     appBar: AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -178,4 +184,12 @@ Widget MobileBuild(BuildContext context){
       ),
     ),
   );
+}
+
+class Functions{
+  Future<void> DeleteUser(context) async{
+    BlocProvider.of<SettingsBloc>(context as BuildContext).add(
+      DeleteUser(context) as SettingsEvent
+    );
+  }
 }
