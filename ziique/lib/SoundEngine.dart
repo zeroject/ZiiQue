@@ -4,9 +4,11 @@ class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
+bool repeat = true;
+
 String beatString = "";
 
-String sourceFolder = "assets/";
+String sourceFolder = "assets/samples/";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
@@ -45,7 +47,7 @@ void playSingleSound(String soundName)
   try
   {
     print(soundName);
-     player.play(DeviceFileSource("assets/" + soundFiles[soundName]));
+     player.play(DeviceFileSource(sourceFolder + soundFiles[soundName]));
   }
   catch(e)
   {
@@ -98,11 +100,32 @@ List<Node> convertStringToNodes(String beatString)
 //play each node from the list at its specified time in miliseconds starting from 0
 void playNodes(List<Node> nodeList)
 {
+AudioPlayer _player = AudioPlayer();
+
+  //sets the delay to the first node time
+  int miliDelay = nodeList[0].time.toInt();
   for(int i = 0; i < nodeList.length; i++)
   {
-    player.play(DeviceFileSource(nodeList[i].source));
-    //waits for the time of the node to play the next node
-    Future.delayed(Duration(milliseconds: nodeList[i].time.toInt()));
+    _player.play(DeviceFileSource(nodeList[i].source));
+    //waits for the time of the node to play the next node from 0 to the specified time
+    Future.delayed(Duration(milliseconds: miliDelay));
+
+    if (repeat && i == nodeList.length - 1)
+    {
+      i = 0;
+    }
+
+    if ( i >=1 && i < nodeList.length - 1)
+    {
+      miliDelay = nodeList[i].time.toInt() - nodeList[i+1].time.toInt();
+    }
+  }
+}
+
+void play()
+{
+  for (var node in nodes) {
+    
   }
 }
 

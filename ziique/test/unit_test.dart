@@ -59,7 +59,7 @@ void main() {
     //arrange
     SoundEngine soundEngine = SoundEngine();
     String beatString = "A1;B2;C3;D4;E5;A6;B7;C8;D9;E10;A11;B12;C13;D14;E15;A16;";
-    String sourceFolder = "assets/";
+    String sourceFolder = "assets/samples/";
     Map soundFiles = {
     "A": "808.mp3",
     "B": "Hard_Kick.mp3",
