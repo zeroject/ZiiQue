@@ -4,20 +4,28 @@ import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/FireService/Fire_UserService.dart';
 
-bool isLoading = false;
-
-class CreateDesktop extends StatelessWidget {
+class CreateDesktop extends StatefulWidget {
   CreateDesktop(BuildContext context);
 
+  @override
+  State<CreateDesktop> createState() => _CreateDesktopState();
+}
+
+class _CreateDesktopState extends State<CreateDesktop> {
   TextEditingController firstNameController = TextEditingController();
+
   TextEditingController lastNameController = TextEditingController();
+
   TextEditingController eMailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController confrimPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    bool isLoading = false;
+
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
@@ -117,12 +125,19 @@ class CreateDesktop extends StatelessWidget {
                                 backgroundColor:
                                     Color.fromARGB(255, 217, 217, 217)),
                             onPressed: () {
+                              setState(() {
+                                isLoading = true;
+                              });
                               Functions().validateAndSumbit(
-                                eMailController.text, 
-                                passwordController.text, 
-                                firstNameController.text, 
-                                lastNameController.text, 
+                                eMailController.text,
+                                passwordController.text,
+                                firstNameController.text,
+                                lastNameController.text,
                                 context);
+                              setState(() {
+                                isLoading = false;
+                              });
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
                             },
                             child: Text(
                               "Create Account",
@@ -145,27 +160,35 @@ class CreateDesktop extends StatelessWidget {
 
 class Functions{
   Future<void> validateAndSumbit(email, password, firstName, lastName, context) async{
-    isLoading = true;
+
     await SignUpService().SignUpWithEmailAndPassword(email, password);
     await SignInService().SignInWithEmailAndPassword(email, password);
     await UserService().CreateUser(FirebaseAuth.instance.currentUser, firstName, lastName);
-    isLoading = false;
-    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
   }
 }
 
-class CreateMobile extends StatelessWidget {
+class CreateMobile extends StatefulWidget {
   CreateMobile(BuildContext context);
 
+  @override
+  State<CreateMobile> createState() => _CreateMobileState();
+}
+
+class _CreateMobileState extends State<CreateMobile> {
   TextEditingController firstNameController = TextEditingController();
+
   TextEditingController lastNameController = TextEditingController();
+
   TextEditingController eMailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController confrimPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    bool isLoading = false;
+
     return Scaffold(
       appBar: AppBar(title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -266,12 +289,19 @@ class CreateMobile extends StatelessWidget {
                                       backgroundColor:
                                       Color.fromARGB(255, 217, 217, 217)),
                                   onPressed: () {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
                                     Functions().validateAndSumbit(
                                         eMailController.text,
                                         passwordController.text,
                                         firstNameController.text,
                                         lastNameController.text,
                                         context);
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
                                   },
                                   child: Text(
                                     "Create Account",
