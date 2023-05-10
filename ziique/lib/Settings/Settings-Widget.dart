@@ -173,9 +173,29 @@ Widget Build2(BuildContext context){
                     child: Container(
                         child: Column(
                           children: [
-                            Text('Card Name', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text('Funny 3 numbers on the back', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            TextButton(onPressed: (){}, child: Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),))
+                            Text('Name', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Text('Add a credit card', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Container(
+                              width: 250,
+                              height: 100,
+                              color: Colors.grey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
+                                  Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
+                                  Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            ElevatedButton(onPressed: (){}, child: Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
                           ],
                         )
                     ),
