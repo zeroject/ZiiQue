@@ -3,8 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Bloc/settings_bloc.dart';
+String scene = 'Account';
+String friendcode = '1234';
 
+const snackBar = SnackBar(content: Text('Code has been copied!'));
 
 class SettingsPageDesktop extends StatelessWidget {
 
@@ -15,9 +17,14 @@ class SettingsPageDesktop extends StatelessWidget {
   }
 }
 
-class SettingsPageMobile extends StatelessWidget {
+class SettingsPageMobile extends StatefulWidget {
     SettingsPageMobile(BuildContext context);
 
+  @override
+  State<SettingsPageMobile> createState() => _SettingsPageMobileState();
+}
+
+class _SettingsPageMobileState extends State<SettingsPageMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +40,8 @@ class SettingsPageMobile extends StatelessWidget {
     ),
     );
   }
-}
-String scene = 'Account';
-String friendcode = '1234';
 
-const snackBar = SnackBar(content: Text('Code has been copied!'));
+
 
 Widget Build1(BuildContext context){
 
@@ -78,8 +82,8 @@ Widget Build1(BuildContext context){
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        OutlinedButton(onPressed: (){scene = 'Account';}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Payment';}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
@@ -157,8 +161,8 @@ Widget Build2(BuildContext context){
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      OutlinedButton(onPressed: (){scene = 'Account';}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Payment';}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
@@ -185,11 +189,4 @@ Widget Build2(BuildContext context){
     ),
   );
 }
-
-class Functions{
-  Future<void> DeleteUser(context) async{
-    BlocProvider.of<SettingsBloc>(context as BuildContext).add(
-      DeleteUser(context) as SettingsEvent
-    );
-  }
 }
