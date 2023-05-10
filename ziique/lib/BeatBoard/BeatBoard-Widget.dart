@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/Custom%20Widgets/beatboard.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
@@ -234,175 +235,25 @@ class BeatBoardApp extends StatelessWidget {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(5.0),
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            child: Flexible(
-                              child: SizedBox(
-                                width: 160,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Color.fromARGB(255, 81, 81, 81),
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(5),
-                                    ),
-                                    color: Color.fromARGB(255, 81, 81, 81),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: SizedBox(
-                                          width: 45,
-                                          height: 45,
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              "Play",
-                                              style: TextStyle(fontSize: 6),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: SizedBox(
-                                          width: 80,
-                                          height: 45,
-                                          child: TextFormField(
-                                              decoration: InputDecoration(
-                                                  hintText: "BPM")),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 739,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('A') : SoundEngine().playSingleSound('A');},
-                                    child: i == 1
-                                        ? Text(
-                                            "A",
-                                            textAlign: TextAlign.left,
-                                          )
-                                        : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i==1 ? SoundEngine().playSingleSound('B'): SoundEngine().playSingleSound('B');},
-                                    child: i == 1 ? Text("B") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('C') : SoundEngine().playSingleSound('C');},
-                                    child: i == 1 ? Text("C") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('D') : SoundEngine().playSingleSound('D');},
-                                    child: i == 1 ? Text("D") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
+                  BeatBoard(
+                    playBarWidth: 160,
+                    playBarColor: Color.fromARGB(255, 81, 81, 81),
+                    playBarRounding: 5, 
+                    playBarButtonSize: 45, 
+                    playBarFontSize: 6, 
+                    playBarOffset: 739, 
+                    numberOfBeatButtons: beat, 
+                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42), 
+                    beatButtonSize: 45, 
+                    beatButtonSampleColor: beatInfo, 
+                    beatButtonNormColor: beatNorm, 
+                    sampleFunction: (){
+                      SoundEngine().playSingleSound("D");
+                    }, 
+                    normFunction: (){
+                      SoundEngine().playSingleSound("D");
+                    })
+                ]
               ),
             ],
           )),
@@ -632,168 +483,24 @@ class BeatBoardDesktop extends StatelessWidget {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(20.0),
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 100,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Flexible(
-                              child: SizedBox(
-                                width: 200,
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Color.fromARGB(255, 81, 81, 81),
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    color: Color.fromARGB(255, 81, 81, 81),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                          width: 65,
-                                          height: 65,
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            child: Text("Play"),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                          width: 100,
-                                          height: 65,
-                                          child: TextFormField(
-                                              decoration: InputDecoration(
-                                                  hintText: "BPM")),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 1175,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 65,
-                                  width: 65,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('A') : SoundEngine().playSingleSound('A');},
-                                    child: i == 1 ? Text("A") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 65,
-                                  width: 65,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('B') : SoundEngine().playSingleSound('B');},
-                                    child: i == 1 ? Text("B") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 65,
-                                  width: 65,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('C') : SoundEngine().playSingleSound('C');},
-                                    child: i == 1 ? Text("C") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var i in beat)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 42, 42, 42),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 65,
-                                  width: 65,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            i == 1 ? beatInfo : beatNorm),
-                                    onPressed: () { i== 1 ? SoundEngine().playSingleSound('D') : SoundEngine().playSingleSound('D');},
-                                    child: i == 1 ? Text("D") : Text(""),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  )
+                  BeatBoard(
+                    playBarWidth: 200,
+                    playBarColor: Color.fromARGB(255, 81, 81, 81),
+                    playBarRounding: 10, 
+                    playBarButtonSize: 65, 
+                    playBarFontSize: 10, 
+                    playBarOffset: 1175, 
+                    numberOfBeatButtons: beat, 
+                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42), 
+                    beatButtonSize: 65, 
+                    beatButtonSampleColor: beatInfo, 
+                    beatButtonNormColor: beatNorm, 
+                    sampleFunction: (){
+                      SoundEngine().playSingleSound("D");
+                    }, 
+                    normFunction: (){
+                      SoundEngine().playSingleSound("D");
+                    })
                 ],
               ),
             ],
