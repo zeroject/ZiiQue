@@ -1,4 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'dart:isolate';
+
+import 'package:flutter/foundation.dart';
 
 class SoundEngine {
 AudioPlayer player = AudioPlayer();
@@ -15,6 +18,14 @@ Map soundFiles = {
   "C": "Hihat.mp3",
   "D": "Ride.mp3",
   "E": "Snare_Claps.mp3"
+};
+
+Map beatMap = {
+  "A": List<Node>,
+  "B": List<Node>,
+  "C": List<Node>,
+  "D": List<Node>,
+  "E": List<Node>,
 };
 
 int bpm = 120;
@@ -66,6 +77,19 @@ void playBeat(String beatString)
     }
   }
 
+  void addNode(String beat)
+  {
+    //adds the string to the beatString
+    beatString += beat;
+  }
+
+  void removeNode(String beat)
+  {
+    //removes the string from the beatString
+    beatString = beatString.replaceAll(beat, "");
+  }
+
+
 }
 
 List<Node> convertStringToNodes(String beatString)
@@ -88,9 +112,12 @@ List<Node> convertStringToNodes(String beatString)
     };
     //converts the time string to int
     num timeInt = num.parse(time);
+
     //creates a node with the source and time
     Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
-    //adds the node to the list
+    //adds the list in the beatmap according to the placement
+    beatMap[placement].add(node);
+    //adds the node to the node list
     nodeList.add(node);
   }
   nodes = nodeList;
@@ -98,36 +125,55 @@ List<Node> convertStringToNodes(String beatString)
 }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodeList)
+void playNodes(List<Node> nodeList, int playerCount)
 {
-AudioPlayer _player = AudioPlayer();
+  List<AudioPlayer> players = getPlayers(playerCount);
+
+  //plays the node in nodelist, if the current player from players in playing, take the next player
+  int j = 0;
+  for(int i = 0; i < nodeList.length; i++)
+  {
+    if (players[j].state == PlayerState.playing)
+    {
+      j == playerCount ? j = 0 : j++;
+    }
+    players[i].play(DeviceFileSource(nodeList[i].source));
+    i++;
+  }
 
   //sets the delay to the first node time
   int miliDelay = nodeList[0].time.toInt();
   for(int i = 0; i < nodeList.length; i++)
   {
-    _player.play(DeviceFileSource(nodeList[i].source));
+    
     //waits for the time of the node to play the next node from 0 to the specified time
     Future.delayed(Duration(milliseconds: miliDelay));
 
-    if (repeat && i == nodeList.length - 1)
-    {
-      i = 0;
-    }
+    if (repeat && i == nodeList.length - 1) { i = 0; }
 
-    if ( i >=1 && i < nodeList.length - 1)
+    else if ( i >=1 && i < nodeList.length - 1)
     {
       miliDelay = nodeList[i].time.toInt() - nodeList[i+1].time.toInt();
     }
   }
 }
 
-void play()
-{
-  for (var node in nodes) {
-    
+  List<AudioPlayer> getPlayers(int playerCount) {
+    List<AudioPlayer> players = [];
+    for (int i = 0; i < playerCount; i++) {
+      players.add(AudioPlayer());
+    }
+    return players;
   }
-}
+
+  void play()
+  {
+    convertStringToNodes(beatString);
+    //for each key in beatmap, play the nodes in the list
+    beatMap.forEach((key, value) {
+      playNodes(value, 5);
+    });
+  }
 
 }
 
