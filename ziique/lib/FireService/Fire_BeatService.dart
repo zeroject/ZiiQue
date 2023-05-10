@@ -15,24 +15,22 @@ String generateId() {
 }
 
 class BeatService{
-  Stream<Iterable<Beat>> GetBeats(fireUser.User user){
+  Query<Beat> GetBeats(fireUser.User? user){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user.uid)
+    .doc(user!.uid)
     .collection(CollectionNames.beats)
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
       fromFirestore: (snapshot, options) => Beat.fromMap(snapshot.id, snapshot.data()!), 
       toFirestore: (value, options) => value.toMap(),
-    )
-    .snapshots()
-    .map((querySnapshot) => querySnapshot.docs.map((e) => e.data()));
+    );
   }
 
-  Future<void> SaveBeat(fireUser.User user, String beatstring) async {
+  Future<void> SaveBeat(fireUser.User? user, String beatstring) async {
     String id = generateId();
     final owner = Owner(
-        uid: user.uid,
+        uid: user!.uid,
         displayName: user.displayName ?? '',
         email: user.email ?? 'Unknown');
     await FirebaseFirestore.instance

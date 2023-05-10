@@ -1,13 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/Custom%20Widgets/beatboard.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
 
+import '../FireService/Fire_BeatService.dart';
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../models/beat.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
@@ -313,11 +317,28 @@ class BeatBoardDesktop extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i in test)
-                  ListTile(
-                    title: Text(i.toString()),
-                    tileColor: Color.fromARGB(255, 217, 217, 217),
-                  ),
+                FirestoreListView<Beat>(
+                  query: BeatService().GetBeats(FirebaseAuth.instance.currentUser),
+                  //shrinkWrap: true,
+                  
+                  itemBuilder: (context, snapshot){
+                    Beat beat = snapshot.data();
+                    print("Huh?");
+
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.green.shade300,
+                        ),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: ListTile(
+                        leading: Text(beat.id.toString()),
+                        title: Text(beat.beatString),
+                      ),
+                    );
+                  },
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -328,11 +349,14 @@ class BeatBoardDesktop extends StatelessWidget {
                           height: 60,
                           child: OutlinedButton(
                             onPressed: () {
+                              BeatService().SaveBeat(FirebaseAuth.instance.currentUser, "beatstring");
+                              /*
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           SettingsPageMobile(context)));
+                                          */
                             },
                             child: Text("Account Settings",
                                 style: TextStyle(color: Colors.white)),
