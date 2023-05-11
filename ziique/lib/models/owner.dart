@@ -5,7 +5,7 @@ class OwnerKeys {
 }
 
 class Owner {
-  final String? uid;
+  final String uid;
   final String displayName;
   final String email;
 

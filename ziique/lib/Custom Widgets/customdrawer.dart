@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 
-class CustomDrawer extends StatelessWidget {
+import '../FireService/Fire_BeatService.dart';
+import '../models/beat.dart';
+
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer(
       {super.key,
       @required required this.drawerWidth,
@@ -48,19 +53,24 @@ class CustomDrawer extends StatelessWidget {
   final Widget loginPageMobile;
 
   @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: drawerWidth,
+      width: widget.drawerWidth,
       child: Drawer(
-        backgroundColor: backgroundColor,
+        backgroundColor: widget.backgroundColor,
         child: ListView(
           children: <Widget>[
-            if (firebaseAuthUser) ...[
+            if (widget.firebaseAuthUser) ...[
               SizedBox(
-                height: drawerHeadHeight,
+                height: widget.drawerHeadHeight,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: backgroundColor,
+                    color: widget.backgroundColor,
                   ),
                   child: Stack(
                     children: const [
@@ -76,25 +86,45 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              for (var i in beatList)
-                ListTile(
-                  title: Text(i.toString()),
-                  tileColor: const Color.fromARGB(255, 217, 217, 217),
-                ),
+              FirestoreListView<Beat>(
+                shrinkWrap: true,
+                query: BeatService().GetBeats(FirebaseAuth.instance.currentUser!), 
+                itemBuilder: (BuildContext context, snapshot) {
+                  Beat beat =  snapshot.data();
+                  bool isOpen = false;
+                  List<bool> _isOpen = [];
+                  return ExpansionPanelList(
+                      children: [
+                        ExpansionPanel(
+                          headerBuilder: (context, isOpen){
+                            return Text(beat.title);
+                          }, 
+                          isExpanded: isOpen,
+                          body: Text(beat.beatString)
+                        )
+                      ],
+                      expansionCallback: (i, isOpen) =>
+                        setState(() =>
+                          _isOpen[i] = !isOpen
+                        )
+
+                  );
+                },
+              ),
               Row(
                 children: [
                   Expanded(
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: SizedBox(
-                        width: settingsButWidth,
-                        height: settingsButHeight,
+                        width: widget.settingsButWidth,
+                        height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => settingsPageDesktop));
+                                    builder: (context) => widget.settingsPageDesktop));
                           },
                           child: const Text("Account Settings",
                               style: TextStyle(color: Colors.white)),
@@ -106,14 +136,14 @@ class CustomDrawer extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: SizedBox(
-                        width: settingsButWidth,
-                        height: settingsButHeight,
+                        width: widget.settingsButWidth,
+                        height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => settingsPageMobile));
+                                    builder: (context) => widget.settingsPageMobile));
                           },
                           child: const Text(
                             "Log Out",
@@ -129,7 +159,7 @@ class CustomDrawer extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(
-                    height: offsetHeight,
+                    height: widget.offsetHeight,
                   ),
                   const Align(
                     alignment: Alignment.center,
@@ -143,22 +173,22 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   Align(
                     child: SizedBox(
-                      height: createAccButHeight,
-                      width: createAccButWidth,
+                      height: widget.createAccButHeight,
+                      width: widget.createAccButWidth,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: createButColor),
+                            backgroundColor: widget.createButColor),
                         onPressed: () {
-                          if (kIsWeb) {
+                          if (widget.kIsWeb) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => createPageDesktop));
+                                    builder: (context) => widget.createPageDesktop));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => createPageMobile));
+                                    builder: (context) => widget.createPageMobile));
                           }
                         },
                         child: const Text(
@@ -180,20 +210,20 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   Align(
                     child: SizedBox(
-                      height: loginButHeight,
-                      width: loginButWidth,
+                      height: widget.loginButHeight,
+                      width: widget.loginButWidth,
                       child: TextButton(
                         onPressed: () {
-                          if (kIsWeb) {
+                          if (widget.kIsWeb) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => loginPageDesktop));
+                                    builder: (context) => widget.loginPageDesktop));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => loginPageMobile));
+                                    builder: (context) => widget.loginPageMobile));
                           }
                         },
                         child: const Text(
@@ -213,7 +243,7 @@ class CustomDrawer extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => settingsPageMobile));
+                              builder: (context) => widget.settingsPageMobile));
                     },
                     child: const Text("Account Settings",
                         style: TextStyle(color: Colors.white)),
