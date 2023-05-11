@@ -217,19 +217,25 @@ void playNodes(List<Node> nodeList, int playerCount)
     {
       miliDelay = nodeList[i].time.toInt() - nodeList[i+1].time.toInt();
     }
+
   }
+  if (shouldPlay == false)
+  {
+    break;
   }
 }
 
 
-  void play()
+}
+
+void play()
   {
+    shouldPlay = true;
     List<List<Node>> nodes = convertStringToNodes(beatString);
     for(int i = 0; i < nodes.length; i++)
     {
       playNodes(nodes[i], 2);
     }
-
   }
 
 }
