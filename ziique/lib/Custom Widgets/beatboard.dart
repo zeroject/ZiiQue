@@ -14,8 +14,10 @@ class BeatBoard extends StatelessWidget {
       required this.beatButtonSize,
       required this.beatButtonSampleColor,
       required this.beatButtonNormColor,
-      required this.sampleFunction,
-      required this.normFunction});
+      required this.childRowA,
+      required this.childRowB,
+      required this.childRowC,
+      required this.childRowD});
 
   //PlayBar Options
   final double playBarWidth;
@@ -31,8 +33,10 @@ class BeatBoard extends StatelessWidget {
   final double beatButtonSize;
   final Color beatButtonSampleColor;
   final Color beatButtonNormColor;
-  final Function sampleFunction;
-  final Function normFunction;
+  final Widget childRowA;
+  final Widget childRowB;
+  final Widget childRowC;
+  final Widget childRowD;
 
   @override
   Widget build(BuildContext context) {
@@ -106,19 +110,9 @@ class BeatBoard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: beatButtonSize,
-                    width: beatButtonSize,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: i == 1
-                              ? beatButtonSampleColor
-                              : beatButtonNormColor),
-                      onPressed: () {
-                        i == 1 ? sampleFunction : normFunction;
-                      },
-                      child: i == 1 ? const Text("A") : const Text(""),
-                    ),
-                  ),
+                      height: beatButtonSize,
+                      width: beatButtonSize,
+                      child: childRowA),
                 ),
               ),
           ],
@@ -134,19 +128,9 @@ class BeatBoard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: beatButtonSize,
-                    width: beatButtonSize,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: i == 1
-                              ? beatButtonSampleColor
-                              : beatButtonNormColor),
-                      onPressed: () {
-                        i == 1 ? sampleFunction : normFunction;
-                      },
-                      child: i == 1 ? const Text("B") : const Text(""),
-                    ),
-                  ),
+                      height: beatButtonSize,
+                      width: beatButtonSize,
+                      child: childRowB),
                 ),
               ),
           ],
@@ -162,19 +146,9 @@ class BeatBoard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: beatButtonSize,
-                    width: beatButtonSize,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: i == 1
-                              ? beatButtonSampleColor
-                              : beatButtonNormColor),
-                      onPressed: () {
-                        i == 1 ? sampleFunction : normFunction;
-                      },
-                      child: i == 1 ? const Text("C") : const Text(""),
-                    ),
-                  ),
+                      height: beatButtonSize,
+                      width: beatButtonSize,
+                      child: childRowC),
                 ),
               ),
           ],
@@ -190,19 +164,9 @@ class BeatBoard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: beatButtonSize,
-                    width: beatButtonSize,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: i == 1
-                              ? beatButtonSampleColor
-                              : beatButtonNormColor),
-                      onPressed: () {
-                        i == 1 ? sampleFunction : normFunction;
-                      },
-                      child: i == 1 ? const Text("D") : const Text(""),
-                    ),
-                  ),
+                      height: beatButtonSize,
+                      width: beatButtonSize,
+                      child: childRowD),
                 ),
               ),
           ],

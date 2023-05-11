@@ -67,7 +67,7 @@ class BeatBoardApp extends StatelessWidget {
         loginPageMobile: LoginMobile(context),
       ),
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/grey-background.png"),
               fit: BoxFit.none,
@@ -76,29 +76,39 @@ class BeatBoardApp extends StatelessWidget {
           child: Column(
             children: [
               ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(5.0),
-                children: [
-                  BeatBoard(
-                    playBarWidth: 160,
-                    playBarColor: Color.fromARGB(255, 81, 81, 81),
-                    playBarRounding: 5, 
-                    playBarButtonSize: 45, 
-                    playBarFontSize: 6, 
-                    playBarOffset: 739, 
-                    numberOfBeatButtons: beat, 
-                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42), 
-                    beatButtonSize: 45, 
-                    beatButtonSampleColor: beatInfo, 
-                    beatButtonNormColor: beatNorm, 
-                    sampleFunction: (){
-                      SoundEngine().playSingleSound("D");
-                    }, 
-                    normFunction: (){
-                      SoundEngine().playSingleSound("D");
-                    })
-                ]
-              ),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5.0),
+                  children: [
+                    BeatBoard(
+                      playBarWidth: 160,
+                      playBarColor: Color.fromARGB(255, 81, 81, 81),
+                      playBarRounding: 5,
+                      playBarButtonSize: 45,
+                      playBarFontSize: 6,
+                      playBarOffset: 739,
+                      numberOfBeatButtons: beat,
+                      beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
+                      beatButtonSize: 45,
+                      beatButtonSampleColor: beatInfo,
+                      beatButtonNormColor: beatNorm,
+                      childRowA: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(""),
+                      ),
+                      childRowB: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(""),
+                      ),
+                      childRowC: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(""),
+                      ),
+                      childRowD: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(""),
+                      ),
+                    ),
+                  ]),
             ],
           )),
     );
@@ -153,7 +163,7 @@ class BeatBoardDesktop extends StatelessWidget {
         loginPageMobile: LoginMobile(context),
       ),
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/grey-background.png"),
               fit: BoxFit.none,
@@ -168,21 +178,32 @@ class BeatBoardDesktop extends StatelessWidget {
                   BeatBoard(
                     playBarWidth: 200,
                     playBarColor: Color.fromARGB(255, 81, 81, 81),
-                    playBarRounding: 10, 
-                    playBarButtonSize: 65, 
-                    playBarFontSize: 10, 
-                    playBarOffset: 1175, 
-                    numberOfBeatButtons: beat, 
-                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42), 
-                    beatButtonSize: 65, 
-                    beatButtonSampleColor: beatInfo, 
-                    beatButtonNormColor: beatNorm, 
-                    sampleFunction: (){
-                      SoundEngine().playSingleSound("D");
-                    }, 
-                    normFunction: (){
-                      SoundEngine().playSingleSound("D");
-                    })
+                    playBarRounding: 10,
+                    playBarButtonSize: 65,
+                    playBarFontSize: 10,
+                    playBarOffset: 1175,
+                    numberOfBeatButtons: beat,
+                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
+                    beatButtonSize: 65,
+                    beatButtonSampleColor: beatInfo,
+                    beatButtonNormColor: beatNorm,
+                    childRowA: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(""),
+                    ),
+                    childRowB: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(""),
+                    ),
+                    childRowC: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(""),
+                    ),
+                    childRowD: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(""),
+                    ),
+                  ),
                 ],
               ),
             ],
