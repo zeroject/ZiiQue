@@ -10,6 +10,7 @@ AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
 bool repeat = false;
+bool shouldPlay = true;
 
 String beatString = "";
 
@@ -42,6 +43,11 @@ void changeBPM(int newBPM)
 {
   bpm = newBPM;
 
+}
+
+void stop()
+{
+  shouldPlay = false;
 }
 
 //function that converts bpm to correct time by placement¨
@@ -186,6 +192,7 @@ List<List<Node>> convertStringToNodes(String beatString)
 void playNodes(List<Node> nodeList, int playerCount)
 {
   List<AudioPlayer> players = getPlayers(playerCount);
+  int miliDelay = nodeList[0].time.toInt();
 
   //plays the node in nodelist, if the current player from players in playing, take the next player
   int j = 0;
@@ -196,14 +203,11 @@ void playNodes(List<Node> nodeList, int playerCount)
       j == playerCount ? j = 0 : j++;
     }
     players[i].play(DeviceFileSource(nodeList[i].source));
-    i++;
-  }
+  
 
   //sets the delay to the first node time
-  int miliDelay = nodeList[0].time.toInt();
   for(int i = 0; i < nodeList.length; i++)
   {
-    
     //waits for the time of the node to play the next node from 0 to the specified time
     Future.delayed(Duration(milliseconds: miliDelay));
 
@@ -213,18 +217,25 @@ void playNodes(List<Node> nodeList, int playerCount)
     {
       miliDelay = nodeList[i].time.toInt() - nodeList[i+1].time.toInt();
     }
+
+  }
+  if (shouldPlay == false)
+  {
+    break;
   }
 }
 
 
-  void play()
+}
+
+void play()
   {
+    shouldPlay = true;
     List<List<Node>> nodes = convertStringToNodes(beatString);
     for(int i = 0; i < nodes.length; i++)
     {
       playNodes(nodes[i], 2);
     }
-
   }
 
 }

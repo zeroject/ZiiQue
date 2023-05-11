@@ -15,10 +15,10 @@ String generateId() {
 }
 
 class BeatService{
-  Query<Beat> GetBeats(fireUser.User? user){
+  Query<Beat> GetBeats(fireUser.User user){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user!.uid)
+    .doc(user.uid)
     .collection(CollectionNames.beats)
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
@@ -27,7 +27,7 @@ class BeatService{
     );
   }
 
-  Future<void> SaveBeat(fireUser.User? user, String beatstring) async {
+  Future<void> SaveBeat(fireUser.User? user, String beatstring, String title, String description) async {
     String id = generateId();
     final owner = Owner(
         uid: user!.uid,
@@ -40,9 +40,11 @@ class BeatService{
         .doc(id)
         .set({
           BeatKeys.id: id,
+          BeatKeys.title: title,
           BeatKeys.lastEdited: FieldValue.serverTimestamp(),
           BeatKeys.by: owner.toMap(),
-          BeatKeys.beatString: beatstring
+          BeatKeys.beatString: beatstring,
+          BeatKeys.description: description
         });
   }
 
