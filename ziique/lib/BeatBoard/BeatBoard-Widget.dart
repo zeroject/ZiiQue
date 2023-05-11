@@ -7,6 +7,7 @@ import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
+import 'package:ziique/models/beatInfo.dart';
 
 import '../FireService/Fire_BeatService.dart';
 import '../Settings/Settings-Widget.dart';
@@ -16,8 +17,8 @@ import '../models/beat.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
+Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
 List<int> test = [1, 2, 3, 4];
-List<int> beat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 class BeatBoardApp extends StatelessWidget {
   BeatBoardApp(BuildContext context);
@@ -86,27 +87,11 @@ class BeatBoardApp extends StatelessWidget {
                       playBarButtonSize: 45,
                       playBarFontSize: 6,
                       playBarOffset: 739,
-                      numberOfBeatButtons: beat,
                       beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
                       beatButtonSize: 45,
                       beatButtonSampleColor: beatInfo,
                       beatButtonNormColor: beatNorm,
-                      childRowA: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(""),
-                      ),
-                      childRowB: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(""),
-                      ),
-                      childRowC: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(""),
-                      ),
-                      childRowD: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(""),
-                      ),
+                      beatButtonNormPressColor: beatNormPress,
                     ),
                   ]),
             ],
@@ -115,15 +100,23 @@ class BeatBoardApp extends StatelessWidget {
   }
 }
 
-class BeatBoardDesktop extends StatelessWidget {
+class BeatBoardDesktop extends StatefulWidget {
   BeatBoardDesktop(BuildContext context);
+
+  @override
+  State<BeatBoardDesktop> createState() => _BeatBoardDesktopState();
+}
+
+class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
+
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 44, 41, 41),
+        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         leading: Center(
           child: Image.asset(
             "assets/images/madebyzomr.png",
@@ -182,27 +175,11 @@ class BeatBoardDesktop extends StatelessWidget {
                     playBarButtonSize: 65,
                     playBarFontSize: 10,
                     playBarOffset: 1175,
-                    numberOfBeatButtons: beat,
                     beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
                     beatButtonSize: 65,
                     beatButtonSampleColor: beatInfo,
                     beatButtonNormColor: beatNorm,
-                    childRowA: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(""),
-                    ),
-                    childRowB: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(""),
-                    ),
-                    childRowC: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(""),
-                    ),
-                    childRowD: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(""),
-                    ),
+                    beatButtonNormPressColor: beatNormPress,
                   ),
                 ],
               ),

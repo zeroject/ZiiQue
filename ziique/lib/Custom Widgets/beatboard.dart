@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ziique/Custom%20Widgets/customElevatedButton.dart';
+import '../models/beatInfo.dart';
 
-class BeatBoard extends StatelessWidget {
+class BeatBoard extends StatefulWidget {
   const BeatBoard(
       {super.key,
       required this.playBarWidth,
@@ -9,15 +11,11 @@ class BeatBoard extends StatelessWidget {
       required this.playBarButtonSize,
       required this.playBarFontSize,
       required this.playBarOffset,
-      required this.numberOfBeatButtons,
       required this.beatButtonBackColor,
       required this.beatButtonSize,
       required this.beatButtonSampleColor,
       required this.beatButtonNormColor,
-      required this.childRowA,
-      required this.childRowB,
-      required this.childRowC,
-      required this.childRowD});
+      required this.beatButtonNormPressColor});
 
   //PlayBar Options
   final double playBarWidth;
@@ -28,16 +26,17 @@ class BeatBoard extends StatelessWidget {
   final double playBarOffset;
 
   //BeatBoard Options
-  final List<int> numberOfBeatButtons;
   final Color beatButtonBackColor;
   final double beatButtonSize;
   final Color beatButtonSampleColor;
   final Color beatButtonNormColor;
-  final Widget childRowA;
-  final Widget childRowB;
-  final Widget childRowC;
-  final Widget childRowD;
+  final Color beatButtonNormPressColor;
 
+  @override
+  State<BeatBoard> createState() => _BeatBoardState();
+}
+
+class _BeatBoardState extends State<BeatBoard> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,17 +48,17 @@ class BeatBoard extends StatelessWidget {
               alignment: AlignmentDirectional.centerStart,
               child: Flexible(
                 child: SizedBox(
-                  width: playBarWidth,
+                  width: widget.playBarWidth,
                   child: Container(
                     alignment: Alignment.centerLeft,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: playBarColor,
+                        color: widget.playBarColor,
                       ),
                       borderRadius: BorderRadius.all(
-                        Radius.circular(playBarRounding),
+                        Radius.circular(widget.playBarRounding),
                       ),
-                      color: playBarColor,
+                      color: widget.playBarColor,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,13 +66,14 @@ class BeatBoard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
-                            width: playBarButtonSize,
-                            height: playBarButtonSize,
+                            width: widget.playBarButtonSize,
+                            height: widget.playBarButtonSize,
                             child: ElevatedButton(
                               onPressed: () {},
                               child: Text(
                                 "Play",
-                                style: TextStyle(fontSize: playBarFontSize),
+                                style:
+                                    TextStyle(fontSize: widget.playBarFontSize),
                               ),
                             ),
                           ),
@@ -81,8 +81,8 @@ class BeatBoard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
-                            width: playBarButtonSize * 1.33,
-                            height: playBarButtonSize,
+                            width: widget.playBarButtonSize * 1.33,
+                            height: widget.playBarButtonSize,
                             child: TextFormField(
                                 decoration:
                                     const InputDecoration(hintText: "BPM")),
@@ -95,80 +95,107 @@ class BeatBoard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: playBarOffset,
+              width: widget.playBarOffset,
             ),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var i in numberOfBeatButtons)
-              Container(
-                decoration: BoxDecoration(
-                  color: beatButtonBackColor,
+            Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: widget.beatButtonBackColor
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: widget.beatButtonSize,
+                      width: widget.beatButtonSize,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("A"),
+                      ),
+                    ),
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      height: beatButtonSize,
-                      width: beatButtonSize,
-                      child: childRowA),
+                Container(
+                  decoration: BoxDecoration(
+                      color: widget.beatButtonBackColor
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: widget.beatButtonSize,
+                      width: widget.beatButtonSize,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("B"),
+                      ),
+                    ),
+                  ),
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: widget.beatButtonBackColor
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: widget.beatButtonSize,
+                      width: widget.beatButtonSize,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("C"),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: widget.beatButtonBackColor
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: widget.beatButtonSize,
+                      width: widget.beatButtonSize,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("D"),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 600,
+              width: 1600,
+              child: GridView(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 16),
+                children: [
+                  for (var i = 0; i < 64; i++)
+                    Container(
+                      decoration: BoxDecoration(
+                          color: widget.beatButtonBackColor
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: widget.beatButtonSize,
+                          width: widget.beatButtonSize,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(""),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var i in numberOfBeatButtons)
-              Container(
-                decoration: BoxDecoration(
-                  color: beatButtonBackColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      height: beatButtonSize,
-                      width: beatButtonSize,
-                      child: childRowB),
-                ),
-              ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var i in numberOfBeatButtons)
-              Container(
-                decoration: BoxDecoration(
-                  color: beatButtonBackColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      height: beatButtonSize,
-                      width: beatButtonSize,
-                      child: childRowC),
-                ),
-              ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var i in numberOfBeatButtons)
-              Container(
-                decoration: BoxDecoration(
-                  color: beatButtonBackColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      height: beatButtonSize,
-                      width: beatButtonSize,
-                      child: childRowD),
-                ),
-              ),
+            )
           ],
         ),
       ],
