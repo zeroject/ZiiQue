@@ -2,12 +2,14 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
+import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
+import 'package:ziique/models/beat.dart';
 
 class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
-bool repeat = true;
+bool repeat = false;
 
 String beatString = "";
 
@@ -66,6 +68,20 @@ void playSingleSound(String soundName)
   } 
 }
 
+void addToBeat(String beat)
+{
+  //adds the string to the beatString + differentiates between different beats
+  String newBeat = "$beat;";
+  beatString += newBeat;
+}
+
+void removeFromBeat(String beat)
+{
+  //removes the string from the beatString
+  String newBeat = "$beat;";
+  beatString = beatString.replaceAll(newBeat, "");
+}
+
 void playBeat(String beatString)
 {
   List<String> beatList = beatString.split("");
@@ -92,11 +108,17 @@ void playBeat(String beatString)
 
 }
 
-List<Node> convertStringToNodes(String beatString)
+//returns a list of lists of nodes, each list contains all nodes of a specific placement, sorted by time
+List<List<Node>> convertStringToNodes(String beatString)
 {
   List<String> beatList = beatString.split(";");
+  List<Node> NodeA = [];
+  List<Node> NodeB = [];
+  List<Node> NodeC = [];
+  List<Node> NodeD = [];
+  List<Node> NodeE = []; 
   beatList.removeLast();
-  List<Node> nodeList = [];
+  List<List<Node>> nodeList = [];
   String placement = "";
   String time = "";
   for(int i = 0; i < beatList.length; i++)
@@ -115,14 +137,50 @@ List<Node> convertStringToNodes(String beatString)
 
     //creates a node with the source and time
     Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
-    //adds the list in the beatmap according to the placement
-    beatMap[placement].add(node);
-    //adds the node to the node list
-    nodeList.add(node);
+    switch (placement) {
+      case "A":
+        NodeA.add(node);  
+        break;
+      case "B":
+        NodeB.add(node);  
+        break;
+      case "C":
+        NodeC.add(node);  
+        break;
+      case "D":
+        NodeD.add(node);  
+        break;
+      case "E":
+        NodeE.add(node);  
+        break;
+      default:
+      throw Exception("placement not found");
+    }
   }
-  nodes = nodeList;
+  nodeList.add(NodeA);
+  nodeList.add(NodeB);
+  nodeList.add(NodeC);
+  nodeList.add(NodeD);
+  nodeList.add(NodeE);
+
+//sort all lists in nodeList by time from lowest to highest
+  for(int i = 0; i < nodeList.length; i++)
+  {
+    nodeList[i].sort((a, b) => a.time.compareTo(b.time));
+  }
+
   return nodeList;
+
 }
+
+//create a list of audioplayers with the specified playercount to avoid overloading a single player
+ List<AudioPlayer> getPlayers(int playerCount) {
+    List<AudioPlayer> players = [];
+    for (int i = 0; i < playerCount; i++) {
+      players.add(AudioPlayer());
+    }
+    return players;
+  }
 
 //play each node from the list at its specified time in miliseconds starting from 0
 void playNodes(List<Node> nodeList, int playerCount)
@@ -158,21 +216,15 @@ void playNodes(List<Node> nodeList, int playerCount)
   }
 }
 
-  List<AudioPlayer> getPlayers(int playerCount) {
-    List<AudioPlayer> players = [];
-    for (int i = 0; i < playerCount; i++) {
-      players.add(AudioPlayer());
-    }
-    return players;
-  }
 
   void play()
   {
-    convertStringToNodes(beatString);
-    //for each key in beatmap, play the nodes in the list
-    beatMap.forEach((key, value) {
-      playNodes(value, 5);
-    });
+    List<List<Node>> nodes = convertStringToNodes(beatString);
+    for(int i = 0; i < nodes.length; i++)
+    {
+      playNodes(nodes[i], 2);
+    }
+
   }
 
 }
