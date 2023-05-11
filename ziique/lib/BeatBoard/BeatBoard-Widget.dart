@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/Custom%20Widgets/beatboard.dart';
+import 'package:ziique/Custom%20Widgets/customdrawer.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
@@ -43,188 +44,27 @@ class BeatBoardApp extends StatelessWidget {
         ),
         actions: [],
       ),
-      endDrawer: Container(
-        width: 450,
-        child: Drawer(
-          backgroundColor: Color.fromARGB(255, 44, 41, 41),
-          child: ListView(
-            children: <Widget>[
-              if (FirebaseAuth.instance.currentUser != null) ...[
-                SizedBox(
-                  height: 64,
-                  child: DrawerHeader(
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          bottom: 8.0,
-                          left: 4.0,
-                          child: Text(
-                            "YOUR BEATS",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 44, 41, 41),
-                    ),
-                  ),
-                ),
-                for (var i in test)
-                  ListTile(
-                    title: Text(i.toString()),
-                    tileColor: Color.fromARGB(255, 217, 217, 217),
-                  ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: SizedBox(
-                          width: 290,
-                          height: 60,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SettingsPageMobile(context)));
-                            },
-                            child: Text("Account Settings",
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: SizedBox(
-                          width: 290,
-                          height: 60,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SettingsPageMobile(context)));
-                            },
-                            child: Text(
-                              "Log Out",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ] else ...[
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 80,
-                    ),
-                    Align(
-                      child: Text(
-                        "It seems you are not logged in",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Align(
-                      child: SizedBox(
-                        height: 40,
-                        width: 200,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 77, 77, 77)),
-                          onPressed: () {
-                            if (kIsWeb) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateDesktop(context)));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateMobile(context)));
-                            }
-                          },
-                          child: Text(
-                            "Create Account",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Align(
-                      child: Text(
-                        "Already have an account?",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                    Align(
-                      child: SizedBox(
-                        height: 40,
-                        width: 100,
-                        child: TextButton(
-                          onPressed: () {
-                            if (kIsWeb) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginDesktop(context)));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginMobile(context)));
-                            }
-                          },
-                          child: Text(
-                            "Log in",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 25),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    SettingsPageMobile(context)));
-                      },
-                      child: Text("Account Settings",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                  ],
-                ),
-              ],
-            ],
-          ),
-        ),
+      endDrawer: CustomDrawer(
+        drawerWidth: 450,
+        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
+        firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
+        drawerHeadHeight: 64,
+        beatList: [1, 2],
+        settingsButHeight: 60,
+        settingsButWidth: 290,
+        settingsPageDesktop: SettingsPageMobile(context),
+        settingsPageMobile: SettingsPageMobile(context),
+        offsetHeight: 80,
+        createAccButHeight: 40,
+        createAccButWidth: 200,
+        createButColor: const Color.fromARGB(255, 77, 77, 77),
+        kIsWeb: kIsWeb,
+        createPageDesktop: CreateDesktop(context),
+        createPageMobile: CreateMobile(context),
+        loginButHeight: 40,
+        loginButWidth: 100,
+        loginPageDesktop: LoginDesktop(context),
+        loginPageMobile: LoginMobile(context),
       ),
       body: Container(
           decoration: BoxDecoration(
@@ -290,209 +130,27 @@ class BeatBoardDesktop extends StatelessWidget {
         ),
         actions: [],
       ),
-      endDrawer: Container(
-        width: 450,
-        child: Drawer(
-          backgroundColor: Color.fromARGB(255, 44, 41, 41),
-          child: ListView(
-            children: <Widget>[
-              if (FirebaseAuth.instance.currentUser != null) ...[
-                SizedBox(
-                  height: 64,
-                  child: DrawerHeader(
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          bottom: 8.0,
-                          left: 4.0,
-                          child: Text(
-                            "YOUR BEATS",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 44, 41, 41),
-                    ),
-                  ),
-                ),
-                FirestoreListView<Beat>(
-                  query: BeatService().GetBeats(FirebaseAuth.instance.currentUser),
-                  //shrinkWrap: true,
-                  
-                  itemBuilder: (context, snapshot){
-                    Beat beat = snapshot.data();
-                    print("Huh?");
-
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: Colors.green.shade300,
-                        ),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: ListTile(
-                        leading: Text(beat.id.toString()),
-                        title: Text(beat.beatString),
-                      ),
-                    );
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: SizedBox(
-                          width: 290,
-                          height: 60,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              BeatService().SaveBeat(FirebaseAuth.instance.currentUser, "beatstring");
-                              /*
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SettingsPageMobile(context)));
-                                          */
-                            },
-                            child: Text("Account Settings",
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: SizedBox(
-                          width: 290,
-                          height: 60,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              SignOutService().SignOut();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          BeatBoardDesktop(context)));
-                            },
-                            child: Text(
-                              "Log Out",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ] else ...[
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 360,
-                    ),
-                    Align(
-                      child: Text(
-                        "It seems you are not logged in",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Align(
-                      child: SizedBox(
-                        height: 40,
-                        width: 200,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 77, 77, 77)),
-                          onPressed: () {
-                            if (kIsWeb) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateDesktop(context)));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateMobile(context)));
-                            }
-                          },
-                          child: Text(
-                            "Create Account",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Align(
-                      child: Text(
-                        "Already have an account?",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      alignment: Alignment.center,
-                    ),
-                    Align(
-                      child: SizedBox(
-                        height: 40,
-                        width: 100,
-                        child: TextButton(
-                          onPressed: () {
-                            if (kIsWeb) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginDesktop(context)));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LoginMobile(context)));
-                            }
-                          },
-                          child: Text(
-                            "Log in",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 25),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    SettingsPageMobile(context)));
-                      },
-                      child: Text("Account Settings",
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                  ],
-                ),
-              ],
-            ],
-          ),
-        ),
+      endDrawer: CustomDrawer(
+        drawerWidth: 450,
+        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
+        firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
+        drawerHeadHeight: 64,
+        beatList: [1, 2],
+        settingsButHeight: 60,
+        settingsButWidth: 290,
+        settingsPageDesktop: SettingsPageMobile(context),
+        settingsPageMobile: SettingsPageMobile(context),
+        offsetHeight: 360,
+        createAccButHeight: 40,
+        createAccButWidth: 200,
+        createButColor: const Color.fromARGB(255, 77, 77, 77),
+        kIsWeb: kIsWeb,
+        createPageDesktop: CreateDesktop(context),
+        createPageMobile: CreateMobile(context),
+        loginButHeight: 40,
+        loginButWidth: 100,
+        loginPageDesktop: LoginDesktop(context),
+        loginPageMobile: LoginMobile(context),
       ),
       body: Container(
           decoration: BoxDecoration(
