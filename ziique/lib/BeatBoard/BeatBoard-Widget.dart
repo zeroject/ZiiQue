@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/Custom%20Widgets/beatboard.dart';
+import 'package:ziique/Custom%20Widgets/customElevatedButton.dart';
 import 'package:ziique/Custom%20Widgets/customdrawer.dart';
+import 'package:ziique/Custom%20Widgets/imBeatBoard.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
@@ -19,6 +21,9 @@ Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
 Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
 List<int> test = [1, 2, 3, 4];
+List<bool> _bools = List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
+int numberOfRows = 8;
+int numberOfBars = 4;
 
 class BeatBoardApp extends StatelessWidget {
   BeatBoardApp(BuildContext context);
@@ -108,9 +113,6 @@ class BeatBoardDesktop extends StatefulWidget {
 }
 
 class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
-
-
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -156,35 +158,78 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
       ),
       body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/grey-background.png"),
-              fit: BoxFit.none,
-            ),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/grey-background.png"),
+            fit: BoxFit.none,
           ),
-          child: Column(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(20.0),
+        ),
+        /*
+        BeatBoard settings starts here ---------------------------------------------------------------------------------------------------------------------
+         */
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                padding: const EdgeInsets.all(8),
+                crossAxisCount: (numberOfBars * 4) + 1,
                 children: [
-                  BeatBoard(
-                    playBarWidth: 200,
-                    playBarColor: Color.fromARGB(255, 81, 81, 81),
-                    playBarRounding: 10,
-                    playBarButtonSize: 65,
-                    playBarFontSize: 10,
-                    playBarOffset: 1175,
-                    beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
-                    beatButtonSize: 65,
-                    beatButtonSampleColor: beatInfo,
-                    beatButtonNormColor: beatNorm,
-                    beatButtonNormPressColor: beatNormPress,
-                  ),
+                  for (var i = 0; i < ((numberOfBars * 4) + 1) * numberOfRows; i++)
+                    Container(
+                      color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: (i % ((numberOfBars * 4) + 1) == 0) ? Colors.green : (i & (numberOfBars * 4) + 1 * numberOfBars - 3 == 0) ? (_bools[i] == true) ? Colors.grey[900] : Colors.grey : (_bools[i] == true) ? Colors.grey[900] : Colors.blueGrey
+                          ),
+                          onPressed: () {
+                            setState(() {_bools[i] = !_bools[i];});
+                          },
+                          child: Text(
+                            (i % ((numberOfBars * 4) + 1) == 0) ? Alpha().getAlphebat()[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)] : i.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+}
+
+class Alpha {
+  Alpha();
+
+  List<String> getAlphebat() {
+    List<String> alphabets = [];
+    for (int i = 65; i <= 90; i++) {
+      alphabets.add(String.fromCharCode(i));
+    }
+    return alphabets;
+  }
+}
+
+class BeatColor{
+  BeatColor({required this.bar});
+  final int bar;
+
+  bool getColor(i){
+    int oneRow = (bar * 4) + 1;
+    if (oneRow.isEven){
+      return true;
+    } else{
+      return false;
+    }
   }
 }
