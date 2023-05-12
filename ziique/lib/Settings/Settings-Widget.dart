@@ -28,6 +28,9 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
     bool light = true;
     bool light2 = true;
     bool light3 = true;
+    TextEditingController currentpasswordController = TextEditingController();
+    TextEditingController newpasswordController = TextEditingController();
+    List<int> friends = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +43,13 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
             return Build2(context);
           } else if(scene.contains('Notifications')){
             return Build3(context);
+          }else if(scene.contains('Security')){
+            return Build4(context);
+          }else if(scene.contains('Friends')){
+            return Build5(context);
           }
           return Build1(context);
+
         }
     ),
     );
@@ -91,8 +99,8 @@ Widget Build1(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
                     Padding(
@@ -170,8 +178,8 @@ Widget Build2(BuildContext context){
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
                   ),
                   Padding(
@@ -257,8 +265,8 @@ Widget Build2(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
                     Padding(
@@ -293,5 +301,152 @@ Widget Build2(BuildContext context){
       ),
     );
   }
+    Widget Build4(BuildContext context){
+
+      return Scaffold(
+        appBar: AppBar(title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/ZiiQue-Logo.png',
+              scale: 12, alignment: Alignment.topCenter,
+            ),
+            const SizedBox(
+                width: 10
+            ),
+          ],
+        ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
+        body: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/grey-background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 600,
+                height: MediaQuery.of(context).size.height - 56,
+                color: Colors.black26.withOpacity(1),
+
+                child:
+                Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(81.0),
+                        child: Container(
+                            child: Column(
+                              children: [
+                                Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                SizedBox(
+                                  width: 190,
+                                    child: TextFormField(controller: currentpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "Current Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                SizedBox(
+                                  width: 190,
+                                  child: TextFormField(controller: newpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: ElevatedButton(onPressed: (){}, child: Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                                ),
+                              ],
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    Widget Build5(BuildContext context){
+
+      return Scaffold(
+        appBar: AppBar(title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/ZiiQue-Logo.png',
+              scale: 12, alignment: Alignment.topCenter,
+            ),
+            const SizedBox(
+                width: 10
+            ),
+          ],
+        ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
+        body: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/grey-background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 600,
+                height: MediaQuery.of(context).size.height - 56,
+                color: Colors.black26.withOpacity(1),
+
+                child:
+                Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(84.0),
+                        child: Container(
+                            child: Column(
+                              children: [
+                               ListView.builder(
+                                 shrinkWrap: true,
+                                 itemBuilder: (BuildContext context, int index) {},
+                                 itemCount: friends.length,
+                               ),
+                              ],
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
 }
