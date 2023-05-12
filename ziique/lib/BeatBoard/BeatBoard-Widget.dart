@@ -24,6 +24,8 @@ List<int> test = [1, 2, 3, 4];
 List<bool> _bools = List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
 int numberOfRows = 8;
 int numberOfBars = 4;
+int maxRange = (numberOfBars * 4);
+int minRange = 1;
 
 class BeatBoardApp extends StatelessWidget {
   BeatBoardApp(BuildContext context);
@@ -186,10 +188,14 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                         padding: const EdgeInsets.all(4.0),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: (i % ((numberOfBars * 4) + 1) == 0) ? Colors.green : (i & (numberOfBars * 4) + 1 * numberOfBars - 3 == 0) ? (_bools[i] == true) ? Colors.grey[900] : Colors.grey : (_bools[i] == true) ? Colors.grey[900] : Colors.blueGrey
+                              backgroundColor: (i % ((numberOfBars * 4) + 1) == 0) ? Colors.green : BeatColor(bar: numberOfBars).getColor(i) ? (_bools[i] == true) ? Colors.grey[900] : Colors.grey : (_bools[i] == true) ? Colors.grey[900] : Colors.blueGrey
                           ),
                           onPressed: () {
-                            setState(() {_bools[i] = !_bools[i];});
+                            setState(() {
+                              _bools[i] = !_bools[i];
+                              maxRange = (numberOfBars * 4);
+                              minRange = 1;
+                              });
                           },
                           child: Text(
                             (i % ((numberOfBars * 4) + 1) == 0) ? Alpha().getAlphebat()[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)] : i.toString(),
@@ -224,12 +230,24 @@ class BeatColor{
   BeatColor({required this.bar});
   final int bar;
 
-  bool getColor(i){
-    int oneRow = (bar * 4) + 1;
-    if (oneRow.isEven){
-      return true;
-    } else{
-      return false;
-    }
-  }
-}
+  bool getColor(int i){
+    print("beatIndex: " + i.toString() + " maxRange: " + maxRange.toString() + (i == maxRange ? " true" : " false"));
+     if (i == maxRange)
+        {
+            
+          maxRange += (numberOfBars * 4) +1 ;
+          minRange += (numberOfBars * 4) +1 ;
+          maxRange += (numberOfBars * 4) +1 ;
+          minRange += (numberOfBars * 4) +1;
+          return true;
+        }
+      else if (i >= minRange && i <= maxRange)
+      {
+        return true;
+        }
+        else
+        {
+          return false;
+          }
+        }
+        }
