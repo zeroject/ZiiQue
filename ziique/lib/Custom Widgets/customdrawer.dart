@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:ziique/Custom%20Widgets/customExpansionTile.dart';
 
 import '../FireService/Fire_BeatService.dart';
 import '../models/beat.dart';
@@ -93,22 +94,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Beat beat =  snapshot.data();
                   bool isOpen = false;
                   List<bool> _isOpen = [];
-                  return ExpansionPanelList(
-                      children: [
-                        ExpansionPanel(
-                          headerBuilder: (context, isOpen){
-                            return Text(beat.title);
-                          }, 
-                          isExpanded: isOpen,
-                          body: Text(beat.beatString)
-                        )
-                      ],
-                      expansionCallback: (i, isOpen) =>
-                        setState(() =>
-                          _isOpen[i] = !isOpen
-                        )
-
-                  );
+                  return CustomExpansionPanel(
+                    beatId: beat.id,
+                    beatTitle: beat.title,
+                    beatDescription: beat.description, 
+                    fontSize: 20, 
+                    tileColor: Color.fromARGB(255, 255, 255, 255), 
+                    tileRadius: 10,
+                    );
                 },
               ),
               Row(
@@ -121,10 +114,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => widget.settingsPageDesktop));
+                            BeatService().SaveBeat(FirebaseAuth.instance.currentUser, "beatstring", "title", "description");
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => widget.settingsPageDesktop));
                           },
                           child: const Text("Account Settings",
                               style: TextStyle(color: Colors.white)),
