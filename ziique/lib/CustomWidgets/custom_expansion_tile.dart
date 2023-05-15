@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomExpansionPanel extends StatefulWidget{
 
-  CustomExpansionPanel({
+  const CustomExpansionPanel({
     super.key, 
     required this.beatId,
     required this.beatTitle,
@@ -30,7 +30,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
     return Column(
       children: [
         ExpansionTile(
-          textColor: Color.fromARGB(255, 0, 0, 0),
+          textColor: const Color.fromARGB(255, 0, 0, 0),
           backgroundColor: widget.tileColor,
           collapsedBackgroundColor: widget.tileColor,
           shape: RoundedRectangleBorder(
@@ -50,13 +50,13 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){}, child: Text("Edit")),
-                OutlinedButton(onPressed: (){}, child: Text("Delete"))
+                OutlinedButton(onPressed: (){}, child: const Text("Edit")),
+                OutlinedButton(onPressed: (){}, child: const Text("Delete"))
               ],
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         )
       ],

@@ -3,7 +3,7 @@ import 'package:ziique/BeatBoard/beat_board-Widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 
 class LoginDesktop extends StatelessWidget {
-  LoginDesktop(BuildContext context);
+  LoginDesktop(BuildContext context, {super.key});
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -19,63 +19,61 @@ class LoginDesktop extends StatelessWidget {
               fit: BoxFit.none,
             )
         ),
-        child: Container(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                height: 250,
-                child: Image.asset("assets/images/Ziique-logo.png"),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.white
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(10))
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 40,
+            ),
+            SizedBox(
+              height: 250,
+              child: Image.asset("assets/images/Ziique-logo.png"),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.white
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20,),
-                      SizedBox(
-                        width: 400,
-                          child: TextFormField(controller: emailController,decoration: InputDecoration(hintText: "Email"),)),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 400,
-                          child: TextFormField(controller: passwordController ,obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      SizedBox(
-                        width: 200,
-                          height: 40,
-                          child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)), 
-                          onPressed: (){ 
-                            Functions().validateAndSumbit(emailController.text, passwordController.text, context);
-                            }, 
-                          child: const Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20,),
+                    SizedBox(
+                      width: 400,
+                        child: TextFormField(controller: emailController,decoration: const InputDecoration(hintText: "Email"),)),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 400,
+                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: const InputDecoration(hintText: "Password"),)),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    SizedBox(
+                      width: 200,
+                        height: 40,
+                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 217, 217, 217)), 
+                        onPressed: (){ 
+                          Functions().validateAndSumbit(emailController.text, passwordController.text, context);
+                          }, 
+                        child: const Text("Log In", style: TextStyle(fontSize: 24, color: Colors.black),))
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
               ),
-              Container()
-            ],
-          ),
+            ),
+            Container()
+          ],
         ),
       ),
     );
@@ -129,20 +127,20 @@ class LoginMobile extends StatelessWidget {
                     const SizedBox(height: 20,),
                     SizedBox(
                         width: 400,
-                        child: TextFormField(controller: emailController,decoration: InputDecoration(hintText: "Email"),)),
+                        child: TextFormField(controller: emailController,decoration: const InputDecoration(hintText: "Email"),)),
                     const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                         width: 400,
-                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
+                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: const InputDecoration(hintText: "Password"),)),
                     const SizedBox(
                       height: 50,
                     ),
                     SizedBox(
                         width: 200,
                         height: 40,
-                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)),
+                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 217, 217, 217)),
                             onPressed: (){
                               Functions().validateAndSumbit(emailController.text, passwordController.text, context);
                             },
@@ -165,7 +163,7 @@ class LoginMobile extends StatelessWidget {
 
 class Functions{
   Future<void> validateAndSumbit(email, password, context) async{
-    await SignInService().SignInWithEmailAndPassword(email, password);
+    await SignInService().signInWithEmailAndPassword(email, password);
     Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
   }
 }

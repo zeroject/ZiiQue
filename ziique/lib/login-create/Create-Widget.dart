@@ -5,7 +5,7 @@ import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 
 class CreateDesktop extends StatefulWidget {
-  CreateDesktop(BuildContext context);
+  const CreateDesktop(BuildContext context);
 
   @override
   State<CreateDesktop> createState() => _CreateDesktopState();
@@ -28,131 +28,129 @@ class _CreateDesktopState extends State<CreateDesktop> {
 
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/blue-background.png"),
               fit: BoxFit.none,
             ),
           ),
-          child: Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  height: 200,
-                  child: Image.asset("assets/images/ZiiQue-Logo.png"),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                isLoading ? CircularProgressIndicator() :
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            controller: firstNameController,
-                            decoration: InputDecoration(hintText: "First Name"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            controller: lastNameController,
-                            decoration: InputDecoration(hintText: "Last Name"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            controller: eMailController,
-                            decoration: InputDecoration(hintText: "Email"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(hintText: "Password"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: 400,
-                          child: TextFormField(
-                            controller: confrimPasswordController,
-                            obscureText: true,
-                            decoration:
-                                InputDecoration(hintText: "Confirm Password"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        SizedBox(
-                          width: 230,
-                          height: 40,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Color.fromARGB(255, 217, 217, 217)),
-                            onPressed: () {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              Functions().validateAndSumbit(
-                                eMailController.text,
-                                passwordController.text,
-                                firstNameController.text,
-                                lastNameController.text,
-                                context);
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
-                            },
-                            child: Text(
-                              "Create Account",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 24),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 40,
+              ),
+              SizedBox(
+                height: 200,
+                child: Image.asset("assets/images/ZiiQue-Logo.png"),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              isLoading ? const CircularProgressIndicator() :
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.white),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
                   ),
                 ),
-                Container(),
-              ],
-            ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: TextFormField(
+                          controller: firstNameController,
+                          decoration: const InputDecoration(hintText: "First Name"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: TextFormField(
+                          controller: lastNameController,
+                          decoration: const InputDecoration(hintText: "Last Name"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: TextFormField(
+                          controller: eMailController,
+                          decoration: const InputDecoration(hintText: "Email"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(hintText: "Password"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: TextFormField(
+                          controller: confrimPasswordController,
+                          obscureText: true,
+                          decoration:
+                              const InputDecoration(hintText: "Confirm Password"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        width: 230,
+                        height: 40,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 217, 217, 217)),
+                          onPressed: () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Functions().validateAndSumbit(
+                              eMailController.text,
+                              passwordController.text,
+                              firstNameController.text,
+                              lastNameController.text,
+                              context);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
+                          },
+                          child: const Text(
+                            "Create Account",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 24),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(),
+            ],
           )),
     );
   }
@@ -161,14 +159,14 @@ class _CreateDesktopState extends State<CreateDesktop> {
 class Functions{
   Future<void> validateAndSumbit(email, password, firstName, lastName, context) async{
 
-    await SignUpService().SignUpWithEmailAndPassword(email, password);
-    await SignInService().SignInWithEmailAndPassword(email, password);
-    await UserService().CreateUser(FirebaseAuth.instance.currentUser, firstName, lastName);
+    await SignUpService().signUpWithEmailAndPassword(email, password);
+    await SignInService().signInWithEmailAndPassword(email, password);
+    await UserService().createUser(FirebaseAuth.instance.currentUser, firstName, lastName);
   }
 }
 
 class CreateMobile extends StatefulWidget {
-  CreateMobile(BuildContext context);
+  const CreateMobile(BuildContext context, {super.key});
 
   @override
   State<CreateMobile> createState() => _CreateMobileState();
@@ -200,126 +198,124 @@ class _CreateMobileState extends State<CreateMobile> {
               width: 100
           ),
         ],
-      ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
+      ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/blue-background.png"),
               fit: BoxFit.none,
             ),
           ),
-          child: Container(
-            child: Column(
-              children: [
-                isLoading ? CircularProgressIndicator() :
-                Expanded(
-                  child: Scrollbar(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 20,
+          child: Column(
+            children: [
+              isLoading ? const CircularProgressIndicator() :
+              Expanded(
+                child: Scrollbar(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.white),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 400,
+                              child: TextFormField(
+                                controller: firstNameController,
+                                decoration: const InputDecoration(hintText: "First Name"),
                               ),
-                              SizedBox(
-                                width: 400,
-                                child: TextFormField(
-                                  controller: firstNameController,
-                                  decoration: InputDecoration(hintText: "First Name"),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 400,
+                              child: TextFormField(
+                                controller: lastNameController,
+                                decoration: const InputDecoration(hintText: "Last Name"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 400,
+                              child: TextFormField(
+                                controller: eMailController,
+                                decoration: const InputDecoration(hintText: "Email"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 400,
+                              child: TextFormField(
+                                controller: passwordController,
+                                obscureText: true,
+                                decoration: const InputDecoration(hintText: "Password"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 400,
+                              child: TextFormField(
+                                controller: confrimPasswordController,
+                                obscureText: true,
+                                decoration:
+                                const InputDecoration(hintText: "Confirm Password"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            SizedBox(
+                              width: 230,
+                              height: 40,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    const Color.fromARGB(255, 217, 217, 217)),
+                                onPressed: () {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  Functions().validateAndSumbit(
+                                      eMailController.text,
+                                      passwordController.text,
+                                      firstNameController.text,
+                                      lastNameController.text,
+                                      context);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
+                                },
+                                child: const Text(
+                                  "Create Account",
+                                  style:
+                                  TextStyle(color: Colors.black, fontSize: 24),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 400,
-                                child: TextFormField(
-                                  controller: lastNameController,
-                                  decoration: InputDecoration(hintText: "Last Name"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 400,
-                                child: TextFormField(
-                                  controller: eMailController,
-                                  decoration: InputDecoration(hintText: "Email"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 400,
-                                child: TextFormField(
-                                  controller: passwordController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(hintText: "Password"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 400,
-                                child: TextFormField(
-                                  controller: confrimPasswordController,
-                                  obscureText: true,
-                                  decoration:
-                                  InputDecoration(hintText: "Confirm Password"),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              SizedBox(
-                                width: 230,
-                                height: 40,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                      Color.fromARGB(255, 217, 217, 217)),
-                                  onPressed: () {
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                    Functions().validateAndSumbit(
-                                        eMailController.text,
-                                        passwordController.text,
-                                        firstNameController.text,
-                                        lastNameController.text,
-                                        context);
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
-                                  },
-                                  child: Text(
-                                    "Create Account",
-                                    style:
-                                    TextStyle(color: Colors.black, fontSize: 24),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                Container(),
-              ],
-            ),
+              ),
+              Container(),
+            ],
           )),
     );
   }

@@ -17,7 +17,7 @@ int maxRange = (numberOfBars * 4);
 int minRange = 1;
 
 class BeatBoardApp extends StatelessWidget {
-  BeatBoardApp(BuildContext context);
+  const BeatBoardApp(BuildContext context, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class BeatBoardApp extends StatelessWidget {
             scale: 10,
           ),
         ),
-        actions: [],
+        actions: const [],
       ),
       endDrawer: CustomDrawer(
         drawerWidth: 450,
@@ -75,7 +75,7 @@ class BeatBoardApp extends StatelessWidget {
               ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(5.0),
-                  children: [
+                  children: const [
                   ]),
             ],
           )),
