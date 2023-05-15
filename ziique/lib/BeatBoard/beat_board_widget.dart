@@ -107,7 +107,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                               maxRange = (numberOfBars * 4);
                               minRange = 1;
                               });
-                            SoundEngine().addToBeat();
                           },
                           child: Text(
                             alpha.getAlphebat(i, numberOfBars),
@@ -159,22 +158,21 @@ class BeatColor{
     if (kDebugMode) {
       print("beatIndex: $i maxRange: $maxRange${i == maxRange ? " true" : " false"}");
     }
-     if (i == maxRange)
-        {
-            
-          maxRange += (numberOfBars * 4) +1 ;
-          minRange += (numberOfBars * 4) +1 ;
-          maxRange += (numberOfBars * 4) +1 ;
-          minRange += (numberOfBars * 4) +1;
-          return true;
-        }
-      else if (i >= minRange && i <= maxRange)
-      {
-        return true;
-        }
-        else
-        {
-          return false;
-          }
-        }
-        }
+    if (i == maxRange)
+    {
+      maxRange += (numberOfBars * 4) +1 ;
+      minRange += (numberOfBars * 4) +1 ;
+      maxRange += (numberOfBars * 4) +1 ;
+      minRange += (numberOfBars * 4) +1;
+      return true;
+    }
+    else if (i >= minRange && i <= maxRange)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+}
