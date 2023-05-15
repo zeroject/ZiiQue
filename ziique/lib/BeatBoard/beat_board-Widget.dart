@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ziique/Custom%20Widgets/beatboard.dart';
 import 'package:ziique/Custom%20Widgets/customdrawer.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
@@ -77,19 +76,6 @@ class BeatBoardApp extends StatelessWidget {
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(5.0),
                   children: [
-                    BeatBoard(
-                      playBarWidth: 160,
-                      playBarColor: Color.fromARGB(255, 81, 81, 81),
-                      playBarRounding: 5,
-                      playBarButtonSize: 45,
-                      playBarFontSize: 6,
-                      playBarOffset: 739,
-                      beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
-                      beatButtonSize: 45,
-                      beatButtonSampleColor: beatInfo,
-                      beatButtonNormColor: beatNorm,
-                      beatButtonNormPressColor: beatNormPress,
-                    ),
                   ]),
             ],
           )),
