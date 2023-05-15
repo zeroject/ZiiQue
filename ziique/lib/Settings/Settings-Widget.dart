@@ -111,26 +111,24 @@ Widget build1(BuildContext context){
                   ),
                   Padding(
                     padding: const EdgeInsets.all(84.0),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
-                          Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
-                          TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
-                          Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
-                          OutlinedButton(onPressed: (){
-                            Clipboard.setData(ClipboardData(text: friendcode))
-                            .then((value){ScaffoldMessenger
-                            .of(context)
-                            .showSnackBar(snackBar);});
-                            }, 
-                            child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
-                        ],
-                      )
+                    child: Column(
+                      children: [
+                        Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                        Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
+                        TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
+                        Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
+                        OutlinedButton(onPressed: (){
+                          Clipboard.setData(ClipboardData(text: friendcode))
+                          .then((value){ScaffoldMessenger
+                          .of(context)
+                          .showSnackBar(snackBar);});
+                          }, 
+                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
+                      ],
                     ),
                   )
                 ],
@@ -188,34 +186,32 @@ Widget build2(BuildContext context){
                 ),
                 Padding(
                   padding: const EdgeInsets.all(84.0),
-                  child: Container(
-                      child: Column(
-                        children: [
-                          Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
-                          const SizedBox(
-                            height: 100,
-                          ),
-                          const Text('Add a credit card', style: TextStyle(color: Colors.white, fontSize: 24),),
-                          Container(
-                            width: 250,
-                            height: 100,
-                            color: Colors.grey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
-                                Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
-                                Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          ElevatedButton(onPressed: (){}, child: const Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
-                        ],
-                      )
+                  child: Column(
+                    children: [
+                      Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      const Text('Add a credit card', style: TextStyle(color: Colors.white, fontSize: 24),),
+                      Container(
+                        width: 250,
+                        height: 100,
+                        color: Colors.grey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
+                            Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
+                            Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      ElevatedButton(onPressed: (){}, child: const Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
+                    ],
                   ),
                 )
               ],
@@ -349,25 +345,23 @@ Widget build2(BuildContext context){
                     ),
                     Padding(
                       padding: const EdgeInsets.all(81.0),
-                      child: Container(
-                          child: Column(
-                            children: [
-                              const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                width: 190,
-                                  child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                              SizedBox(
-                                width: 190,
-                                child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                              ),
-                            ],
-                          )
+                      child: Column(
+                        children: [
+                          const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: 190,
+                              child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          ),
+                        ],
                       ),
                     )
                   ],
