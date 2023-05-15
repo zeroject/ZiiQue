@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ziique/BeatBoard/beat_board-Widget.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 
 class LoginDesktop extends StatelessWidget {

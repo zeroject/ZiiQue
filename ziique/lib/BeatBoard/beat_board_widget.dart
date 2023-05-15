@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/CustomWidgets/customdrawer.dart';
-import 'package:ziique/login-create/create-widget.dart';
-import 'package:ziique/login-create/login-widget.dart';
-import '../Settings/Settings-Widget.dart';
+import 'package:ziique/login-create/create_widget.dart';
+import 'package:ziique/login-create/login_widget.dart';
+import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 int numberOfRows = 8;
