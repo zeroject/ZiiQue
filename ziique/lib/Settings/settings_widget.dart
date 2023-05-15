@@ -420,8 +420,13 @@ Widget build2(BuildContext context){
                         children: [
                          ListView.builder(
                            shrinkWrap: true,
+                           prototypeItem: ListTile(
+                             title: Text(friends.first.toString()),
+                           ),
                            itemBuilder: (BuildContext context, int index) {
-                             return null;
+                             return ListTile(
+                               title: Text(friends[index].toString()),
+                             );
                            },
                            itemCount: friends.length,
                          ),
