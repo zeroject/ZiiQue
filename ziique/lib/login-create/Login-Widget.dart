@@ -46,20 +46,20 @@ class LoginDesktop extends StatelessWidget {
                     const SizedBox(height: 20,),
                     SizedBox(
                       width: 400,
-                        child: TextFormField(controller: emailController,decoration: InputDecoration(hintText: "Email"),)),
+                        child: TextFormField(controller: emailController,decoration: const InputDecoration(hintText: "Email"),)),
                     const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       width: 400,
-                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
+                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: const InputDecoration(hintText: "Password"),)),
                     const SizedBox(
                       height: 50,
                     ),
                     SizedBox(
                       width: 200,
                         height: 40,
-                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)), 
+                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 217, 217, 217)), 
                         onPressed: (){ 
                           Functions().validateAndSumbit(emailController.text, passwordController.text, context);
                           }, 
@@ -127,20 +127,20 @@ class LoginMobile extends StatelessWidget {
                     const SizedBox(height: 20,),
                     SizedBox(
                         width: 400,
-                        child: TextFormField(controller: emailController,decoration: InputDecoration(hintText: "Email"),)),
+                        child: TextFormField(controller: emailController,decoration: const InputDecoration(hintText: "Email"),)),
                     const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                         width: 400,
-                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: InputDecoration(hintText: "Password"),)),
+                        child: TextFormField(controller: passwordController ,obscureText: true, decoration: const InputDecoration(hintText: "Password"),)),
                     const SizedBox(
                       height: 50,
                     ),
                     SizedBox(
                         width: 200,
                         height: 40,
-                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 217, 217, 217)),
+                        child: ElevatedButton( style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 217, 217, 217)),
                             onPressed: (){
                               Functions().validateAndSumbit(emailController.text, passwordController.text, context);
                             },

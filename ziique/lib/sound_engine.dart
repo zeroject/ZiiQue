@@ -60,7 +60,6 @@ void playSingleSound(String soundName)
 {
   try
   {
-    print(soundName);
      player.play(DeviceFileSource(sourceFolder + soundFiles[soundName]));
   }
   catch(e)
@@ -113,11 +112,11 @@ void playBeat(String beatString)
 List<List<Node>> convertStringToNodes(String beatString)
 {
   List<String> beatList = beatString.split(";");
-  List<Node> NodeA = [];
-  List<Node> NodeB = [];
-  List<Node> NodeC = [];
-  List<Node> NodeD = [];
-  List<Node> NodeE = []; 
+  List<Node> nodeA = [];
+  List<Node> nodeB = [];
+  List<Node> nodeC = [];
+  List<Node> nodeD = [];
+  List<Node> nodeE = []; 
   beatList.removeLast();
   List<List<Node>> nodeList = [];
   String placement = "";
@@ -140,29 +139,29 @@ List<List<Node>> convertStringToNodes(String beatString)
     Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
     switch (placement) {
       case "A":
-        NodeA.add(node);  
+        nodeA.add(node);  
         break;
       case "B":
-        NodeB.add(node);  
+        nodeB.add(node);  
         break;
       case "C":
-        NodeC.add(node);  
+        nodeC.add(node);  
         break;
       case "D":
-        NodeD.add(node);  
+        nodeD.add(node);  
         break;
       case "E":
-        NodeE.add(node);  
+        nodeE.add(node);  
         break;
       default:
       throw Exception("placement not found");
     }
   }
-  nodeList.add(NodeA);
-  nodeList.add(NodeB);
-  nodeList.add(NodeC);
-  nodeList.add(NodeD);
-  nodeList.add(NodeE);
+  nodeList.add(nodeA);
+  nodeList.add(nodeB);
+  nodeList.add(nodeC);
+  nodeList.add(nodeD);
+  nodeList.add(nodeE);
 
 //sort all lists in nodeList by time from lowest to highest
   for(int i = 0; i < nodeList.length; i++)

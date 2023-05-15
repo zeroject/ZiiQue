@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board-Widget.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ziique/BeatBoard/beat_board_app-Widget.dart';
+import 'package:ziique/BeatBoard/beat_board_app-widget.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
