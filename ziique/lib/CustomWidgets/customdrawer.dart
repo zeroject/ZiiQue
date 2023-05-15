@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:ziique/Custom%20Widgets/customExpansionTile.dart';
-
+import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
 import '../FireService/Fire_BeatService.dart';
 import '../models/beat.dart';
 
