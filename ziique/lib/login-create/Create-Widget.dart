@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
+import 'package:ziique/BeatBoard/beat_board-Widget.dart';
 import 'package:ziique/FireService/Fire_AuthService.dart';
 import 'package:ziique/FireService/Fire_UserService.dart';
 
