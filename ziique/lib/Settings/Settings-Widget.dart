@@ -10,6 +10,7 @@ import '../models/user.dart' as beatUser;
 String scene = 'Account';
 String friendcode = '1234';
 
+
 const snackBar = SnackBar(content: Text('Code has been copied!'));
 
 class SettingsPageDesktop extends StatelessWidget {
@@ -35,7 +36,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
     TextEditingController currentpasswordController = TextEditingController();
     TextEditingController newpasswordController = TextEditingController();
     List<int> friends = [];
-    Future<beatUser.User> user = UserService().GetUser(FirebaseAuth.instance.currentUser!);
+    beatUser.User user = UserService().GetUser(FirebaseAuth.instance.currentUser!) as beatUser.User;
 
   @override
   Widget build(BuildContext context) {
