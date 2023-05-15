@@ -13,16 +13,17 @@ const snackBar = SnackBar(content: Text('Code has been copied!'));
 
 
 class SettingsPageDesktop extends StatelessWidget {
+  const SettingsPageDesktop({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return const Scaffold();
   }
 }
 
 class SettingsPageMobile extends StatefulWidget {
-    SettingsPageMobile(BuildContext context);
+    const SettingsPageMobile(BuildContext context, {super.key});
 
   @override
   State<SettingsPageMobile> createState() => _SettingsPageMobileState();
@@ -267,25 +268,23 @@ Widget build2(BuildContext context){
                   ),
                   Padding(
                     padding: const EdgeInsets.all(30.0),
-                    child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              const Text('Friend Request Notifications', style: TextStyle(fontSize: 18, color: Colors.white), ),
-                              Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
-                            ],),
-                            Row(children: [
-                              const Text('General Notifications', style: TextStyle(fontSize: 18, color: Colors.white),),
-                              Switch(value: light2, activeColor: Colors.blue, onChanged: (bool value){setState(() {light2 = value;});}),
-                            ],),
-                            Row(children: [
-                              const Text('Notifications About Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
-                              Switch(value: light3, activeColor: Colors.blue, onChanged: (bool value){setState(() {light3 = value;});}),
-                            ],),
-                          ],
-                        )
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          const Text('Friend Request Notifications', style: TextStyle(fontSize: 18, color: Colors.white), ),
+                          Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
+                        ],),
+                        Row(children: [
+                          const Text('General Notifications', style: TextStyle(fontSize: 18, color: Colors.white),),
+                          Switch(value: light2, activeColor: Colors.blue, onChanged: (bool value){setState(() {light2 = value;});}),
+                        ],),
+                        Row(children: [
+                          const Text('Notifications About Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
+                          Switch(value: light3, activeColor: Colors.blue, onChanged: (bool value){setState(() {light3 = value;});}),
+                        ],),
+                      ],
                     ),
                   )
                 ],
@@ -343,25 +342,23 @@ Widget build2(BuildContext context){
                     ),
                     Padding(
                       padding: const EdgeInsets.all(81.0),
-                      child: Container(
-                          child: Column(
-                            children: [
-                              const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              SizedBox(
-                                width: 190,
-                                  child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                              SizedBox(
-                                width: 190,
-                                child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                              ),
-                            ],
-                          )
+                      child: Column(
+                        children: [
+                          const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: 190,
+                              child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          ),
+                        ],
                       ),
                     )
                   ],
@@ -423,7 +420,9 @@ Widget build2(BuildContext context){
                         children: [
                          ListView.builder(
                            shrinkWrap: true,
-                           itemBuilder: (BuildContext context, int index) {},
+                           itemBuilder: (BuildContext context, int index) {
+                             return null;
+                           },
                            itemCount: friends.length,
                          ),
                         ],
