@@ -1,21 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
-import 'package:ziique/Custom%20Widgets/beatboard.dart';
-import 'package:ziique/Custom%20Widgets/customElevatedButton.dart';
 import 'package:ziique/Custom%20Widgets/customdrawer.dart';
-import 'package:ziique/Custom%20Widgets/imBeatBoard.dart';
-import 'package:ziique/FireService/Fire_AuthService.dart';
-import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
-import 'package:ziique/models/beatInfo.dart';
-
-import '../FireService/Fire_BeatService.dart';
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../models/beat.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
@@ -27,88 +16,8 @@ int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 
-class BeatBoardApp extends StatelessWidget {
-  BeatBoardApp(BuildContext context);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 44, 41, 41),
-        leading: Center(
-          child: Image.asset(
-            "assets/images/madebyzomr.png",
-            fit: BoxFit.cover,
-          ),
-        ),
-        leadingWidth: 45,
-        title: Center(
-          child: Image.asset(
-            "assets/images/ZiiQue-Logo.png",
-            fit: BoxFit.cover,
-            scale: 10,
-          ),
-        ),
-        actions: [],
-      ),
-      endDrawer: CustomDrawer(
-        drawerWidth: 450,
-        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
-        firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
-        drawerHeadHeight: 64,
-        beatList: [1, 2],
-        settingsButHeight: 60,
-        settingsButWidth: 290,
-        settingsPageDesktop: SettingsPageMobile(context),
-        settingsPageMobile: SettingsPageMobile(context),
-        offsetHeight: 80,
-        createAccButHeight: 40,
-        createAccButWidth: 200,
-        createButColor: const Color.fromARGB(255, 77, 77, 77),
-        kIsWeb: kIsWeb,
-        createPageDesktop: CreateDesktop(context),
-        createPageMobile: CreateMobile(context),
-        loginButHeight: 40,
-        loginButWidth: 100,
-        loginPageDesktop: LoginDesktop(context),
-        loginPageMobile: LoginMobile(context),
-      ),
-      body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/grey-background.png"),
-              fit: BoxFit.none,
-            ),
-          ),
-          child: Column(
-            children: [
-              ListView(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(5.0),
-                  children: [
-                    BeatBoard(
-                      playBarWidth: 160,
-                      playBarColor: Color.fromARGB(255, 81, 81, 81),
-                      playBarRounding: 5,
-                      playBarButtonSize: 45,
-                      playBarFontSize: 6,
-                      playBarOffset: 739,
-                      beatButtonBackColor: Color.fromARGB(255, 42, 42, 42),
-                      beatButtonSize: 45,
-                      beatButtonSampleColor: beatInfo,
-                      beatButtonNormColor: beatNorm,
-                      beatButtonNormPressColor: beatNormPress,
-                    ),
-                  ]),
-            ],
-          )),
-    );
-  }
-}
-
 class BeatBoardDesktop extends StatefulWidget {
-  BeatBoardDesktop(BuildContext context);
+  const BeatBoardDesktop(BuildContext context, {super.key});
 
   @override
   State<BeatBoardDesktop> createState() => _BeatBoardDesktopState();
@@ -142,7 +51,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
         drawerHeadHeight: 64,
-        beatList: [1, 2],
+        beatList: const [1, 2],
         settingsButHeight: 60,
         settingsButWidth: 290,
         settingsPageDesktop: SettingsPageMobile(context),
@@ -231,7 +140,9 @@ class BeatColor{
   final int bar;
 
   bool getColor(int i){
-    print("beatIndex: " + i.toString() + " maxRange: " + maxRange.toString() + (i == maxRange ? " true" : " false"));
+    if (kDebugMode) {
+      print("beatIndex: $i maxRange: $maxRange${i == maxRange ? " true" : " false"}");
+    }
      if (i == maxRange)
         {
             
