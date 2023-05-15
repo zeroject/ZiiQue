@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ziique/FireService/Fire_AuthService.dart';
+import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/models/fire_user.dart';
-import '../FireService/Fire_UserService.dart';
+import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beatUser;
 
 String scene = 'Account';

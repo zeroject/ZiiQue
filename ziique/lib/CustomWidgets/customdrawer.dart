@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
-import '../FireService/Fire_BeatService.dart';
+import '../FireService/fire_beat_service.dart';
 import '../models/beat.dart';
 
 class CustomDrawer extends StatefulWidget {
