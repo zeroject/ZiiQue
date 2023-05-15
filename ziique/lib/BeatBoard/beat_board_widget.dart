@@ -6,7 +6,7 @@ import 'package:ziique/login-create/login_widget.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-int numberOfRows = 8;
+int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
