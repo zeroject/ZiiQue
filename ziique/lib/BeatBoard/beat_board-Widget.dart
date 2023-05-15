@@ -1,21 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/Custom%20Widgets/beatboard.dart';
-import 'package:ziique/Custom%20Widgets/customElevatedButton.dart';
 import 'package:ziique/Custom%20Widgets/customdrawer.dart';
-import 'package:ziique/Custom%20Widgets/imBeatBoard.dart';
-import 'package:ziique/FireService/Fire_AuthService.dart';
-import 'package:ziique/SoundEngine.dart';
 import 'package:ziique/login-create/Create-Widget.dart';
 import 'package:ziique/login-create/Login-Widget.dart';
-import 'package:ziique/models/beatInfo.dart';
-
-import '../FireService/Fire_BeatService.dart';
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../models/beat.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
