@@ -28,7 +28,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
@@ -46,7 +45,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
             scale: 10,
           ),
         ),
-        actions: [],
+        actions: const [],
       ),
       endDrawer: CustomDrawer(
         drawerWidth: 450,
