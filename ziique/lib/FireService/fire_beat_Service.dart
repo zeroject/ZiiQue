@@ -14,7 +14,7 @@ String generateId() {
 }
 
 class BeatService{
-  Query<Beat> GetBeats(fireUser.User user){
+  Query<Beat> getBeats(fireUser.User user){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(user.uid)
@@ -26,7 +26,7 @@ class BeatService{
     );
   }
 
-  Future<void> SaveBeat(fireUser.User? user, String beatstring, String title, String description) async {
+  Future<void> saveBeat(fireUser.User? user, String beatstring, String title, String description) async {
     String id = generateId();
     final owner = Owner(
         uid: user!.uid,
@@ -47,7 +47,7 @@ class BeatService{
         });
   }
 
-  Future<void> UpdateBeat(fireUser.User user, var beatId, String beatstring) async{
+  Future<void> updateBeat(fireUser.User user, var beatId, String beatstring) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(user.uid)
@@ -59,7 +59,7 @@ class BeatService{
         });
   }
 
-  Future<void> DeleteBeat(fireUser.User user, var beatId) async{
+  Future<void> deleteBeat(fireUser.User user, var beatId) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(user.uid)

@@ -8,13 +8,13 @@ class CollectionNames{
 }
 
 class UserService{
-  Future<beatUser.User> GetUser(fireUser.User fireUser) async {
+  Future<beatUser.User> getUser(fireUser.User fireUser) async {
     return (await FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(fireUser.uid).get()).data() as beatUser.User;
   }
 
-  Future<void> CreateUser(fireUser.User? user, String firstName, String lastName) async {
+  Future<void> createUser(fireUser.User? user, String firstName, String lastName) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(user!.uid)
@@ -26,7 +26,7 @@ class UserService{
         });
   }
 
-  Future<void> DeleteUser() async {
+  Future<void> deleteUser() async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(FirebaseAuth.instance.currentUser?.uid)
