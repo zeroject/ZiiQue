@@ -109,7 +109,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                               });
                           },
                           child: Text(
-                            alpha.getAlphebat()[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)],
+                            alpha.getAlphebat(i, numberOfBars),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
@@ -126,23 +126,27 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 }
 
 class Alpha {
-  Alpha();
+  Alpha(){
+    for (int i = 65; i <= 90; i++) {
+      alphabets.add(String.fromCharCode(i));
+    }
+  }
 
   int greenBut = 0;
+  List<String> alphabets = [];
+
 
   int calcGreenBut(i, numberOfBars){
     greenBut = i % ((numberOfBars * 4) + 1);
     return greenBut;
   }
 
-  List<String> getAlphebat() {
+  String getAlphebat(i, numberOfBars) {
     List<String> alphabets = [];
     if (greenBut == 0){
-      for (int i = 65; i <= 90; i++) {
-        alphabets.add(String.fromCharCode(i));
-      }
+      return alphabets[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)];
     }
-    return alphabets;
+    return i;
   }
 }
 
