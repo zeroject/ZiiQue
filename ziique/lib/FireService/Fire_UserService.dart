@@ -1,5 +1,3 @@
-// ignore_for_file: library_prefixes, file_names, non_constant_identifier_names
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user.dart' as beatUser;
