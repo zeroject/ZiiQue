@@ -46,12 +46,11 @@ void main() {
       [20, 8, 24000],
     };
 
-    inputsToExpect.forEach((input) 
-    {
+    for (var input in inputsToExpect) {
       SoundEngine soundEngine = SoundEngine();
       soundEngine.changeBPM(input[0]);
       expect(soundEngine.convertBPMToTime(input[1]), input[2]);
-     });
+     }
   });
 
   test('beatString to list of nodes correctly with 120 bpm', () {

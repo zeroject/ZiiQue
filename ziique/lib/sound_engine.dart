@@ -28,10 +28,6 @@ Map beatMap = {
 
 int bpm = 120;
 
-SoundEngine()
-{
-  
-}
 
 //function to change bpm by parameter
 void changeBPM(int newBPM)
@@ -131,7 +127,7 @@ List<List<Node>> convertStringToNodes(String beatString)
     if (beatList[i].length > 2)
     {
       time +=beatList[i][2];
-    };
+    }
     //converts the time string to int
     num timeInt = num.parse(time);
 
