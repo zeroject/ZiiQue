@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ziique/CustomWidgets/customdrawer.dart';
 import 'package:ziique/login-create/create_widget.dart';
 import 'package:ziique/login-create/login_widget.dart';
+import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -106,6 +107,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                               maxRange = (numberOfBars * 4);
                               minRange = 1;
                               });
+                            SoundEngine().addToBeat();
                           },
                           child: Text(
                             alpha.getAlphebat(i, numberOfBars),
@@ -141,12 +143,12 @@ class Alpha {
   }
 
   String getAlphebat(i, numberOfBars) {
-    List<String> alphabets = [];
     if (greenBut == 0){
       return alphabets[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)];
     }
     return i;
   }
+
 }
 
 class BeatColor{
