@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ziique/Custom%20Widgets/customElevatedButton.dart';
-import '../models/beatInfo.dart';
 
 class BeatBoard extends StatefulWidget {
   const BeatBoard(
