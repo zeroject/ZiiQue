@@ -64,18 +64,13 @@ void playSingleSound(String soundName)
   } 
 }
 
-void addToBeat(String beat)
+void addToBeat(int pos, int rowMax, int beatMax)
 {
-  //adds the string to the beatString + differentiates between different beats
-  String newBeat = "$beat;";
-  beatString += newBeat;
+
 }
 
-void removeFromBeat(String beat)
+void removeFromBeat (int pos, int rowMax, int beatMax)
 {
-  //removes the string from the beatString
-  String newBeat = "$beat;";
-  beatString = beatString.replaceAll(newBeat, "");
 }
 
 void playBeat(String beatString)
@@ -89,12 +84,14 @@ void playBeat(String beatString)
     }
   }
 
+  // ignore: unused_element
   void addNode(String beat)
   {
     //adds the string to the beatString
     beatString += beat;
   }
 
+  // ignore: unused_element
   void removeNode(String beat)
   {
     //removes the string from the beatString
