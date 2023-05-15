@@ -6,11 +6,6 @@ import 'package:ziique/login-create/Login-Widget.dart';
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
-Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
-Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
-List<int> test = [1, 2, 3, 4];
-List<bool> _bools = List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
 int numberOfRows = 8;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
@@ -24,6 +19,13 @@ class BeatBoardDesktop extends StatefulWidget {
 }
 
 class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
+
+  Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
+  Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
+  Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
+  List<bool> boolList = List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
+  Alpha alpha = Alpha();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -97,17 +99,17 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                         padding: const EdgeInsets.all(4.0),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: (i % ((numberOfBars * 4) + 1) == 0) ? Colors.green : BeatColor(bar: numberOfBars).getColor(i) ? (_bools[i] == true) ? Colors.grey[900] : Colors.grey : (_bools[i] == true) ? Colors.grey[900] : Colors.blueGrey
+                              backgroundColor: (alpha.calcGreenBut(i, numberOfBars) == 0) ? Colors.green : BeatColor(bar: numberOfBars).getColor(i) ? (boolList[i] == true) ? Colors.grey[900] : Colors.grey : (boolList[i] == true) ? Colors.grey[900] : Colors.blueGrey
                           ),
                           onPressed: () {
                             setState(() {
-                              _bools[i] = !_bools[i];
+                              boolList[i] = !boolList[i];
                               maxRange = (numberOfBars * 4);
                               minRange = 1;
                               });
                           },
                           child: Text(
-                            (i % ((numberOfBars * 4) + 1) == 0) ? Alpha().getAlphebat()[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)] : i.toString(),
+                            alpha.getAlphebat()[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)],
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
@@ -126,10 +128,19 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 class Alpha {
   Alpha();
 
+  int greenBut = 0;
+
+  int calcGreenBut(i, numberOfBars){
+    greenBut = i % ((numberOfBars * 4) + 1);
+    return greenBut;
+  }
+
   List<String> getAlphebat() {
     List<String> alphabets = [];
-    for (int i = 65; i <= 90; i++) {
-      alphabets.add(String.fromCharCode(i));
+    if (greenBut == 0){
+      for (int i = 65; i <= 90; i++) {
+        alphabets.add(String.fromCharCode(i));
+      }
     }
     return alphabets;
   }
