@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:ziique/Custom%20Widgets/customExpansionTile.dart';
-
+import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
 import '../FireService/Fire_BeatService.dart';
 import '../models/beat.dart';
 
@@ -92,14 +91,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 query: BeatService().GetBeats(FirebaseAuth.instance.currentUser!), 
                 itemBuilder: (BuildContext context, snapshot) {
                   Beat beat =  snapshot.data();
-                  bool isOpen = false;
-                  List<bool> _isOpen = [];
                   return CustomExpansionPanel(
                     beatId: beat.id,
                     beatTitle: beat.title,
                     beatDescription: beat.description, 
                     fontSize: 20, 
-                    tileColor: Color.fromARGB(255, 255, 255, 255), 
+                    tileColor: const Color.fromARGB(255, 255, 255, 255), 
                     tileRadius: 10,
                     );
                 },

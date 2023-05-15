@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board-Widget.dart';
-import 'package:ziique/FireService/Fire_AuthService.dart';
-import 'package:ziique/FireService/Fire_UserService.dart';
+import 'package:ziique/FireService/fire_auth_service.dart';
+import 'package:ziique/FireService/fire_user_service.dart';
 
 class CreateDesktop extends StatefulWidget {
   CreateDesktop(BuildContext context);

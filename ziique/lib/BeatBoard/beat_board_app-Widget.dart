@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/Custom%20Widgets/customdrawer.dart';
-import 'package:ziique/login-create/Create-Widget.dart';
-import 'package:ziique/login-create/Login-Widget.dart';
+import 'package:ziique/login-create/create-widget.dart';
+import 'package:ziique/login-create/login-widget.dart';
 import '../Settings/Settings-Widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
