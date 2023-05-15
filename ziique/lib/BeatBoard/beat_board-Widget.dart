@@ -24,7 +24,7 @@ class BeatBoardApp extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 44, 41, 41),
+        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         leading: Center(
           child: Image.asset(
             "assets/images/madebyzomr.png",
@@ -46,7 +46,7 @@ class BeatBoardApp extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
         drawerHeadHeight: 64,
-        beatList: [1, 2],
+        beatList: const [1, 2],
         settingsButHeight: 60,
         settingsButWidth: 290,
         settingsPageDesktop: SettingsPageMobile(context),
@@ -118,7 +118,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         firebaseAuthUser: FirebaseAuth.instance.currentUser != null,
         drawerHeadHeight: 64,
-        beatList: [1, 2],
+        beatList: const [1, 2],
         settingsButHeight: 60,
         settingsButWidth: 290,
         settingsPageDesktop: SettingsPageMobile(context),
@@ -207,7 +207,9 @@ class BeatColor{
   final int bar;
 
   bool getColor(int i){
-    print("beatIndex: " + i.toString() + " maxRange: " + maxRange.toString() + (i == maxRange ? " true" : " false"));
+    if (kDebugMode) {
+      print("beatIndex: $i maxRange: $maxRange${i == maxRange ? " true" : " false"}");
+    }
      if (i == maxRange)
         {
             
