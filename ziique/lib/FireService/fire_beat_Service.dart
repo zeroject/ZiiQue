@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
-import '../models/fire_user.dart' as fireUser;
+import '../models/fire_user.dart' as fire_user;
 
 class CollectionNames{
   static const beats = 'beats';
@@ -14,7 +14,7 @@ String generateId() {
 }
 
 class BeatService{
-  Query<Beat> getBeats(fireUser.User user){
+  Query<Beat> getBeats(fire_user.User user){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(user.uid)
@@ -26,7 +26,7 @@ class BeatService{
     );
   }
 
-  Future<void> saveBeat(fireUser.User? user, String beatstring, String title, String description) async {
+  Future<void> saveBeat(fire_user.User? user, String beatstring, String title, String description) async {
     String id = generateId();
     final owner = Owner(
         uid: user!.uid,
@@ -47,7 +47,7 @@ class BeatService{
         });
   }
 
-  Future<void> updateBeat(fireUser.User user, var beatId, String beatstring) async{
+  Future<void> updateBeat(fire_user.User user, var beatId, String beatstring) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(user.uid)
@@ -59,7 +59,7 @@ class BeatService{
         });
   }
 
-  Future<void> deleteBeat(fireUser.User user, var beatId) async{
+  Future<void> deleteBeat(fire_user.User user, var beatId) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(user.uid)

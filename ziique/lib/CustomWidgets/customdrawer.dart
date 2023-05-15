@@ -88,7 +88,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
               FirestoreListView<Beat>(
                 shrinkWrap: true,
-                query: BeatService().GetBeats(FirebaseAuth.instance.currentUser!), 
+                query: BeatService().getBeats(FirebaseAuth.instance.currentUser!), 
                 itemBuilder: (BuildContext context, snapshot) {
                   Beat beat =  snapshot.data();
                   return CustomExpansionPanel(
@@ -111,7 +111,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
-                            BeatService().SaveBeat(FirebaseAuth.instance.currentUser, "beatstring", "title", "description");
+                            BeatService().saveBeat(FirebaseAuth.instance.currentUser, "beatstring", "title", "description");
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => widget.settingsPageDesktop));
                           },
                           child: const Text("Account Settings",

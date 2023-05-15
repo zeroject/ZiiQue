@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/user.dart' as beatUser;
-import '../models/fire_user.dart' as fireUser;
+import '../models/user.dart' as beat_user;
+import '../models/fire_user.dart' as fire_user;
 
 class CollectionNames{
   static const users = 'users';
 }
 
 class UserService{
-  Future<beatUser.User> getUser(fireUser.User fireUser) async {
+  Future<beat_user.User> getUser(fire_user.User fireUser) async {
     return (await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(fireUser.uid).get()).data() as beatUser.User;
+    .doc(fireUser.uid).get()).data() as beat_user.User;
   }
 
-  Future<void> createUser(fireUser.User? user, String firstName, String lastName) async {
+  Future<void> createUser(fire_user.User? user, String firstName, String lastName) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(user!.uid)
     .set({
-          beatUser.UserKeys.uid: user.uid,
-          beatUser.UserKeys.firstname: firstName,
-          beatUser.UserKeys.lastname: lastName,
-          beatUser.UserKeys.friends: []
+          beat_user.UserKeys.uid: user.uid,
+          beat_user.UserKeys.firstname: firstName,
+          beat_user.UserKeys.lastname: lastName,
+          beat_user.UserKeys.friends: []
         });
   }
 
