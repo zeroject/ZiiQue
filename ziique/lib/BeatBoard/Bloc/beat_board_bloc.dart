@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'beat_board_event.dart';
 part 'beat_board_state.dart';
