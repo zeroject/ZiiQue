@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ziique/Custom%20Widgets/customdrawer.dart';
+import 'package:ziique/CustomWidgets/customdrawer.dart';
 import 'package:ziique/login-create/create-widget.dart';
 import 'package:ziique/login-create/login-widget.dart';
-import '../Settings/Settings-Widget.dart';
+import '../Settings/settings-widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
