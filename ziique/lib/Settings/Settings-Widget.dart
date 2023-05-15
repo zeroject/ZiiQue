@@ -6,6 +6,7 @@ import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beatUser;
+import '../models/fire_user.dart' as fireUser;
 
 String scene = 'Account';
 String friendcode = '1234';
@@ -36,7 +37,8 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
     TextEditingController currentpasswordController = TextEditingController();
     TextEditingController newpasswordController = TextEditingController();
     List<int> friends = [];
-    beatUser.User user = UserService().GetUser(FirebaseAuth.instance.currentUser!) as beatUser.User;
+    beatUser.User beatuser = UserService().GetUser(FirebaseAuth.instance.currentUser!) as beatUser.User;
+    fireUser.User fireuser = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +116,8 @@ Widget Build1(BuildContext context){
                       child: Container(
                         child: Column(
                           children: [
-                            Text('Name', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text('Email', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(beatuser.firstname, style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(fireuser.email.toString(), style: TextStyle(color: Colors.white, fontSize: 24),),
                             TextButton(onPressed: (){}, child: Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
                             SizedBox(
                               height: 30,
@@ -193,7 +195,7 @@ Widget Build2(BuildContext context){
                     child: Container(
                         child: Column(
                           children: [
-                            Text('Name', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(beatuser.firstname, style: TextStyle(color: Colors.white, fontSize: 24),),
                             SizedBox(
                               height: 100,
                             ),
@@ -364,10 +366,10 @@ Widget Build2(BuildContext context){
                                 ),
                                 SizedBox(
                                   width: 190,
-                                    child: TextFormField(controller: currentpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "Current Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                    child: TextFormField(controller: currentpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
                                 SizedBox(
                                   width: 190,
-                                  child: TextFormField(controller: newpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                  child: TextFormField(controller: newpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: ElevatedButton(onPressed: (){}, child: Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
