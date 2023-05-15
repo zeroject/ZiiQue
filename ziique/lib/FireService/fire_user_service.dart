@@ -8,10 +8,10 @@ class CollectionNames{
 }
 
 class UserService{
-  Future<beat_user.User> getUser(fire_user.User fireUser) async {
+  Future<beat_user.User> getUser(var fireUserId) async {
     return (await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(fireUser.uid).get()).data() as beat_user.User;
+    .doc(fireUserId).get()).data() as beat_user.User;
   }
 
   Future<void> createUser(fire_user.User? user, String firstName, String lastName) async {
@@ -31,5 +31,14 @@ class UserService{
     .collection(CollectionNames.users)
     .doc(FirebaseAuth.instance.currentUser?.uid)
     .delete();
+  }
+
+  List<beat_user.User> getFriends(List<String> friendIds){
+    List<beat_user.User> temp = [];
+
+    for (var friendId in friendIds) {
+      temp.add(UserService().getUser(friendId) as beat_user.User);
+    }
+    return temp;
   }
 }
