@@ -1,9 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'dart:isolate';
-
-import 'package:flutter/foundation.dart';
-import 'package:ziique/BeatBoard/BeatBoard-Widget.dart';
-import 'package:ziique/models/beat.dart';
 
 class SoundEngine {
 AudioPlayer player = AudioPlayer();
