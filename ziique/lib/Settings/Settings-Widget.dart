@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
-import '../models/user.dart' as beat_user;
-import '../models/fire_user.dart' as fire_user;
+import '../models/user.dart' as beatUser;
+import '../models/fire_user.dart' as fireUser;
 
 String scene = 'Account';
 String friendcode = '1234';
@@ -11,33 +14,31 @@ String friendcode = '1234';
 
 const snackBar = SnackBar(content: Text('Code has been copied!'));
 
-class SettingsPageDesktop extends StatelessWidget {
-  const SettingsPageDesktop({super.key});
 
+class SettingsPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return const Scaffold();
+    return Scaffold();
   }
 }
 
 class SettingsPageMobile extends StatefulWidget {
-    const SettingsPageMobile(BuildContext context, {super.key});
+    SettingsPageMobile(BuildContext context);
 
   @override
   State<SettingsPageMobile> createState() => _SettingsPageMobileState();
 }
 
 class _SettingsPageMobileState extends State<SettingsPageMobile> {
-    bool light = true;
-    bool light2 = true;
-    bool light3 = true;
-    TextEditingController currentpasswordController = TextEditingController();
-    TextEditingController newpasswordController = TextEditingController();
-    List<int> friends = [];
-    beat_user.User beatuser = UserService().getUser(FirebaseAuth.instance.currentUser!) as beat_user.User;
-    fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
+  bool light = true;
+  bool light2 = true;
+  bool light3 = true;
+  TextEditingController currentpasswordController = TextEditingController();
+  TextEditingController newpasswordController = TextEditingController();
+  beatUser.User beatuser = UserService().getUser(FirebaseAuth.instance.currentUser!) as beatUser.User;
+  fireUser.User fireuser = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +46,17 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (scene.contains('Account')) {
-            return build1(context);
+            return Build1(context);
           } else if(scene.contains('Payment')){
-            return build2(context);
+            return Build2(context);
           } else if(scene.contains('Notifications')){
-            return build3(context);
+            return Build3(context);
           }else if(scene.contains('Security')){
-            return build4(context);
+            return Build4(context);
           }else if(scene.contains('Friends')){
-            return build5(context);
+            return Build5(context);
           }
-          return build1(context);
+          return Build1(context);
 
         }
     ),
@@ -64,7 +65,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
 
 
 
-Widget build1(BuildContext context){
+Widget Build1(BuildContext context){
 
   return Scaffold(
       appBar: AppBar(title: Row(
@@ -77,10 +78,10 @@ Widget build1(BuildContext context){
             width: 10
           ),
         ],
-      ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
+      ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
       body: Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/grey-background.png"),
             fit: BoxFit.cover,
@@ -96,43 +97,47 @@ Widget build1(BuildContext context){
               color: Colors.black26.withOpacity(1),
 
               child:
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(84.0),
-                    child: Column(
+              Container(
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
-                        Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
-                        TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
-                        Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
-                        OutlinedButton(onPressed: (){
-                          Clipboard.setData(ClipboardData(text: friendcode))
-                          .then((value){ScaffoldMessenger
-                          .of(context)
-                          .showSnackBar(snackBar);});
-                          }, 
-                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
+                        OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
-                  )
-                ],
-              ),
+                    Padding(
+                      padding: const EdgeInsets.all(84.0),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Text(beatuser.firstname, style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(fireuser.email.toString(), style: TextStyle(color: Colors.white, fontSize: 24),),
+                            TextButton(onPressed: (){}, child: Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
+                            Text(friendcode, style: TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
+                            OutlinedButton(onPressed: (){
+                              Clipboard.setData(ClipboardData(text: friendcode))
+                              .then((value){ScaffoldMessenger
+                              .of(context)
+                              .showSnackBar(snackBar);});
+                              }, 
+                              child: Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
+                          ],
+                        )
+                      ),
+                    )
+                  ],
+                ),
+             ),
             ),
             ],
             ),
@@ -140,7 +145,7 @@ Widget build1(BuildContext context){
   );
 }
 
-Widget build2(BuildContext context){
+Widget Build2(BuildContext context){
   return Scaffold(
     appBar: AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -152,10 +157,10 @@ Widget build2(BuildContext context){
             width: 10
         ),
       ],
-    ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
+    ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
     body: Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/grey-background.png"),
           fit: BoxFit.cover,
@@ -171,50 +176,54 @@ Widget build2(BuildContext context){
             color: Colors.black26.withOpacity(1),
 
             child:
-            Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(84.0),
-                  child: Column(
+            Container(
+              child: Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      const Text('Add a credit card', style: TextStyle(color: Colors.white, fontSize: 24),),
-                      Container(
-                        width: 250,
-                        height: 100,
-                        color: Colors.grey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
-                            Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
-                            Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      ElevatedButton(onPressed: (){}, child: const Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
+                      OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
                   ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(84.0),
+                    child: Container(
+                        child: Column(
+                          children: [
+                            Text(beatuser.firstname, style: TextStyle(color: Colors.white, fontSize: 24),),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Text('Add a credit card', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Container(
+                              width: 250,
+                              height: 100,
+                              color: Colors.grey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
+                                  Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
+                                  Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            ElevatedButton(onPressed: (){}, child: Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
+                          ],
+                        )
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -222,7 +231,7 @@ Widget build2(BuildContext context){
     ),
   );
 }
-  Widget build3(BuildContext context){
+  Widget Build3(BuildContext context){
 
     return Scaffold(
       appBar: AppBar(title: Row(
@@ -235,10 +244,10 @@ Widget build2(BuildContext context){
               width: 10
           ),
         ],
-      ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
+      ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
       body: Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/grey-background.png"),
             fit: BoxFit.cover,
@@ -254,43 +263,45 @@ Widget build2(BuildContext context){
               color: Colors.black26.withOpacity(1),
 
               child:
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              const Text('Friend Request Notifications', style: TextStyle(fontSize: 18, color: Colors.white), ),
-                              Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
-                            ],),
-                            Row(children: [
-                              const Text('General Notifications', style: TextStyle(fontSize: 18, color: Colors.white),),
-                              Switch(value: light2, activeColor: Colors.blue, onChanged: (bool value){setState(() {light2 = value;});}),
-                            ],),
-                            Row(children: [
-                              const Text('Notifications About Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
-                              Switch(value: light3, activeColor: Colors.blue, onChanged: (bool value){setState(() {light3 = value;});}),
-                            ],),
-                          ],
-                        )
+              Container(
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                      ],
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(children: [
+                                Text('Friend Request Notifications', style: TextStyle(fontSize: 18, color: Colors.white), ),
+                                Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
+                              ],),
+                              Row(children: [
+                                Text('General Notifications', style: TextStyle(fontSize: 18, color: Colors.white),),
+                                Switch(value: light2, activeColor: Colors.blue, onChanged: (bool value){setState(() {light2 = value;});}),
+                              ],),
+                              Row(children: [
+                                Text('Notifications About Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
+                                Switch(value: light3, activeColor: Colors.blue, onChanged: (bool value){setState(() {light3 = value;});}),
+                              ],),
+                            ],
+                          )
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -298,7 +309,7 @@ Widget build2(BuildContext context){
       ),
     );
   }
-    Widget build4(BuildContext context){
+    Widget Build4(BuildContext context){
 
       return Scaffold(
         appBar: AppBar(title: Row(
@@ -311,10 +322,10 @@ Widget build2(BuildContext context){
                 width: 10
             ),
           ],
-        ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
+        ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
         body: Container(
-          constraints: const BoxConstraints.expand(),
-          decoration: const BoxDecoration(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/grey-background.png"),
               fit: BoxFit.cover,
@@ -330,41 +341,45 @@ Widget build2(BuildContext context){
                 color: Colors.black26.withOpacity(1),
 
                 child:
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(81.0),
-                      child: Column(
+                Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            width: 190,
-                              child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                          SizedBox(
-                            width: 190,
-                            child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                          ),
+                          OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         ],
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(81.0),
+                        child: Container(
+                            child: Column(
+                              children: [
+                                Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                SizedBox(
+                                  width: 190,
+                                    child: TextFormField(controller: currentpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                SizedBox(
+                                  width: 190,
+                                  child: TextFormField(controller: newpasswordController, style: TextStyle(color: Colors.white) ,obscureText: true, decoration: InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: ElevatedButton(onPressed: (){}, child: Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                                ),
+                              ],
+                            )
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -372,8 +387,8 @@ Widget build2(BuildContext context){
         ),
       );
     }
-    Widget build5(BuildContext context){
-
+    Widget Build5(BuildContext context){
+      List<beatUser.User> friends = UserService().getFriends(beatuser.friends);
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -385,10 +400,10 @@ Widget build2(BuildContext context){
                 width: 10
             ),
           ],
-        ), backgroundColor: const Color.fromARGB(255, 44, 41, 41),),
+        ), backgroundColor: Color.fromARGB(255, 44, 41, 41),),
         body: Container(
-          constraints: const BoxConstraints.expand(),
-          decoration: const BoxDecoration(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/grey-background.png"),
               fit: BoxFit.cover,
@@ -404,32 +419,36 @@ Widget build2(BuildContext context){
                 color: Colors.black26.withOpacity(1),
 
                 child:
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(84.0),
-                      child: Column(
+                Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         ListView.builder(
-                           shrinkWrap: true,
-                           itemBuilder: (BuildContext context, int index) {},
-                           itemCount: friends.length,
-                         ),
+                          OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         ],
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(84.0),
+                        child: Container(
+                            child: Column(
+                              children: [
+                               ListView.builder(
+                                 shrinkWrap: true,
+                                 itemBuilder: (BuildContext context, int index) {},
+                                 itemCount: friends.length,
+                               ),
+                              ],
+                            )
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
