@@ -9,7 +9,6 @@ class CustomElevatedButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: (i % 16 == 0) ? Colors.green : (i & 16 == 0) ? (isPressed == false) ? Colors.grey : Colors.black : Colors.blueGrey

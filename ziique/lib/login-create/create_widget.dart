@@ -5,7 +5,7 @@ import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 
 class CreateDesktop extends StatefulWidget {
-  const CreateDesktop(BuildContext context);
+  const CreateDesktop(BuildContext context, {super.key});
 
   @override
   State<CreateDesktop> createState() => _CreateDesktopState();
