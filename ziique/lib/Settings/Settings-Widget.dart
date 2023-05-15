@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ziique/FireService/Fire_AuthService.dart';
+import 'package:ziique/models/fire_user.dart';
+import '../FireService/Fire_UserService.dart';
+import '../models/user.dart' as beatUser;
 
 String scene = 'Account';
 String friendcode = '1234';
@@ -31,6 +35,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
     TextEditingController currentpasswordController = TextEditingController();
     TextEditingController newpasswordController = TextEditingController();
     List<int> friends = [];
+    Future<beatUser.User> user = UserService().GetUser(FirebaseAuth.instance.currentUser!);
 
   @override
   Widget build(BuildContext context) {
