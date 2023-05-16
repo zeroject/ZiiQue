@@ -89,7 +89,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 child: Row(
                   children: [
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {SoundEngine().play();},
                         child: Text(
                           'Play',
                           style: TextStyle(fontSize: 8),
@@ -158,6 +158,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                     : Colors.blueGrey),
                                     onPressed: () {
                                       reload(() {
+                                        alpha.greenBut == 0 ? SoundEngine().playSingleSound("A") : SoundEngine().addToBeat(i, numberOfRows, numberOfBars);
                                         boolList[i] = !boolList[i];
                                         maxRange = (numberOfBars * 4);
                                         minRange = 1;
