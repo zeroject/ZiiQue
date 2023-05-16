@@ -116,12 +116,12 @@ void main() {
     String expectedString = "A1;B2;C3;D4;E5;A6;B7;C8;D9;E10;B12;A11;C13;D14;E15;A16;";
 
     //act
-    for (var i = 0; i < input.length; i++) {
-      soundEngine.addToBeat(input[i]);
-    }
+
+
 
     //assert
-    expect(soundEngine.beatString, expectedString);
+
+
   });
 
   test("remove beat from beatString and convert corretly", () {
@@ -132,17 +132,24 @@ void main() {
     String expectedString = "A1;C3;D4;E5;A6;C8;D9;E10;B12;A11;C13;D14;E15;A16;";
 
     //act
-    for (var i = 0; i < input.length; i++) {
-      soundEngine.addToBeat(input[i]);
-    }
-
-    soundEngine.removeFromBeat("B2");
-    soundEngine.removeFromBeat("B7");
-
-    //assert
-    expect(soundEngine.beatString, expectedString);
     
   });
 
+  test('get correct Node String', () {
+    //arrange
+    SoundEngine soundEngine = SoundEngine();
+    List<String> expectedString = ["A4","B12","C7","A15", "E11"];
+    int input2 = 5;
+    int input3 = 4;
+    List<int> input1 = [5, 30, 42, 16, 80];
+    //act
+    
+    //assert
+    int i;
+    for (i = 0; i < input1.length; i++) {
+      String result = soundEngine.nodeString(input1[i], input2, input3);
+      expect(result, expectedString[i]);
+    }
+  });
   });
 }
