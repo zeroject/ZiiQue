@@ -7,6 +7,7 @@ import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:getwidget/getwidget.dart';
 
 int numberOfRows = 5;
 int numberOfBars = 4;
@@ -32,9 +33,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   List<bool> boolList =
       List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
+  TextEditingController bpmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var dropdownValue;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
@@ -82,7 +85,43 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         child: Column(
           children: [
             Center(
-              child: Container(),
+              child: Container(
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Play',
+                          style: TextStyle(fontSize: 8),
+                        )),
+                    SizedBox(
+                      width: 100,
+                        child: TextFormField(
+                      controller: bpmController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          hintText: 'BPM',
+                          hintStyle: TextStyle(color: Colors.white)),
+                    )),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 308,
+                    ),
+                    GFDropdown(
+                        value: dropdownValue,
+                        items: ['Trap', 'Hip-Hop', '3rd Wave Ska', 'Dubstep']
+                            .map((value) => DropdownMenuItem(
+                                  value: value,
+                                  child: Text(value),
+                                ))
+                            .toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        })
+                  ],
+                ),
+              ),
             ),
             FutureBuilder(
               future: _calculation,
@@ -90,7 +129,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 if (snapshot.hasData) {
                   return Expanded(
                     child: GridView.count(
-                      padding: const EdgeInsets.only(top: 150, left: 8, right: 8),
+                      padding:
+                          const EdgeInsets.only(top: 150, left: 8, right: 8),
                       crossAxisCount: (numberOfBars * 4) + 1,
                       children: [
                         for (var i = 0;
