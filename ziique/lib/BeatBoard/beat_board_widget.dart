@@ -6,6 +6,8 @@ import 'package:ziique/login-create/login_widget.dart';
 import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:getwidget/getwidget.dart';
 
 import 'beat_board_app_widget.dart';
 
@@ -33,26 +35,21 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   List<bool> boolList =
       List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
+  TextEditingController bpmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var dropdownValue;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         leading: Center(
-          child: Image.asset(
-            "assets/images/madebyzomr.png",
-            fit: BoxFit.cover,
+          child: SvgPicture.asset(
+            "assets/images/ZiiQue-Logo.svg",
+            fit: BoxFit.scaleDown,
           ),
         ),
-        leadingWidth: 90,
-        title: Center(
-          child: Image.asset(
-            "assets/images/ZiiQue-Logo.png",
-            fit: BoxFit.cover,
-            scale: 10,
-          ),
-        ),
+        leadingWidth: 120,
         actions: const [],
       ),
       endDrawer: CustomDrawer(
@@ -81,8 +78,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/grey-background.png"),
-            fit: BoxFit.none,
+            image: AssetImage("../assets/images/Ziique_back_grey.png"),
+            fit: BoxFit.cover,
           ),
         ),
         /*
@@ -91,7 +88,43 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         child: Column(
           children: [
             Center(
-              child: Container(),
+              child: Container(
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Play',
+                          style: TextStyle(fontSize: 8),
+                        )),
+                    SizedBox(
+                      width: 100,
+                        child: TextFormField(
+                      controller: bpmController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          hintText: 'BPM',
+                          hintStyle: TextStyle(color: Colors.white)),
+                    )),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 308,
+                    ),
+                    GFDropdown(
+                        value: dropdownValue,
+                        items: ['Trap', 'Hip-Hop', '3rd Wave Ska', 'Dubstep']
+                            .map((value) => DropdownMenuItem(
+                                  value: value,
+                                  child: Text(value),
+                                ))
+                            .toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        })
+                  ],
+                ),
+              ),
             ),
             FutureBuilder(
               future: _calculation,
@@ -99,7 +132,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 if (snapshot.hasData) {
                   return Expanded(
                     child: GridView.count(
-                      padding: const EdgeInsets.all(8),
+                      padding:
+                          const EdgeInsets.only(top: 150, left: 8, right: 8),
                       crossAxisCount: (numberOfBars * 4) + 1,
                       children: [
                         for (var i = 0;

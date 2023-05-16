@@ -66,11 +66,54 @@ void playSingleSound(String soundName)
 
 void addToBeat(int pos, int rowMax, int beatMax)
 {
-
+  String node = nodeString(pos, rowMax, beatMax);
+  beatString += node;
 }
+
 
 void removeFromBeat (int pos, int rowMax, int beatMax)
 {
+  String node = nodeString(pos, rowMax, beatMax);
+  beatString = beatString.replaceAll(node, "");
+}
+
+String nodeString(int position, int rowCount, int beat) {
+  List<num> greens = [];
+  String node = "";
+  num totalG = beat * 4 +1;
+  num tempG = 0;
+  Map beatMap = {
+    0: "A",
+    1: "B",
+    2: "C",
+    3: "D",
+    4: "E"
+  };
+  for (var i = 0; i < rowCount; i++) {
+    greens.add(tempG);
+    tempG += totalG;
+  }
+  num rowL = beat*4+1;
+  num total = rowL * rowCount;
+  num pos = -1;
+  num currentRow = 0;
+
+  for (var i = 0; i < total; i++) {
+    if (i == position) {
+      node += beatMap[currentRow];
+      node += (pos % 16).toString();
+      break;
+    }
+    else if (greens.contains(i) && i != 0)
+    {
+      currentRow++;
+      pos-1;
+      }
+      else {
+        pos++;
+      }
+  }
+  return node;
 }
 
 void playBeat(String beatString)
@@ -97,7 +140,6 @@ void playBeat(String beatString)
     //removes the string from the beatString
     beatString = beatString.replaceAll(beat, "");
   }
-
 
 }
 
