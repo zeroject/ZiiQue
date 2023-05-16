@@ -7,6 +7,8 @@ import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'beat_board_app_widget.dart';
+
 int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
@@ -21,7 +23,7 @@ class BeatBoardDesktop extends StatefulWidget {
 
 class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   final Future<String> _calculation = Future<String>.delayed(
-    const Duration(milliseconds: 50),
+    const Duration(milliseconds: 1200),
     () => 'Data Loaded',
   );
 
@@ -73,7 +75,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginButHeight: 40,
         loginButWidth: 100,
         loginPageDesktop: LoginDesktop(context),
-        loginPageMobile: LoginMobile(context),
+        loginPageMobile: LoginMobile(context), 
+        beatBoardDesktop: BeatBoardDesktop(context),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -173,8 +176,8 @@ class Alpha {
   }
 
   String getAlphebat(i, numberOfBars) {
-    if (greenBut == 0) {
-      return alphabets[i == 1 ? 1 : i ~/ ((numberOfBars * 4) + 1)];
+    if (greenBut == 0){
+      return alphabets[i == 1 ? 1 : i~/((numberOfBars * 4) + 1)];
     }
     return i.toString();
   }

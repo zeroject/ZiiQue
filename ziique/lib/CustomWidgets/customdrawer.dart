@@ -4,6 +4,7 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
 import '../FireService/fire_beat_service.dart';
 import '../models/beat.dart';
+import '../FireService/fire_auth_service.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer(
@@ -27,7 +28,8 @@ class CustomDrawer extends StatefulWidget {
       required this.loginButHeight,
       required this.loginButWidth,
       required this.loginPageDesktop,
-      required this.loginPageMobile});
+      required this.loginPageMobile, 
+      required this.beatBoardDesktop});
 
   final double drawerWidth;
   final Color backgroundColor;
@@ -38,6 +40,7 @@ class CustomDrawer extends StatefulWidget {
   final double settingsButWidth;
   final Widget settingsPageDesktop;
   final Widget settingsPageMobile;
+  final Widget beatBoardDesktop;
 
   //Not logged in
   final double offsetHeight;
@@ -111,8 +114,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
-                            BeatService().saveBeat(FirebaseAuth.instance.currentUser, "beatstring", "title", "description");
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => widget.settingsPageDesktop));
+                            //BeatService().saveBeat(FirebaseAuth.instance.currentUser, "beatstring", "title", "description");
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => widget.settingsPageDesktop));
                           },
                           child: const Text("Account Settings",
                               style: TextStyle(color: Colors.white)),
@@ -128,10 +131,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
+                            SignOutService().signOut();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => widget.settingsPageMobile));
+                                    builder: (context) => widget.beatBoardDesktop));
                           },
                           child: const Text(
                             "Log Out",

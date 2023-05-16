@@ -6,6 +6,8 @@ import 'package:ziique/login-create/login_widget.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'beat_board_widget.dart';
+
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
 Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
@@ -80,6 +82,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         loginButWidth: 100,
         loginPageDesktop: LoginDesktop(context),
         loginPageMobile: LoginMobile(context),
+        beatBoardDesktop: BeatBoardDesktop(context),
       ),
       body:  Column(
         children: [
