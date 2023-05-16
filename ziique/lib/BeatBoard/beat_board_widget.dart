@@ -6,6 +6,7 @@ import 'package:ziique/login-create/login_widget.dart';
 import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 int numberOfRows = 5;
 int numberOfBars = 4;
@@ -38,19 +39,12 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         leading: Center(
-          child: Image.asset(
-            "assets/images/madebyzomr.png",
-            fit: BoxFit.cover,
+          child: SvgPicture.asset(
+            "assets/images/ZiiQue-Logo.svg",
+            fit: BoxFit.scaleDown,
           ),
         ),
-        leadingWidth: 90,
-        title: Center(
-          child: Image.asset(
-            "assets/images/ZiiQue-Logo.png",
-            fit: BoxFit.cover,
-            scale: 10,
-          ),
-        ),
+        leadingWidth: 120,
         actions: const [],
       ),
       endDrawer: CustomDrawer(
@@ -78,8 +72,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/grey-background.png"),
-            fit: BoxFit.none,
+            image: AssetImage("../assets/images/Ziique_back_grey.png"),
+            fit: BoxFit.cover,
           ),
         ),
         /*
@@ -96,7 +90,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 if (snapshot.hasData) {
                   return Expanded(
                     child: GridView.count(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.only(top: 150, left: 8, right: 8),
                       crossAxisCount: (numberOfBars * 4) + 1,
                       children: [
                         for (var i = 0;
