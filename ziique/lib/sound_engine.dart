@@ -67,14 +67,20 @@ void playSingleSound(String soundName)
 void addToBeat(int pos, int rowMax, int beatMax)
 {
   String node = nodeString(pos, rowMax, beatMax);
-  beatString += node;
+  node += ";";
+  beatString = beatString + node;
+  print("added to beat "  + node);
+  print("current beatString" + beatString);
+
 }
 
 
 void removeFromBeat (int pos, int rowMax, int beatMax)
 {
   String node = nodeString(pos, rowMax, beatMax);
+  node += ";";
   beatString = beatString.replaceAll(node, "");
+  print("removed from beat " + node);
 }
 
 String nodeString(int position, int rowCount, int beat) {
@@ -218,33 +224,33 @@ List<List<Node>> convertStringToNodes(String beatString)
   }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodeList, int playerCount)
+void playNodes(List<Node> nodes, int playerCount)
 {
   List<AudioPlayer> players = getPlayers(playerCount);
-  int miliDelay = nodeList[0].time.toInt();
+  int miliDelay = nodes.first.time.toInt();
 
   //plays the node in nodelist, if the current player from players in playing, take the next player
   int j = 0;
-  for(int i = 0; i < nodeList.length; i++)
+  for(int i = 0; i < nodes.length; i++)
   {
     if (players[j].state == PlayerState.playing)
     {
       j == playerCount ? j = 0 : j++;
     }
-    players[i].play(DeviceFileSource(nodeList[i].source));
+    players[i].play(DeviceFileSource(nodes[i].source));
   
 
   //sets the delay to the first node time
-  for(int i = 0; i < nodeList.length; i++)
+  for(int i = 0; i < nodes.length; i++)
   {
     //waits for the time of the node to play the next node from 0 to the specified time
     Future.delayed(Duration(milliseconds: miliDelay));
 
-    if (repeat && i == nodeList.length - 1) { i = 0; }
+    if (repeat && i == nodes.length - 1) { i = 0; }
 
-    else if ( i >=1 && i < nodeList.length - 1)
+    else if ( i >=1 && i < nodes.length - 1)
     {
-      miliDelay = nodeList[i].time.toInt() - nodeList[i+1].time.toInt();
+      miliDelay = nodes[i].time.toInt() - nodes[i+1].time.toInt();
     }
 
   }
@@ -253,20 +259,23 @@ void playNodes(List<Node> nodeList, int playerCount)
     break;
   }
 }
-
-
 }
 
-void play()
+//TODO fix error index out of bounce L266 and L224
+play()
   {
     shouldPlay = true;
-    List<List<Node>> nodes = convertStringToNodes(beatString);
+    List<List<Node>> nodes = convertStringToNodes(beatString).toList();
     for(int i = 0; i < nodes.length; i++)
     {
-      playNodes(nodes[i], 2);
+      print("sound: " +  nodes[i].length.toString() );
+      if (nodes[i].length > 0)
+      {
+      playNodes(nodes[i], 6);
+      }
     }
+    return shouldPlay;
   }
-
 }
 
 class Node

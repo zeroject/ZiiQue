@@ -9,12 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:getwidget/getwidget.dart';
 
-import 'beat_board_app_widget.dart';
 
 int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
+SoundEngine soundEngine = SoundEngine();
 
 class BeatBoardDesktop extends StatefulWidget {
   const BeatBoardDesktop(BuildContext context, {super.key});
@@ -36,6 +36,26 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
   TextEditingController bpmController = TextEditingController();
+
+  void _addToBeat(int input, int row, int beat )
+  {
+    soundEngine.addToBeat(input,row,beat);
+  }
+
+  void _removeFromBeat(int input, int row, int beat)
+  {
+    soundEngine.removeFromBeat(input,row,beat);
+  }
+
+  void _playSingleSound(String soundName)
+  {
+    soundEngine.playSingleSound(soundName);
+  }
+
+  void _play()
+  {
+    soundEngine.play();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +112,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 child: Row(
                   children: [
                     ElevatedButton(
-                        onPressed: () {SoundEngine().play();},
+                        onPressed: () {_play();},
                         child: Text(
                           'Play',
                           style: TextStyle(fontSize: 8),
@@ -161,7 +181,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                     : Colors.blueGrey),
                                     onPressed: () {
                                       reload(() {
-                                        alpha.greenBut == 0 ? SoundEngine().playSingleSound("A") : SoundEngine().addToBeat(i, numberOfRows, numberOfBars);
+                                        alpha.greenBut == 0 ? _playSingleSound("A") : _addToBeat(i, numberOfRows, numberOfBars);
                                         boolList[i] = !boolList[i];
                                         maxRange = (numberOfBars * 4);
                                         minRange = 1;

@@ -108,48 +108,55 @@ void main() {
     }
   });
 
-  test("add to beat and convert correctly", () 
-  {
+  test("addToBeat from input to beatString", () {
+
     //arrange
-    SoundEngine soundEngine = SoundEngine();
-    List<String> input = ["A1","B2","C3","D4","E5","A6","B7","C8","D9","E10","B12","A11","C13","D14","E15","A16"];
-    String expectedString = "A1;B2;C3;D4;E5;A6;B7;C8;D9;E10;B12;A11;C13;D14;E15;A16;";
-
+  SoundEngine soundEngine = SoundEngine();
+  int input2 = 5;
+  int input3 = 4;
+  List<int> input1 = [5, 30, 42, 16, 80];
+  String expectedString = "A4;B12;C7;A15;E11;";
     //act
-
-
+    for (var i = 0; i < input1.length; i++) {
+      soundEngine.addToBeat(input1[i], input2, input3);
+    }
+    String result = soundEngine.beatString;
 
     //assert
-
-
+    expect(result, expectedString);
   });
 
-  test("remove beat from beatString and convert corretly", () {
-
+  test('removeFromBeat from input to beatString', () {
     //arrange
     SoundEngine soundEngine = SoundEngine();
-    List<String> input = ["A1","B2","C3","D4","E5","A6","B7","C8","D9","E10","B12","A11","C13","D14","E15","A16"];
-    String expectedString = "A1;C3;D4;E5;A6;C8;D9;E10;B12;A11;C13;D14;E15;A16;";
-
-    //act
-    
-  });
-
-  test('get correct Node String', () {
-    //arrange
-    SoundEngine soundEngine = SoundEngine();
-    List<String> expectedString = ["A4","B12","C7","A15", "E11"];
+    String expectedString = "A4;B12;A15;E11;";
     int input2 = 5;
     int input3 = 4;
     List<int> input1 = [5, 30, 42, 16, 80];
+    int removeInput = 42;
     //act
-    
-    //assert
-    int i;
-    for (i = 0; i < input1.length; i++) {
-      String result = soundEngine.nodeString(input1[i], input2, input3);
-      expect(result, expectedString[i]);
+    for (var i = 0; i < input1.length; i++) {
+      soundEngine.addToBeat(input1[i], input2, input3);
     }
+    soundEngine.removeFromBeat(removeInput, input2, input3);
+    //assert
+    expect(soundEngine.beatString, expectedString);
+  
+  });
+
+  test('can soundEngine play', () {
+    //arrange
+    SoundEngine soundEngine = SoundEngine();
+    int bar = 4;
+    int row = 5;
+    List<int> input = [5, 30, 42, 16, 80];
+    for (var i = 0; i < input.length; i++) {
+      soundEngine.addToBeat(input[i], row, bar);
+    }
+    //act
+    bool result = soundEngine.play();
+    //assert
+    expect(result, true);
   });
   });
 }
