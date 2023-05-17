@@ -8,10 +8,18 @@ class CollectionNames{
 }
 
 class UserService{
-  Future<beat_user.User> getUser(var fireUserId) async {
-    return (await FirebaseFirestore.instance
+  Future<beat_user.User?> getUser(String fireUserId) async {
+    try {
+    final user = (await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(fireUserId).get()).data() as beat_user.User;
+    .doc(fireUserId)
+    .get())
+    .data();
+    if (user == null) return null;
+    return beat_user.User.fromMap(user);
+    } catch (error) {
+      print(error);
+    }
   }
 
   Future<void> createUser(fire_user.User? user, String firstName, String lastName) async {

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ziique/models/fire_user.dart';
@@ -7,6 +8,7 @@ import '../models/fire_user.dart' as fire_user;
 
 String scene = 'Account';
 String friendcode = '1234';
+beat_user.User? beatuser;
 
 
 const snackBar = SnackBar(content: Text('Code has been copied!'));
@@ -35,29 +37,40 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   bool light3 = true;
   TextEditingController currentpasswordController = TextEditingController();
   TextEditingController newpasswordController = TextEditingController();
-  beat_user.User beatuser = UserService().getUser(FirebaseAuth.instance.currentUser!) as beat_user.User;
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
+  final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (scene.contains('Account')) {
-            return build1(context);
-          } else if(scene.contains('Payment')){
-            return build2(context);
-          } else if(scene.contains('Notifications')){
-            return build3(context);
-          }else if(scene.contains('Security')){
-            return build4(context);
-          }else if(scene.contains('Friends')){
-            return build5(context);
-          }
-          return build1(context);
+      body: FutureBuilder(
+        future: userquery,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData){
+            return const Center(
+                child: CircularProgressIndicator(),
+              );
+          } else{
+            beatuser = snapshot.data;
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (scene.contains('Account')) {
+                return build1(context);
+              } else if(scene.contains('Payment')){
+                return build2(context);
+              } else if(scene.contains('Notifications')){
+                return build3(context);
+              }else if(scene.contains('Security')){
+                return build4(context);
+              }else if(scene.contains('Friends')){
+                return build5(context);
+              }
+              return build1(context);
 
+            });
+          }
         }
-    ),
+      ),
     );
   }
 
@@ -112,7 +125,7 @@ Widget build1(BuildContext context){
                     padding: const EdgeInsets.all(84.0),
                     child: Column(
                       children: [
-                        Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                        Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
                         Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
                         TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
                         const SizedBox(
@@ -187,7 +200,7 @@ Widget build2(BuildContext context){
                   padding: const EdgeInsets.all(84.0),
                   child: Column(
                     children: [
-                      Text(beatuser.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                      Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
                       const SizedBox(
                         height: 100,
                       ),
@@ -370,7 +383,7 @@ Widget build2(BuildContext context){
       );
     }
     Widget build5(BuildContext context){
-      List<beat_user.User> friends = UserService().getFriends(beatuser.friends);
+      List<beat_user.User> friends = UserService().getFriends(beatuser!.friends);
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,

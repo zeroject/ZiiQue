@@ -20,7 +20,7 @@ class User {
         firstname = data[UserKeys.firstname],
         lastname = data[UserKeys.lastname],
         birthday = data[UserKeys.birthday],
-        friends = data[UserKeys.friends];
+        friends = (data[UserKeys.friends] as List<dynamic>).map((e) => e.toString(),).toList();
 
    toMap() {
     return {
