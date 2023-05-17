@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 
 
-class CustomExpansionPanel extends StatefulWidget{
+class CustomExpansionTileFriends extends StatefulWidget{
 
-  const CustomExpansionPanel({
+  const CustomExpansionTileFriends({
     super.key, 
-    required this.beatId,
-    required this.beatTitle,
-    required this.beatDescription,
+    required this.friendName,
+    required this.description,
     required this.fontSize,
     required this.tileColor,
     required this.tileRadius
   });
 
-  final String beatId;
-  final String beatTitle;
-  final String beatDescription;
+  final String friendName;
+  final String description;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
 
   @override
-  State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
+  State<CustomExpansionTileFriends> createState() => _CustomExpansionTileFriendsState();
 }
 
-class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
+class _CustomExpansionTileFriendsState extends State<CustomExpansionTileFriends> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,20 +37,17 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
           collapsedShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(widget.tileRadius))
           ),
-          leading: Text(widget.beatId),
           title: Text(
-            widget.beatTitle,
+            widget.friendName,
             style: TextStyle(fontSize: widget.fontSize)),
           children: [
             ListTile(
-              title: Text(widget.beatDescription)
+              title: Text(widget.description)
             ),
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){}, child: const Text("Edit")),
-                OutlinedButton(onPressed: (){}, child: const Text("Share")),
-                OutlinedButton(onPressed: (){}, child: const Text("Delete"))
+                OutlinedButton(onPressed: (){}, child: const Text("Remove Friend"))
               ],
             )
           ],

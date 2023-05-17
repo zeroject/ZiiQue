@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
+import '../CustomWidgets/custom_expansion_tile_friends.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
 
-String scene = 'Account';
+String scene = "Account";
 String friendcode = '1234';
 beat_user.User? beatuser;
 
@@ -82,8 +85,10 @@ Widget build1(BuildContext context){
       appBar: AppBar(title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/ZiiQue-Logo.png',
-            scale: 12, alignment: Alignment.topCenter,
+          SvgPicture.asset('../../assets/images/ZiiQue-Logo.svg',
+            width: 12,
+            height: 12, 
+            alignment: Alignment.topCenter,
           ),
           const SizedBox(
             width: 10
@@ -94,7 +99,7 @@ Widget build1(BuildContext context){
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/grey-background.png"),
+            image: AssetImage("assets/images/Ziique_back_grey.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -157,8 +162,10 @@ Widget build2(BuildContext context){
     appBar: AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assets/images/ZiiQue-Logo.png',
-          scale: 12, alignment: Alignment.topCenter,
+        SvgPicture.asset('../../assets/images/ZiiQue-Logo.svg',
+            width: 12,
+            height: 12, 
+            alignment: Alignment.topCenter,
         ),
         const SizedBox(
             width: 10
@@ -169,7 +176,7 @@ Widget build2(BuildContext context){
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/grey-background.png"),
+          image: AssetImage("assets/images/Ziique_back_grey.png"),
           fit: BoxFit.cover,
         ),
       ),
@@ -240,8 +247,10 @@ Widget build2(BuildContext context){
       appBar: AppBar(title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/ZiiQue-Logo.png',
-            scale: 12, alignment: Alignment.topCenter,
+          SvgPicture.asset('../../assets/images/ZiiQue-Logo.svg',
+            width: 12,
+            height: 12, 
+            alignment: Alignment.topCenter,
           ),
           const SizedBox(
               width: 10
@@ -252,7 +261,7 @@ Widget build2(BuildContext context){
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/grey-background.png"),
+            image: AssetImage("assets/images/Ziique_back_grey.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -314,8 +323,10 @@ Widget build2(BuildContext context){
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/ZiiQue-Logo.png',
-              scale: 12, alignment: Alignment.topCenter,
+            SvgPicture.asset('../../assets/images/ZiiQue-Logo.svg',
+            width: 12,
+            height: 12, 
+            alignment: Alignment.topCenter,
             ),
             const SizedBox(
                 width: 10
@@ -326,7 +337,7 @@ Widget build2(BuildContext context){
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/grey-background.png"),
+              image: AssetImage("assets/images/Ziique_back_grey.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -383,13 +394,15 @@ Widget build2(BuildContext context){
       );
     }
     Widget build5(BuildContext context){
-      List<beat_user.User> friends = UserService().getFriends(beatuser!.friends);
+      
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/ZiiQue-Logo.png',
-              scale: 12, alignment: Alignment.topCenter,
+            SvgPicture.asset('../../assets/images/ZiiQue-Logo.svg',
+            width: 12,
+            height: 12, 
+            alignment: Alignment.topCenter,
             ),
             const SizedBox(
                 width: 10
@@ -400,7 +413,7 @@ Widget build2(BuildContext context){
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/grey-background.png"),
+              image: AssetImage("assets/images/Ziique_back_grey.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -429,30 +442,37 @@ Widget build2(BuildContext context){
                     ),
                     Padding(
                       padding: const EdgeInsets.all(84.0),
-                      child: Column(
-                        children: [
-                         ListView.builder(
-                           shrinkWrap: true,
-                           prototypeItem: ListTile(
-                             title: Text(friends.first.toString()),
-                           ),
-                           itemBuilder: (BuildContext context, int index) {
-                             return ListTile(
-                               title: Text(friends[index].toString()),
-                             );
-                           },
-                           itemCount: friends.length,
-                         ),
-                        ],
+                      child: SizedBox(
+                        height: 700,
+                        width: 250,
+                        child: SingleChildScrollView(
+                          child: FirestoreListView(
+                          query: UserService().getFriends(beatuser!.friends),
+                          shrinkWrap: true,
+                          errorBuilder: (context, error, stackTrace){
+                            return Text("Error");
+                          },
+                          itemBuilder: (context, snapshot) { 
+                            beat_user.User friend = snapshot.data();
+                            return CustomExpansionTileFriends(
+                              friendName: "${friend.firstname} ${friend.lastname}", 
+                              description: "A Description", 
+                              fontSize: 20, 
+                              tileColor: Color.fromARGB(255, 255, 255, 255), 
+                              tileRadius: 10
+                              ); 
+                            }
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            ],
-          ),
+            )
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
 }
