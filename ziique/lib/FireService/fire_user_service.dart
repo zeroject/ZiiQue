@@ -41,12 +41,13 @@ class UserService{
     .delete();
   }
 
-  List<beat_user.User> getFriends(List<String> friendIds){
-    List<beat_user.User> temp = [];
-
-    for (var friendId in friendIds) {
-      temp.add(UserService().getUser(friendId) as beat_user.User);
-    }
-    return temp;
+  Query<beat_user.User> getFriends(List<String> friendIds){
+    return FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .where(FieldPath.documentId, whereIn: friendIds)
+    .withConverter(
+      fromFirestore: (snapshot, options) => beat_user.User.fromMap(snapshot.data()!), 
+      toFirestore: (value, options) => value.toMap(),
+    );
   }
 }
