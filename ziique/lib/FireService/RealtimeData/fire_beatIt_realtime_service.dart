@@ -6,7 +6,7 @@ import 'package:ziique/models/beatitsession.dart';
 import '../../models/beat.dart';
 import '../../models/user.dart';
 
-class Fire_BeatIt_Realtime_Service {
+class FireBeatItRealtimeService {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   var uuid = const Uuid();
   List<User> users = [];
@@ -26,7 +26,24 @@ class Fire_BeatIt_Realtime_Service {
           timesplayed,
           host,
           versionID);
+      final sessionRef = ref.child("beatItSessions").child(id);
+      await sessionRef.set(beatItSession);
     } catch(e){
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+  Future<void> addFriendToBeatItSession(String sessionID, User friend) async{
+    try{
+      final sessionRef = ref.child("beatItSessions").child(sessionID);
+      DataSnapshot snapshot = await sessionRef.get();
+      final dynamic sessionValue = snapshot.value;
+
+      if (sessionValue != null && sessionValue is Map<dynamic, dynamic>){
+    //TODO: Map values from and to session.
+      }
+    } catch (e){
       if (kDebugMode) {
         print(e);
       }
