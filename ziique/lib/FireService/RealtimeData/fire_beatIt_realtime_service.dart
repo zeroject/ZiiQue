@@ -27,7 +27,7 @@ class FireBeatItRealtimeService {
           host,
           versionID);
       final sessionRef = ref.child("beatItSessions").child(id);
-      await sessionRef.set(beatItSession);
+      await sessionRef.set(beatItSession.toMap());
     } catch(e){
       if (kDebugMode) {
         print(e);
@@ -41,7 +41,12 @@ class FireBeatItRealtimeService {
       final dynamic sessionValue = snapshot.value;
 
       if (sessionValue != null && sessionValue is Map<dynamic, dynamic>){
-    //TODO: Map values from and to session.
+        final useradded = sessionValue["usersadded"];
+        final updateduserAdded = useradded != null ? Map.from(useradded) : {};
+        updateduserAdded[friend.uid] = 0;
+        await sessionRef.child("usersadded").set(updateduserAdded);
+      } else {
+        print("ooh fuck we fucked big time shitting my pabts");
       }
     } catch (e){
       if (kDebugMode) {
