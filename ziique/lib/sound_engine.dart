@@ -225,24 +225,25 @@ List<List<Node>> convertStringToNodes(String beatString)
 void playNodes(List<Node> nodes, int playerCount)
 {
   List<AudioPlayer> players = getPlayers(playerCount);
+  int j = 0;
+  int i = 0;
   //create a timer, that counts up, in miliseconds
-  Timer timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+  Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+    //calculate the elapsed time, starting at 0
+    print(timer.tick.toString() + " --- " + ((nodes[i].time / 10) +1).toString());
     //if the timer is at the time of the node, play the node
-    int j = 0;
-    for(int i = 0; i < nodes.length; i++)
-    {
-      if (timer.tick == nodes[i].time)
+      if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
-        print("timer: " +  timer.tick.toString() + " node: " + nodes[i].time.toString());
-         if (players[j].state == PlayerState.playing) 
-         { j == playerCount ? j = 0 : j++;  }
-
+        if (players[j].state == PlayerState.playing) 
+         { 
+          j == playerCount ? j = 0 : j++;  
+          }
          players[j].play(DeviceFileSource(nodes[i].source));
-      }
+          i++;
     }
 
     //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == nodes.last.time && repeat == false)
+    if (timer.tick == (nodes.last.time /10) +1 && repeat == false)
     {
       timer.cancel();
     }
@@ -261,11 +262,10 @@ play()
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
     for(int i = 0; i < nodes.length; i++)
     {
-      print(nodes[i][0].time);
-      print(beatString);
+
       if (nodes[i].length > 0)
       {
-      playNodes(nodes[i], 6);
+      playNodes(nodes[i], 10);
       }
     }
     return shouldPlay;
