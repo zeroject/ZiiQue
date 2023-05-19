@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/FireService/fire_beat_service.dart';
+
+import '../models/beat.dart';
 
 
 class CustomExpansionPanel extends StatefulWidget{
@@ -10,7 +14,8 @@ class CustomExpansionPanel extends StatefulWidget{
     required this.beatDescription,
     required this.fontSize,
     required this.tileColor,
-    required this.tileRadius
+    required this.tileRadius,
+    required this.beat
   });
 
   final String beatId;
@@ -19,6 +24,7 @@ class CustomExpansionPanel extends StatefulWidget{
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
+  final Beat beat;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -50,9 +56,12 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){}, child: const Text("Edit")),
-                OutlinedButton(onPressed: (){}, child: const Text("Share")),
-                OutlinedButton(onPressed: (){}, child: const Text("Delete"))
+                OutlinedButton(onPressed: (){
+
+                }, child: const Text("Edit")),
+                OutlinedButton(onPressed: (){
+                  BeatService().deleteBeat(FirebaseAuth.instance.currentUser!.uid, widget.beat.id);
+                }, child: const Text("Delete"))
               ],
             )
           ],
