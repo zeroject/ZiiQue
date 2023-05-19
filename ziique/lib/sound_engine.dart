@@ -230,16 +230,15 @@ void playNodes(List<Node> nodes, int playerCount)
   //create a timer, that counts up, in miliseconds
   Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
-    print(timer.tick.toString() + " --- " + ((nodes[i].time / 10) +1).toString());
     //if the timer is at the time of the node, play the node
       if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
         if (players[j].state == PlayerState.playing) 
-         { 
-          j == playerCount ? j = 0 : j++;  
+         {
+          j == playerCount -1 ? j = 0 : j++;  
           }
          players[j].play(DeviceFileSource(nodes[i].source));
-          i++;
+         i++;
     }
 
     //if the timer is at the end of the last node, cancel the timer
@@ -265,7 +264,7 @@ play()
 
       if (nodes[i].length > 0)
       {
-      playNodes(nodes[i], 10);
+      playNodes(nodes[i], 6);
       }
     }
     return shouldPlay;
