@@ -14,10 +14,10 @@ String generateId() {
 }
 
 class BeatService{
-  Query<Beat> getBeats(fire_user.User user){
+  Query<Beat> getBeats(String userUid){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user.uid)
+    .doc(userUid)
     .collection(CollectionNames.beats)
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
@@ -26,15 +26,15 @@ class BeatService{
     );
   }
 
-  Future<void> saveBeat(fire_user.User? user, String beatstring, String title, String description) async {
+  Future<void> saveBeat(fire_user.User? fireUser, String beatstring, String title, String description) async {
     String id = generateId();
     final owner = Owner(
-        uid: user!.uid,
-        displayName: user.displayName ?? '',
-        email: user.email ?? 'Unknown');
+        uid: fireUser!.uid,
+        displayName: fireUser.displayName ?? '',
+        email: fireUser.email ?? 'Unknown');
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(fireUser.uid)
         .collection(CollectionNames.beats)
         .doc(id)
         .set({
@@ -47,10 +47,10 @@ class BeatService{
         });
   }
 
-  Future<void> updateBeat(fire_user.User user, var beatId, String beatstring) async{
+  Future<void> updateBeat(String userUid, String beatId, String beatstring) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(userUid)
         .collection(CollectionNames.beats)
         .doc(beatId)
         .update({
@@ -59,10 +59,10 @@ class BeatService{
         });
   }
 
-  Future<void> deleteBeat(fire_user.User user, var beatId) async{
+  Future<void> deleteBeat(String userUid, String beatId) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(userUid)
         .collection(CollectionNames.beats)
         .doc(beatId)
         .delete();
