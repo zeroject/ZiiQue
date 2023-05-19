@@ -4,6 +4,7 @@ import 'package:ziique/CustomWidgets/customdrawer.dart';
 import 'package:ziique/login-create/create_widget.dart';
 import 'package:ziique/login-create/login_widget.dart';
 import 'package:ziique/sound_engine.dart';
+import '../FireService/fire_beat_Service.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,6 +37,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
   TextEditingController bpmController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void _addToBeat(int input, int row, int beat )
   {
@@ -133,6 +136,54 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                           hintStyle: TextStyle(color: Colors.white)),
                           onChanged: (value) => changeBPM(int.parse(value)),
                     )),
+                    ElevatedButton(
+                      child: const Text("Save Beat"),
+                      onPressed: (){
+                        showDialog(
+                          context: context, 
+                          builder: (context) => AlertDialog(
+                            title: const Text("Save Beat"),
+                              content: SizedBox(
+                                height: 150,
+                                width: 300,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    TextFormField(
+                                      controller: titleController,
+                                      decoration: const InputDecoration(hintText: "Title"),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    TextFormField(
+                                      controller: descriptionController,
+                                      decoration: const InputDecoration(hintText: "Description"),
+                                      maxLines: 3,
+                                    ),
+                                    ],
+                                  ),
+                              ),
+                            actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                }, 
+                                child: const Text("Cancel")),
+                              TextButton(
+                                onPressed: (){
+                                  if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
+                                    BeatService().saveBeat(FirebaseAuth.instance.currentUser,
+                                    SoundEngine().beatString,
+                                    titleController.text,
+                                    descriptionController.text
+                                    );
+                                    Navigator.pop(context);
+                                  }
+                                }, 
+                                child: const Text("Save")),
+                                ],
+                              )
+                        );
+                      }),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 308,
                     ),

@@ -64,43 +64,48 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                   onPressed: (){
                   showDialog(
                     context: context, 
-                    builder: (context) => Column(
-                      children:  [
-                        const AlertDialog(
-                          title: Text("Update Beat"),
-                        ),
-                        TextFormField(
-                          initialValue: widget.beat.title,
-                          controller: titleController,
-                          decoration: const InputDecoration(hintText: "Title"),
-                        ),
-                        TextFormField(
-                          initialValue: widget.beat.description,
-                          controller: descriptionController,
-                          decoration: const InputDecoration(hintText: "Description"),
-                          maxLines: 5,
-                        ),
-                        AlertDialog(
-                          actions: [
+                    builder: (context) => SizedBox(
+                      height: 150,
+                      width: 300,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children:  [
+                          const AlertDialog(
+                            title: Text("Update Beat"),
+                          ),
+                          TextFormField(
+                            initialValue: widget.beat.title,
+                            controller: titleController,
+                            decoration: const InputDecoration(hintText: "Title"),
+                          ),
+                          TextFormField(
+                            initialValue: widget.beat.description,
+                            controller: descriptionController,
+                            decoration: const InputDecoration(hintText: "Description"),
+                            maxLines: 5,
+                          ),
+                          AlertDialog(
+                            actions: [
+                              TextButton(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            }, 
+                            child: const Text("Cancel")),
                             TextButton(
-                          onPressed: (){
-                            Navigator.pop(context);
-                          }, 
-                          child: const Text("Cancel")),
-                          TextButton(
-                          onPressed: (){
-                            BeatService().updateBeat(FirebaseAuth.instance.currentUser!.uid, Beat(
-                              id: widget.beat.id, 
-                              title: titleController.text,  
-                              by: widget.beat.by, 
-                              beatString: SoundEngine().beatString, 
-                              description: descriptionController.text));
-                            Navigator.pop(context);
-                          }, 
-                          child: const Text("Save")),
-                          ],
-                        ),
-                      ],
+                            onPressed: (){
+                              BeatService().updateBeat(FirebaseAuth.instance.currentUser!.uid, Beat(
+                                id: widget.beat.id, 
+                                title: titleController.text,  
+                                by: widget.beat.by, 
+                                beatString: SoundEngine().beatString, 
+                                description: descriptionController.text));
+                              Navigator.pop(context);
+                            }, 
+                            child: const Text("Save")),
+                            ],
+                          ),
+                        ],
+                      ),
                     ));
                   }, 
                   child: const Text("Update Beat")),
