@@ -188,7 +188,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                     : Colors.blueGrey),
                                     onPressed: () {
                                       reload(() {
-                                        alpha.greenBut == 0 ? _playSingleSound("A") : _addToBeat(i, numberOfRows, numberOfBars);
+                                        alpha.greenBut == 0 ? _playSingleSound("A") : (boolList[i] ? _removeFromBeat(i, numberOfRows, numberOfBars) : _addToBeat(i, numberOfRows, numberOfBars));
                                         boolList[i] = !boolList[i];
                                         maxRange = (numberOfBars * 4);
                                         minRange = 1;
