@@ -113,7 +113,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                   children: [
                     ElevatedButton(
                         onPressed: () {_play();},
-                        child: Text(
+                        child: const Text(
                           'Play',
                           style: TextStyle(fontSize: 8),
                         )),
@@ -122,13 +122,14 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                         child: TextFormField(
                       controller: bpmController,
                       style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           hintText: 'BPM',
                           hintStyle: TextStyle(color: Colors.white)),
                     )),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 308,
                     ),
+                    ElevatedButton(onPressed: (){}, child: const Text('Beat-It-Together', style: TextStyle(fontSize: 10),)),
                     GFDropdown(
                         value: dropdownValue,
                         items: ['Trap', 'Hip-Hop', '3rd Wave Ska', 'Dubstep']
