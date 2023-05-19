@@ -47,15 +47,17 @@ class BeatService{
         });
   }
 
-  Future<void> updateBeat(String userUid, String beatId, String beatstring) async{
+  Future<void> updateBeat(String userUid, Beat updatedBeat) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(userUid)
         .collection(CollectionNames.beats)
-        .doc(beatId)
+        .doc(updatedBeat.id)
         .update({
           BeatKeys.lastEdited: FieldValue.serverTimestamp(),
-          BeatKeys.beatString: beatstring
+          BeatKeys.beatString: updatedBeat.beatString,
+          BeatKeys.title: updatedBeat.title,
+          BeatKeys.description: updatedBeat.description
         });
   }
 
