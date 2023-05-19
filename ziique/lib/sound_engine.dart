@@ -238,7 +238,7 @@ void playNodes(List<Node> nodes, int playerCount)
           j == playerCount -1 ? j = 0 : j++;  
           }
          players[j].play(DeviceFileSource(nodes[i].source));
-         i == nodes.length -1 ? timer.cancel() : j++;  
+         i == nodes.length -1 ? timer.cancel() : i++;  
     }
 
     //if the timer is at the end of the last node, cancel the timer
@@ -254,7 +254,6 @@ void playNodes(List<Node> nodes, int playerCount)
   });
 }
 
-//TODO fix error index out of bounce L266 and L224
 play()
   {
     shouldPlay = true;
