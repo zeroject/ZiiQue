@@ -238,7 +238,7 @@ void playNodes(List<Node> nodes, int playerCount)
           j == playerCount -1 ? j = 0 : j++;  
           }
          players[j].play(DeviceFileSource(nodes[i].source));
-         i++;
+         i == nodes.length -1 ? timer.cancel() : j++;  
     }
 
     //if the timer is at the end of the last node, cancel the timer
