@@ -57,6 +57,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     soundEngine.play();
   }
 
+  void changeBPM(int bpm)
+  {
+    soundEngine.changeBPM(bpm);
+  }
+
   @override
   Widget build(BuildContext context) {
     var dropdownValue;
@@ -120,16 +125,17 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                     SizedBox(
                       width: 100,
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
                       controller: bpmController,
                       style: TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           hintText: 'BPM',
                           hintStyle: TextStyle(color: Colors.white)),
+                          onChanged: (value) => changeBPM(int.parse(value)),
                     )),
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 308,
                     ),
-                    ElevatedButton(onPressed: (){}, child: const Text('Beat-It-Together', style: TextStyle(fontSize: 10),)),
                     GFDropdown(
                         value: dropdownValue,
                         items: ['Trap', 'Hip-Hop', '3rd Wave Ska', 'Dubstep']
@@ -245,10 +251,6 @@ class BeatColor {
   final int bar;
 
   bool getColor(int i) {
-    if (kDebugMode) {
-      print(
-          "beatIndex: $i maxRange: $maxRange${i == maxRange ? " true" : " false"}");
-    }
     if (i == maxRange) {
       maxRange += (numberOfBars * 4) + 1;
       minRange += (numberOfBars * 4) + 1;

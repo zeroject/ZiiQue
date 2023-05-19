@@ -264,7 +264,7 @@ play()
 
       if (nodes[i].length > 0)
       {
-      playNodes(nodes[i], 6);
+      playNodes(nodes[i], 2);
       }
     }
     return shouldPlay;
