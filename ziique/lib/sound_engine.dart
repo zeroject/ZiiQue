@@ -6,7 +6,7 @@ class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
-bool repeat = false;
+bool repeat = true;
 bool shouldPlay = true;
 
 String beatString = "";
@@ -222,7 +222,7 @@ List<List<Node>> convertStringToNodes(String beatString)
   }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodes, int playerCount)
+void playNodes(List<Node> nodes, int playerCount, num time)
 {
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
@@ -242,14 +242,14 @@ void playNodes(List<Node> nodes, int playerCount)
     }
 
     //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == (nodes.last.time /10) +1 && repeat == false)
+    if (timer.tick == time && repeat == false)
     {
       timer.cancel();
     }
-    else if (timer.tick == nodes.last.time && repeat == true)
+    else if (timer.tick == time && repeat == true)
     {
       timer.cancel();
-      playNodes(nodes, playerCount);
+      playNodes(nodes, playerCount, time);
     }
   });
 }
@@ -257,13 +257,20 @@ void playNodes(List<Node> nodes, int playerCount)
 play()
   {
     shouldPlay = true;
+    num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
+    for (var node in nodes) {
+      if (node.last.time > maxTime) {
+        maxTime = node.last.time.toInt();
+      }
+    }
+    maxTime = ((maxTime /10) +1);
     for(int i = 0; i < nodes.length; i++)
     {
 
       if (nodes[i].length > 0)
       {
-      playNodes(nodes[i], 2);
+      playNodes(nodes[i], 2, maxTime);
       }
     }
     return shouldPlay;
