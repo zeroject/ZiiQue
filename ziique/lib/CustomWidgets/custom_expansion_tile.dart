@@ -57,11 +57,32 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 OutlinedButton(onPressed: (){
-
-                }, child: const Text("Edit")),
-                OutlinedButton(onPressed: (){
-                  BeatService().deleteBeat(FirebaseAuth.instance.currentUser!.uid, widget.beat.id);
-                }, child: const Text("Delete"))
+                  //TODO
+                }, 
+                child: const Text("Edit")),
+                OutlinedButton(
+                  onPressed: (){
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("WARNING"),
+                      content: const Text("You are about to delete one of your beats. Are you sure this is what you wanted?"),
+                      actions: [
+                        TextButton(
+                          onPressed: (){
+                            BeatService().deleteBeat(FirebaseAuth.instance.currentUser!.uid, widget.beat.id);
+                            Navigator.pop(context);
+                          }, 
+                          child: const Text("Cancel")),
+                          TextButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          }, 
+                          child: const Text("Yes"))
+                      ],
+                    ));
+                  }, 
+                  child: const Text("Delete"))
               ],
             )
           ],
