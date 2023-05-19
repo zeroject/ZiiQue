@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
 import '../models/fire_user.dart' as fire_user;
@@ -9,8 +10,9 @@ class CollectionNames{
   static const users = 'users';
 }
 
-String generateId() {
-  return Random().nextInt(2 ^ 53).toString();
+String generateUid() {
+  var uuid = const Uuid();
+  return uuid.v4();
 }
 
 class BeatService{
@@ -27,7 +29,7 @@ class BeatService{
   }
 
   Future<void> saveBeat(fire_user.User? fireUser, String beatstring, String title, String description) async {
-    String id = generateId();
+    String id = generateUid();
     final owner = Owner(
         uid: fireUser!.uid,
         displayName: fireUser.displayName ?? '',
