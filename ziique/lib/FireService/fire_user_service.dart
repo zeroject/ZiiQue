@@ -34,6 +34,13 @@ class UserService{
         });
   }
 
+  Future<void> updateUser(beat_user.User newUser) async {
+    await FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .doc(newUser.uid)
+    .update(newUser.toMap());
+  }
+
   Future<void> deleteUser() async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
