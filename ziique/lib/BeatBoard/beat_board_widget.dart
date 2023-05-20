@@ -155,11 +155,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                         hintStyle: TextStyle(
                                             color: Colors.white)),
                                   )),
-                              ElevatedButton(onPressed: () {
-                                fireBeatItRealtimeService.createSession(Beat(id: "TestID", title: "Test Beat", lastEdited: DateTime.now(), by: Owner(uid: "TestUser", displayName: "testing beatIt", email: "testEmail"), beatString: "test", description: "a fucking test"), beatuser!);
-                                },
-                                  child: const Text('Beat-It-Together',
-                                    style: TextStyle(fontSize: 10),)),
                               ElevatedButton(
                                 child: const Text("Save Beat"),
                                 onPressed: (){
@@ -196,7 +191,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                           onPressed: (){
                                             if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
                                               BeatService().saveBeat(FirebaseAuth.instance.currentUser,
-                                              SoundEngine().beatString,
+                                              soundEngine.beatString,
                                               titleController.text,
                                               descriptionController.text
                                               );

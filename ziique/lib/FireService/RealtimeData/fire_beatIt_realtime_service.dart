@@ -9,8 +9,8 @@ import '../../models/beat.dart';
 import '../../models/user.dart';
 
 /*
-Mangler at fåret lavet et ping system så den anden ved hvornår han er blevet inviteret så personen kan svare og join sessionen med litenOnData.
-men har ingen ideer lige nu how eller hvordan. Måske cloud functions.
+  Mangler at fåret lavet et ping system så den anden ved hvornår han er blevet inviteret så personen kan svare og join sessionen med litenOnData.
+  men har ingen ideer lige nu how eller hvordan. Måske cloud functions.
  */
 
 class FireBeatItRealtimeService {
@@ -21,7 +21,7 @@ class FireBeatItRealtimeService {
   int timesplayed = 0;
   int versionID = 1;
 
-  Future<String> createSession(Beat beat, User host) async {
+  Future<String> createSession(Beat beat, String hostUID) async {
     try {
       String id = uuid.v4();
       BeatItSession beatItSession = BeatItSession(
@@ -32,7 +32,7 @@ class FireBeatItRealtimeService {
           beatString: beat.beatString,
           timeschanged: timeschanged,
           timesplayed: timesplayed,
-          hostID: host.uid,
+          hostID: hostUID,
           versionid: versionID);
       final sessionRef = ref.child("beatItSessions").child(id);
       await sessionRef.set(beatItSession.toMap());
@@ -59,7 +59,7 @@ class FireBeatItRealtimeService {
     sessionRef.onValue.listen((DatabaseEvent event){
       final data = event.snapshot.value;
       beatString = data.toString();
-      
+
     });
   }
 
