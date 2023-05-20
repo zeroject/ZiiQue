@@ -56,6 +56,7 @@ class FireBeatItRealtimeService {
       if (kDebugMode) {
         print(e);
       }
+      throw Exception("Could not find session");
     }
   }
 
