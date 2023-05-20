@@ -6,7 +6,7 @@ class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
-bool repeat = false;
+bool repeat = true;
 bool shouldPlay = true;
 
 String beatString = "";
@@ -222,50 +222,55 @@ List<List<Node>> convertStringToNodes(String beatString)
   }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodes, int playerCount)
+void playNodes(List<Node> nodes, int playerCount, num time)
 {
   List<AudioPlayer> players = getPlayers(playerCount);
+  int j = 0;
+  int i = 0;
   //create a timer, that counts up, in miliseconds
-  Timer timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+  Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+    //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
-    int j = 0;
-    for(int i = 0; i < nodes.length; i++)
-    {
-      if (timer.tick == nodes[i].time)
+      if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
-        print("timer: " +  timer.tick.toString() + " node: " + nodes[i].time.toString());
-         if (players[j].state == PlayerState.playing) 
-         { j == playerCount ? j = 0 : j++;  }
-
+        if (players[j].state == PlayerState.playing) 
+         {
+          j == playerCount -1 ? j = 0 : j++;  
+          }
          players[j].play(DeviceFileSource(nodes[i].source));
-      }
+         i == nodes.length -1 ? timer.cancel() : i++;  
     }
 
     //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == nodes.last.time && repeat == false)
+    if (timer.tick == time && repeat == false)
     {
       timer.cancel();
     }
-    else if (timer.tick == nodes.last.time && repeat == true)
+    else if (timer.tick == time && repeat == true)
     {
       timer.cancel();
-      playNodes(nodes, playerCount);
+      playNodes(nodes, playerCount, time);
     }
   });
 }
 
-//TODO fix error index out of bounce L266 and L224
 play()
   {
     shouldPlay = true;
+    num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
+    for (var node in nodes) {
+      if (node.last.time > maxTime) {
+        maxTime = node.last.time.toInt();
+      }
+    }
+    maxTime = ((maxTime /10) +1);
     for(int i = 0; i < nodes.length; i++)
     {
-      print(nodes[i][0].time);
-      print(beatString);
+
       if (nodes[i].length > 0)
       {
-      playNodes(nodes[i], 6);
+      playNodes(nodes[i], 2, maxTime);
       }
     }
     return shouldPlay;

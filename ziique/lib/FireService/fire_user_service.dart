@@ -8,11 +8,11 @@ class CollectionNames{
 }
 
 class UserService{
-  Future<beat_user.User?> getUser(String fireUserId) async {
+  Future<beat_user.User?> getUser(String userUid) async {
     try {
     final user = (await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(fireUserId)
+    .doc(userUid)
     .get())
     .data();
     if (user == null) return null;
@@ -22,16 +22,23 @@ class UserService{
     }
   }
 
-  Future<void> createUser(fire_user.User? user, String firstName, String lastName) async {
+  Future<void> createUser(fire_user.User? userUid, String firstName, String lastName) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user!.uid)
+    .doc(userUid!.uid)
     .set({
-          beat_user.UserKeys.uid: user.uid,
+          beat_user.UserKeys.uid: userUid.uid,
           beat_user.UserKeys.firstname: firstName,
           beat_user.UserKeys.lastname: lastName,
           beat_user.UserKeys.friends: []
         });
+  }
+
+  Future<void> updateUser(beat_user.User updatedUser) async {
+    await FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .doc(updatedUser.uid)
+    .update(updatedUser.toMap());
   }
 
   Future<void> deleteUser() async {

@@ -8,6 +8,7 @@ import 'package:ziique/models/beat.dart';
 import 'package:ziique/models/owner.dart';
 import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
+import '../FireService/fire_beat_Service.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,6 +46,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   Alpha alpha = Alpha();
   FireBeatItRealtimeService fireBeatItRealtimeService = FireBeatItRealtimeService();
   TextEditingController bpmController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void _addToBeat(int input, int row, int beat) {
     soundEngine.addToBeat(input, row, beat);
@@ -60,6 +63,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   void _play() {
     soundEngine.play();
+  }
+
+  void changeBPM(int bpm)
+  {
+    soundEngine.changeBPM(bpm);
   }
 
   @override
@@ -282,13 +290,62 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                     SizedBox(
                         width: 100,
                         child: TextFormField(
-                          controller: bpmController,
-                          style: TextStyle(color: Colors.white),
-                          decoration: const InputDecoration(
-                              hintText: 'BPM',
-                              hintStyle: TextStyle(
-                                  color: Colors.white)),
-                        )),
+                          keyboardType: TextInputType.number,
+                      controller: bpmController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          hintText: 'BPM',
+                          hintStyle: TextStyle(color: Colors.white)),
+                          onChanged: (value) => changeBPM(int.parse(value)),
+                    )),
+                    ElevatedButton(
+                      child: const Text("Save Beat"),
+                      onPressed: (){
+                        showDialog(
+                          context: context, 
+                          builder: (context) => AlertDialog(
+                            title: const Text("Save Beat"),
+                              content: SizedBox(
+                                height: 150,
+                                width: 300,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    TextFormField(
+                                      controller: titleController,
+                                      decoration: const InputDecoration(hintText: "Title"),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    TextFormField(
+                                      controller: descriptionController,
+                                      decoration: const InputDecoration(hintText: "Description"),
+                                      maxLines: 3,
+                                    ),
+                                    ],
+                                  ),
+                              ),
+                            actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                }, 
+                                child: const Text("Cancel")),
+                              TextButton(
+                                onPressed: (){
+                                  if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
+                                    BeatService().saveBeat(FirebaseAuth.instance.currentUser,
+                                    SoundEngine().beatString,
+                                    titleController.text,
+                                    descriptionController.text
+                                    );
+                                    Navigator.pop(context);
+                                  }
+                                }, 
+                                child: const Text("Save")),
+                                ],
+                              )
+                        );
+                      }),
                     SizedBox(
                       width: MediaQuery
                           .of(context)
@@ -357,11 +414,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                             : Colors.blueGrey),
                                     onPressed: () {
                                       reload(() {
-                                        alpha.greenBut == 0
-                                            ? _playSingleSound("A")
-                                            : _addToBeat(
-                                            i, numberOfRows,
-                                            numberOfBars);
+                                        alpha.greenBut == 0 ? _playSingleSound("A") : (boolList[i] ? _removeFromBeat(i, numberOfRows, numberOfBars) : _addToBeat(i, numberOfRows, numberOfBars));
                                         boolList[i] = !boolList[i];
                                         maxRange = (numberOfBars * 4);
                                         minRange = 1;

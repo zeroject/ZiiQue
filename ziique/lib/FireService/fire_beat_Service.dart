@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 import 'package:ziique/models/owner.dart';
 import '../models/beat.dart';
 import '../models/fire_user.dart' as fire_user;
@@ -9,15 +10,16 @@ class CollectionNames{
   static const users = 'users';
 }
 
-String generateId() {
-  return Random().nextInt(2 ^ 53).toString();
+String generateUid() {
+  var uuid = const Uuid();
+  return uuid.v4();
 }
 
 class BeatService{
-  Query<Beat> getBeats(fire_user.User user){
+  Query<Beat> getBeats(String userUid){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(user.uid)
+    .doc(userUid)
     .collection(CollectionNames.beats)
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
@@ -26,15 +28,15 @@ class BeatService{
     );
   }
 
-  Future<void> saveBeat(fire_user.User? user, String beatstring, String title, String description) async {
-    String id = generateId();
+  Future<void> saveBeat(fire_user.User? fireUser, String beatstring, String title, String description) async {
+    String id = generateUid();
     final owner = Owner(
-        uid: user!.uid,
-        displayName: user.displayName ?? '',
-        email: user.email ?? 'Unknown');
+        uid: fireUser!.uid,
+        displayName: fireUser.displayName ?? '',
+        email: fireUser.email ?? 'Unknown');
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(fireUser.uid)
         .collection(CollectionNames.beats)
         .doc(id)
         .set({
@@ -47,22 +49,24 @@ class BeatService{
         });
   }
 
-  Future<void> updateBeat(fire_user.User user, var beatId, String beatstring) async{
+  Future<void> updateBeat(String userUid, Beat updatedBeat) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(userUid)
         .collection(CollectionNames.beats)
-        .doc(beatId)
+        .doc(updatedBeat.id)
         .update({
           BeatKeys.lastEdited: FieldValue.serverTimestamp(),
-          BeatKeys.beatString: beatstring
+          BeatKeys.beatString: updatedBeat.beatString,
+          BeatKeys.title: updatedBeat.title,
+          BeatKeys.description: updatedBeat.description
         });
   }
 
-  Future<void> deleteBeat(fire_user.User user, var beatId) async{
+  Future<void> deleteBeat(String userUid, String beatId) async{
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
-        .doc(user.uid)
+        .doc(userUid)
         .collection(CollectionNames.beats)
         .doc(beatId)
         .delete();

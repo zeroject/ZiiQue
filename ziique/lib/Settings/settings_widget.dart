@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
-import '../CustomWidgets/custom_expansion_tile_friends.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
 
@@ -450,17 +449,53 @@ Widget build2(BuildContext context){
                           query: UserService().getFriends(beatuser!.friends),
                           shrinkWrap: true,
                           errorBuilder: (context, error, stackTrace){
-                            return Text("Error");
+                            return const Text("Error");
                           },
                           itemBuilder: (context, snapshot) { 
                             beat_user.User friend = snapshot.data();
-                            return CustomExpansionTileFriends(
-                              friendName: "${friend.firstname} ${friend.lastname}", 
-                              description: "A Description", 
-                              fontSize: 20, 
-                              tileColor: Color.fromARGB(255, 255, 255, 255), 
-                              tileRadius: 10
-                              ); 
+                            return Column(
+                              children: [
+                                ExpansionTile(
+                                  textColor: const Color.fromARGB(255, 0, 0, 0),
+                                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                                  collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                  ),
+                                  collapsedShape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                  ),
+                                  title: Text(
+                                    "${friend.firstname} ${friend.lastname}",
+                                    style: TextStyle(fontSize: 20)),
+                                children: [
+                                  const ListTile(
+                                    title: Text("A Description")
+                                  ),
+                                  ButtonBar(
+                                    alignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      OutlinedButton(onPressed: (){
+                                        List<String> tempList = beatuser!.friends;
+                                        tempList.remove(friend.uid);
+                                        UserService().updateUser(
+                                          beat_user.User(
+                                          uid: FirebaseAuth.instance.currentUser!.uid, 
+                                          firstname: beatuser!.firstname, 
+                                          lastname: beatuser!.lastname, 
+                                          friends: tempList)
+                                        );
+                                      }, 
+                                      child: const Text("Remove Friend"))
+                                    ],
+                                  )
+                                ],
+                            ),
+                              const SizedBox(
+                                height: 5,
+                            )
+                              ],
+                            ); 
                             }
                           ),
                         ),

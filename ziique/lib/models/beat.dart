@@ -19,7 +19,7 @@ class Beat {
   final String description;
 
   Beat(
-      {required this.id, required this.title, required this.lastEdited, required this.by, required this.beatString, required this.description});
+      {required this.id, required this.title, this.lastEdited, required this.by, required this.beatString, required this.description});
 
   Beat.fromMap(this.id, Map<String, dynamic> data)
       : title = data[BeatKeys.title],

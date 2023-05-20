@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/FireService/fire_beat_service.dart';
+import 'package:ziique/sound_engine.dart';
+
+import '../models/beat.dart';
 
 
 class CustomExpansionPanel extends StatefulWidget{
@@ -10,7 +15,8 @@ class CustomExpansionPanel extends StatefulWidget{
     required this.beatDescription,
     required this.fontSize,
     required this.tileColor,
-    required this.tileRadius
+    required this.tileRadius,
+    required this.beat
   });
 
   final String beatId;
@@ -19,12 +25,16 @@ class CustomExpansionPanel extends StatefulWidget{
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
+  final Beat beat;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
 }
 
 class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,9 +60,78 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){}, child: const Text("Edit")),
-                OutlinedButton(onPressed: (){}, child: const Text("Share")),
-                OutlinedButton(onPressed: (){}, child: const Text("Delete"))
+                OutlinedButton(
+                  onPressed: (){
+                  showDialog(
+                    context: context, 
+                    builder: (context) => SizedBox(
+                      height: 150,
+                      width: 300,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children:  [
+                          const AlertDialog(
+                            title: Text("Update Beat"),
+                          ),
+                          TextFormField(
+                            initialValue: widget.beat.title,
+                            controller: titleController,
+                            decoration: const InputDecoration(hintText: "Title"),
+                          ),
+                          TextFormField(
+                            initialValue: widget.beat.description,
+                            controller: descriptionController,
+                            decoration: const InputDecoration(hintText: "Description"),
+                            maxLines: 5,
+                          ),
+                          AlertDialog(
+                            actions: [
+                              TextButton(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            }, 
+                            child: const Text("Cancel")),
+                            TextButton(
+                            onPressed: (){
+                              BeatService().updateBeat(FirebaseAuth.instance.currentUser!.uid, Beat(
+                                id: widget.beat.id, 
+                                title: titleController.text,  
+                                by: widget.beat.by, 
+                                beatString: SoundEngine().beatString, 
+                                description: descriptionController.text));
+                              Navigator.pop(context);
+                            }, 
+                            child: const Text("Save")),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ));
+                  }, 
+                  child: const Text("Update Beat")),
+                OutlinedButton(
+                  onPressed: (){
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("WARNING"),
+                      content: const Text("You are about to delete one of your beats. Are you sure this is what you wanted?"),
+                      actions: [
+                        TextButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          }, 
+                          child: const Text("Cancel")),
+                          TextButton(
+                          onPressed: (){
+                            BeatService().deleteBeat(FirebaseAuth.instance.currentUser!.uid, widget.beat.id);
+                            Navigator.pop(context);
+                          }, 
+                          child: const Text("Yes"))
+                      ],
+                    ));
+                  }, 
+                  child: const Text("Delete Beat"))
               ],
             )
           ],
