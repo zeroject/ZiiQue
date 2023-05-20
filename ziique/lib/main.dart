@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board_widget.dart';
@@ -29,6 +30,7 @@ void main() async {
     FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
     FirebaseAuth.instance.useAuthEmulator(host, 9099);
     FirebaseStorage.instance.useStorageEmulator(host, 9199);
+    FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
   }
   runApp(const MyApp());
 }
