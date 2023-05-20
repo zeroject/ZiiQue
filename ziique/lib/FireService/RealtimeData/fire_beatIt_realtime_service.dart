@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ziique/FireService/fire_beat_Service.dart';
 import 'package:ziique/models/beatitsession.dart';
 
 import '../../models/beat.dart';
@@ -42,50 +44,13 @@ class FireBeatItRealtimeService {
       throw Exception("Could not create Beat It Together session");
     }
   }
-
   Future<void> addFriendToBeatItSession(String sessionID, User friend) async {
-    try {
-      final sessionRef = ref.child("beatItSessions").child(sessionID);
-      DataSnapshot snapshot = await sessionRef.get();
-      final dynamic sessionValue = snapshot.value;
-
-      if (sessionValue != null && sessionValue is Map<String, dynamic>) {
-        final useradded = sessionValue["usersadded"];
-        final updateduserAdded = useradded != null ? Map.from(useradded) : {};
-        updateduserAdded[friend.uid] = "PENDING";
-        await sessionRef.child("usersadded").set(updateduserAdded);
-      } else {
-        throw Exception("Could not add friend to beat it together session");
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      throw Exception("Could not find session");
-    }
+    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(friend.uid).collection("sessions").doc(sessionID).set({"RESPOND" : ""});
   }
 
-  Future<bool> acceptInvToBeatItSession(String sessionID, User person, bool respond) async {
-    try {
-      final sessionRef = ref.child("beatItSessions").child(sessionID);
-      DataSnapshot snapshot = await sessionRef.get();
-      final dynamic sessionValue = snapshot.value;
-
-      if (sessionValue != null && sessionValue is Map<String, dynamic>) {
-        final useradded = sessionValue["usersadded"];
-        final updateduserAdded = useradded != null ? Map.from(useradded) : {};
-        updateduserAdded[person.uid] = respond ? "ACCEPTED" : "DECLINED";
-        await sessionRef.child("usersadded").set(updateduserAdded);
-        return respond;
-      } else {
-        throw Exception("Could not accept inv to beat it together session");
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      throw Exception("Could not find session");
-    }
+  Future<bool> respondInvToBeatItSession(String sessionID, User person, bool respond) async {
+    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person.uid).collection("sessions").doc(sessionID).set({"RESPOND" : respond});
+    return respond;
   }
 
   Future<String> listenToData(String sessionID) async{

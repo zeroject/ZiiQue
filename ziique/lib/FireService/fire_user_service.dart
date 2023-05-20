@@ -5,6 +5,7 @@ import '../models/fire_user.dart' as fire_user;
 
 class CollectionNames{
   static const users = 'users';
+  static const sessions = 'sessions';
 }
 
 class UserService{
