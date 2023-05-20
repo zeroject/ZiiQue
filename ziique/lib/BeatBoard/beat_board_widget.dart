@@ -131,58 +131,62 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                 child: Column(
                   children: [
                     Center(
-                      child: Container(
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  _play();
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8, top: 100),
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.black),
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    _play();
+                                  },
+                                  child: const Text(
+                                    'Play',
+                                    style: TextStyle(fontSize: 8),
+                                  )),
+                              SizedBox(
+                                  width: 100,
+                                  child: TextFormField(
+                                    controller: bpmController,
+                                    style: TextStyle(color: Colors.white),
+                                    decoration: const InputDecoration(
+                                        hintText: 'BPM',
+                                        hintStyle: TextStyle(
+                                            color: Colors.white)),
+                                  )),
+                              ElevatedButton(onPressed: () {
+                                fireBeatItRealtimeService.createSession(Beat(id: "TestID", title: "Test Beat", lastEdited: DateTime.now(), by: Owner(uid: "TestUser", displayName: "testing beatIt", email: "testEmail"), beatString: "test", description: "a fucking test"), beatuser!);
                                 },
-                                child: const Text(
-                                  'Play',
-                                  style: TextStyle(fontSize: 8),
-                                )),
-                            SizedBox(
-                                width: 100,
-                                child: TextFormField(
-                                  controller: bpmController,
-                                  style: TextStyle(color: Colors.white),
-                                  decoration: const InputDecoration(
-                                      hintText: 'BPM',
-                                      hintStyle: TextStyle(
-                                          color: Colors.white)),
-                                )),
-                            SizedBox(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width - 308,
-                            ),
-                            ElevatedButton(onPressed: () {
-                              fireBeatItRealtimeService.createSession(Beat(id: "TestID", title: "Test Beat", lastEdited: DateTime.now(), by: Owner(uid: "TestUser", displayName: "testing beatIt", email: "testEmail"), beatString: "test", description: "a fucking test"), beatuser!);
-                              },
-                                child: const Text('Beat-It-Together',
-                                  style: TextStyle(fontSize: 10),)),
-                            GFDropdown(
-                                value: dropdownValue,
-                                items: [
-                                  'Trap',
-                                  'Hip-Hop',
-                                  '3rd Wave Ska',
-                                  'Dubstep'
-                                ]
-                                    .map((value) =>
-                                    DropdownMenuItem(
-                                      value: value,
-                                      child: Text(value),
-                                    ))
-                                    .toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue;
-                                  });
-                                })
-                          ],
+                                  child: const Text('Beat-It-Together',
+                                    style: TextStyle(fontSize: 10),)),
+                              SizedBox(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width - 1100,
+                              ),
+                              GFDropdown(
+                                  value: dropdownValue,
+                                  items: [
+                                    'Trap',
+                                    'Hip-Hop',
+                                    '3rd Wave Ska',
+                                    'Dubstep'
+                                  ]
+                                      .map((value) =>
+                                      DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value),
+                                      ))
+                                      .toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      dropdownValue = newValue;
+                                    });
+                                  })
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -195,7 +199,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                             child: GridView.count(
                               padding:
                               const EdgeInsets.only(
-                                  top: 150, left: 8, right: 8),
+                              left: 8, right: 8),
                               crossAxisCount: (numberOfBars * 4) + 1,
                               children: [
                                 for (var i = 0;
@@ -276,102 +280,64 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         child: Column(
           children: [
             Center(
-              child: Container(
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          _play();
-                        },
-                        child: const Text(
-                          'Play',
-                          style: TextStyle(fontSize: 8),
-                        )),
-                    SizedBox(
-                        width: 100,
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                      controller: bpmController,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                          hintText: 'BPM',
-                          hintStyle: TextStyle(color: Colors.white)),
-                          onChanged: (value) => changeBPM(int.parse(value)),
-                    )),
-                    ElevatedButton(
-                      child: const Text("Save Beat"),
-                      onPressed: (){
-                        showDialog(
-                          context: context, 
-                          builder: (context) => AlertDialog(
-                            title: const Text("Save Beat"),
-                              content: SizedBox(
-                                height: 150,
-                                width: 300,
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  children: [
-                                    TextFormField(
-                                      controller: titleController,
-                                      decoration: const InputDecoration(hintText: "Title"),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    TextFormField(
-                                      controller: descriptionController,
-                                      decoration: const InputDecoration(hintText: "Description"),
-                                      maxLines: 3,
-                                    ),
-                                    ],
-                                  ),
-                              ),
-                            actions: [
-                              TextButton(
-                                onPressed: (){
-                                  Navigator.pop(context);
-                                }, 
-                                child: const Text("Cancel")),
-                              TextButton(
-                                onPressed: (){
-                                  if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
-                                    BeatService().saveBeat(FirebaseAuth.instance.currentUser,
-                                    SoundEngine().beatString,
-                                    titleController.text,
-                                    descriptionController.text
-                                    );
-                                    Navigator.pop(context);
-                                  }
-                                }, 
-                                child: const Text("Save")),
-                                ],
-                              )
-                        );
-                      }),
-                    SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width - 308,
-                    ),
-                    GFDropdown(
-                        value: dropdownValue,
-                        items: [
-                          'Trap',
-                          'Hip-Hop',
-                          '3rd Wave Ska',
-                          'Dubstep'
-                        ]
-                            .map((value) =>
-                            DropdownMenuItem(
-                              value: value,
-                              child: Text(value),
-                            ))
-                            .toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        })
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 100),
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.black),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            _play();
+                          },
+                          child: const Text(
+                            'Play',
+                            style: TextStyle(fontSize: 8),
+                          )),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      SizedBox(
+                          width: 100,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                        controller: bpmController,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            hintText: 'BPM',
+                            hintStyle: TextStyle(color: Colors.white)),
+                            onChanged: (value) => changeBPM(int.parse(value)),
+                      )),
+                      SizedBox(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 1100,
+                      ),
+                      GFDropdown(
+                          value: dropdownValue,
+                          items: [
+                            'Trap',
+                            'Hip-Hop',
+                            '3rd Wave Ska',
+                            'Dubstep'
+                          ]
+                              .map((value) =>
+                              DropdownMenuItem(
+                                value: value,
+                                child: Text(value),
+                              ))
+                              .toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                          })
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -384,7 +350,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                     child: GridView.count(
                       padding:
                       const EdgeInsets.only(
-                          top: 150, left: 8, right: 8),
+                          left: 8, right: 8),
                       crossAxisCount: (numberOfBars * 4) + 1,
                       children: [
                         for (var i = 0;
