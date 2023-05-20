@@ -6,6 +6,11 @@ import 'package:ziique/models/beatitsession.dart';
 import '../../models/beat.dart';
 import '../../models/user.dart';
 
+/*
+Mangler at fåret lavet et ping system så den anden ved hvornår han er blevet inviteret så personen kan svare og join sessionen med litenOnData.
+men har ingen ideer lige nu how eller hvordan. Måske cloud functions.
+ */
+
 class FireBeatItRealtimeService {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   var uuid = const Uuid();
