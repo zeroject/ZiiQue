@@ -53,13 +53,18 @@ class FireBeatItRealtimeService {
     return respond;
   }
 
-  Future<String> listenToData(String sessionID) async{
+  Future<void> listenToData(String sessionID) async{
     String beatString = "";
-    final sessionRef = ref.child("beatItSessions").child(sessionID).child("beatString");
+    final sessionRef = ref.child("beatItSessions").child(sessionID);
     sessionRef.onValue.listen((DatabaseEvent event){
       final data = event.snapshot.value;
       beatString = data.toString();
+      
     });
-    return beatString;
+  }
+
+  Future<void> updateData(String sessionID, String beatString) async{
+    final sessionRef = ref.child("beatItSessions").child(sessionID);
+    sessionRef.update({"beatString" : beatString});
   }
 }
