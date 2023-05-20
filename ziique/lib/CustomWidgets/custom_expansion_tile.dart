@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/sound_engine.dart';
 
@@ -58,56 +59,62 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 OutlinedButton(
+                  onPressed: () {
+                    widget.soundEngine.beatString = widget.beat.beatString;
+                  },
+                  child: Text("Load Beat", style: TextStyle(),
+                  ),
+                ),
+                OutlinedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => SizedBox(
+                          builder: (context) => AlertDialog(
+                            title: const Text("Update Beat"),
+                              content: SizedBox(
                                 height: 150,
                                 width: 300,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
-                                    const AlertDialog(
-                                      title: Text("Update Beat"),
-                                    ),
                                     TextFormField(
                                       initialValue: widget.beat.title,
                                       controller: titleController,
-                                      decoration: const InputDecoration(
-                                          hintText: "Title"),
+                                      decoration: const InputDecoration(hintText: "Title"),
                                     ),
+                                    const SizedBox(height: 20),
                                     TextFormField(
                                       initialValue: widget.beat.description,
                                       controller: descriptionController,
-                                      decoration: const InputDecoration(
-                                          hintText: "Description"),
-                                      maxLines: 5,
+                                      decoration: const InputDecoration(hintText: "Description"),
+                                      maxLines: 3,
                                     ),
-                                    AlertDialog(
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text("Cancel")),
-                                        TextButton(
-                                            onPressed: () {
-                                              BeatService().updateBeat(
-                                                  FirebaseAuth.instance.currentUser!.uid,
-                                                  Beat(
-                                                      id: widget.beat.id,
-                                                      title: titleController.text,
-                                                      by: widget.beat.by,
-                                                      beatString: SoundEngine().beatString,
-                                                      description: descriptionController.text));
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text("Save")),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ));
+                                    ],
+                                  ),
+                              ),
+                            actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                }, 
+                                child: const Text("Cancel")),
+                              TextButton(
+                                onPressed: (){
+                                  if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
+                                    BeatService().updateBeat(
+                                      FirebaseAuth.instance.currentUser!.uid,
+                                      Beat(
+                                          id: widget.beat.id,
+                                          title: titleController.text,
+                                          by: widget.beat.by,
+                                          beatString: widget.soundEngine.beatString,
+                                          description: descriptionController.text));
+                                    Navigator.pop(context);
+                                  }
+                                }, 
+                                child: const Text("Save")),
+                                ],
+                      ));
                     },
                     child: const Text("Update Beat")),
                 OutlinedButton(
