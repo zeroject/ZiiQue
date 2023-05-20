@@ -6,7 +6,7 @@ class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
-bool repeat = true;
+bool repeat = false;
 bool shouldPlay = true;
 
 String beatString = "";
@@ -36,6 +36,11 @@ void changeBPM(int newBPM)
 {
   bpm = newBPM;
 
+}
+
+void loadBeat(String newBeat)
+{
+  beatString = newBeat;
 }
 
 void stop()
@@ -260,15 +265,15 @@ play()
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
     for (var node in nodes) {
-      if (node.last.time > maxTime) {
-        maxTime = node.last.time.toInt();
+      if (node.isNotEmpty && node.last.time > maxTime) {
+        maxTime = node.last.time;
       }
     }
     maxTime = ((maxTime /10) +1);
     for(int i = 0; i < nodes.length; i++)
     {
 
-      if (nodes[i].length > 0)
+      if (nodes[i].isNotEmpty)
       {
       playNodes(nodes[i], 2, maxTime);
       }
