@@ -160,6 +160,54 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                 },
                                   child: const Text('Beat-It-Together',
                                     style: TextStyle(fontSize: 10),)),
+                              ElevatedButton(
+                                child: const Text("Save Beat"),
+                                onPressed: (){
+                                  showDialog(
+                                    context: context, 
+                                    builder: (context) => AlertDialog(
+                                      title: const Text("Save Beat"),
+                                        content: SizedBox(
+                                          height: 150,
+                                          width: 300,
+                                          child: ListView(
+                                            shrinkWrap: true,
+                                            children: [
+                                              TextFormField(
+                                                controller: titleController,
+                                                decoration: const InputDecoration(hintText: "Title"),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              TextFormField(
+                                                controller: descriptionController,
+                                                decoration: const InputDecoration(hintText: "Description"),
+                                                maxLines: 3,
+                                              ),
+                                              ],
+                                            ),
+                                        ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: (){
+                                            Navigator.pop(context);
+                                          }, 
+                                          child: const Text("Cancel")),
+                                        TextButton(
+                                          onPressed: (){
+                                            if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty){
+                                              BeatService().saveBeat(FirebaseAuth.instance.currentUser,
+                                              SoundEngine().beatString,
+                                              titleController.text,
+                                              descriptionController.text
+                                              );
+                                              Navigator.pop(context);
+                                            }
+                                          }, 
+                                          child: const Text("Save")),
+                                          ],
+                                        )
+                                  );
+                                }),
                               SizedBox(
                                 width: MediaQuery
                                     .of(context)
