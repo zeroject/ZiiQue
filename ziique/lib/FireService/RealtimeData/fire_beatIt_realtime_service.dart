@@ -59,7 +59,7 @@ class FireBeatItRealtimeService {
     }
   }
 
-  Future<void> acceptInvToBeatItSession(String sessionID, User person) async {
+  Future<bool> acceptInvToBeatItSession(String sessionID, User person, bool respond) async {
     try {
       final sessionRef = ref.child("beatItSessions").child(sessionID);
       DataSnapshot snapshot = await sessionRef.get();
@@ -68,8 +68,9 @@ class FireBeatItRealtimeService {
       if (sessionValue != null && sessionValue is Map<String, dynamic>) {
         final useradded = sessionValue["usersadded"];
         final updateduserAdded = useradded != null ? Map.from(useradded) : {};
-        updateduserAdded[person.uid] = "ACCEPTED";
+        updateduserAdded[person.uid] = respond ? "ACCEPTED" : "DECLINED";
         await sessionRef.child("usersadded").set(updateduserAdded);
+        return respond;
       } else {
         throw Exception("Could not accept inv to beat it together session");
       }
@@ -77,27 +78,7 @@ class FireBeatItRealtimeService {
       if (kDebugMode) {
         print(e);
       }
-    }
-  }
-
-  Future<void> declineInvToBeatItSession(String sessionID, User person) async {
-    try {
-      final sessionRef = ref.child("beatItSessions").child(sessionID);
-      DataSnapshot snapshot = await sessionRef.get();
-      final dynamic sessionValue = snapshot.value;
-
-      if (sessionValue != null && sessionValue is Map<String, dynamic>) {
-        final useradded = sessionValue["usersadded"];
-        final updateduserAdded = useradded != null ? Map.from(useradded) : {};
-        updateduserAdded[person.uid] = "DECLINED";
-        await sessionRef.child("usersadded").set(updateduserAdded);
-      } else {
-        throw Exception("Could not decline inv to beat it together session");
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      throw Exception("Could not find session");
     }
   }
 
