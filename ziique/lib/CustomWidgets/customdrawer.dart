@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
+import 'package:ziique/sound_engine.dart';
 import '../FireService/fire_beat_service.dart';
 import '../models/beat.dart';
 import '../FireService/fire_auth_service.dart';
@@ -29,6 +30,7 @@ class CustomDrawer extends StatefulWidget {
       required this.loginButWidth,
       required this.loginPageDesktop,
       required this.loginPageMobile, 
+      required this.soundEngine, 
       required this.beatBoardDesktop});
 
   final double drawerWidth;
@@ -41,6 +43,7 @@ class CustomDrawer extends StatefulWidget {
   final Widget settingsPageDesktop;
   final Widget settingsPageMobile;
   final Widget beatBoardDesktop;
+  final SoundEngine soundEngine;
 
   //Not logged in
   final double offsetHeight;
@@ -102,6 +105,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     tileColor: const Color.fromARGB(255, 255, 255, 255), 
                     tileRadius: 10, 
                     beat: beat,
+                    soundEngine: widget.soundEngine,
                     );
                 },
               ),

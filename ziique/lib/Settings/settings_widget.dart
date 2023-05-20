@@ -476,15 +476,35 @@ Widget build2(BuildContext context){
                                     alignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       OutlinedButton(onPressed: (){
-                                        List<String> tempList = beatuser!.friends;
-                                        tempList.remove(friend.uid);
-                                        UserService().updateUser(
-                                          beat_user.User(
-                                          uid: FirebaseAuth.instance.currentUser!.uid, 
-                                          firstname: beatuser!.firstname, 
-                                          lastname: beatuser!.lastname, 
-                                          friends: tempList)
-                                        );
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                title: const Text("WARNING", style: TextStyle(
+                                                  color: Color.fromARGB(255, 255, 60, 60)
+                                                ),),
+                                                content: const Text(
+                                                    "You are about to remove one of your friends. Are you sure this is what you wanted?"),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text("Cancel")),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        List<String> tempList = beatuser!.friends;
+                                                        tempList.remove(friend.uid);
+                                                        UserService().updateUser(
+                                                          beat_user.User(
+                                                          uid: FirebaseAuth.instance.currentUser!.uid, 
+                                                          firstname: beatuser!.firstname, 
+                                                          lastname: beatuser!.lastname, 
+                                                          friends: tempList)
+                                                        );
+                                                      },
+                                                      child: const Text("Yes"))
+                                                ],
+                                        ));
                                       }, 
                                       child: const Text("Remove Friend"))
                                     ],

@@ -15,6 +15,7 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.fontSize,
       required this.tileColor,
       required this.tileRadius,
+      required this.soundEngine,
       required this.beat});
 
   final String beatId;
@@ -24,6 +25,7 @@ class CustomExpansionPanel extends StatefulWidget {
   final Color tileColor;
   final double tileRadius;
   final Beat beat;
+  final SoundEngine soundEngine;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -91,18 +93,13 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                                         TextButton(
                                             onPressed: () {
                                               BeatService().updateBeat(
-                                                  FirebaseAuth.instance
-                                                      .currentUser!.uid,
+                                                  FirebaseAuth.instance.currentUser!.uid,
                                                   Beat(
                                                       id: widget.beat.id,
-                                                      title:
-                                                          titleController.text,
+                                                      title: titleController.text,
                                                       by: widget.beat.by,
-                                                      beatString: SoundEngine()
-                                                          .beatString,
-                                                      description:
-                                                          descriptionController
-                                                              .text));
+                                                      beatString: SoundEngine().beatString,
+                                                      description: descriptionController.text));
                                               Navigator.pop(context);
                                             },
                                             child: const Text("Save")),
@@ -118,7 +115,9 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: const Text("WARNING"),
+                                title: const Text("WARNING", style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 60, 60)
+                                ),),
                                 content: const Text(
                                     "You are about to delete one of your beats. Are you sure this is what you wanted?"),
                                 actions: [

@@ -107,6 +107,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageDesktop: LoginDesktop(context),
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
+        soundEngine: soundEngine,
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
           future: userquery,
