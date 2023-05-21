@@ -1,7 +1,11 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
+import 'package:ziique/FireService/fire_user_service.dart';
+import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
 
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
@@ -147,9 +151,13 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                     },
                     child: const Text("Delete Beat")),
                 OutlinedButton(
-                  onPressed: () {
-                    FireBeatItRealtimeService().createSession(
+                  onPressed: () async {
+                    our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
+                    user!.sessionID = await FireBeatItRealtimeService().createSession(
                         widget.beat, FirebaseAuth.instance.currentUser!.uid);
+                    user!.inSession = true;
+                    UserService().updateUser(user);
+                    Navigator.pop(context);
                   },
                   child: Text(
                     "Start Session",
