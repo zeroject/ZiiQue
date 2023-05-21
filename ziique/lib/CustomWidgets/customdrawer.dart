@@ -135,7 +135,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height: widget.settingsButHeight,
                         child: OutlinedButton(
                           onPressed: () {
-                            SignOutService().signOut();
+                            AuthService().signOut();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
