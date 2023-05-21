@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
-import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
@@ -317,8 +316,6 @@ Widget build2(BuildContext context){
     );
   }
     Widget build4(BuildContext context){
-      bool passwordIsReadOnly = true;
-
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -364,19 +361,28 @@ Widget build2(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
-                     Padding(
-                      padding: const EdgeInsets.all(81.0),
-                      child: ListView(
-                        children: const [
-                          CustomCredentialsChange(
-                            editEmail: false, 
-                            editPassword: true
-                          ),
-                          CustomCredentialsChange(
-                            editEmail: true, 
-                            editPassword: false
-                          ),
-                        ],
+                      Container(
+                        color: const Color.fromARGB(255, 57, 54, 54),
+                        child: const Padding(
+                        padding: EdgeInsets.all(81),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 220,
+                              width: 269,
+                              child: CustomCredentialsChange(
+                                emailOrPassword: 'Email', 
+                              ),
+                            ),
+                            SizedBox(
+                              height: 220,
+                              width: 269,
+                              child: CustomCredentialsChange(
+                                emailOrPassword: 'Password', 
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],

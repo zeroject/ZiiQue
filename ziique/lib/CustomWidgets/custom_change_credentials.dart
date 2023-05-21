@@ -1,25 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/models/fire_user.dart';
-
 import '../FireService/fire_auth_service.dart';
 
 class CustomCredentialsChange extends StatefulWidget {
   const CustomCredentialsChange(
       {super.key,
-      required this.editEmail,
-      required this.editPassword,
+      required this.emailOrPassword,
       });
 
-  final bool editEmail;
-  final bool editPassword;
+  final String emailOrPassword;
 
   @override
   State<CustomCredentialsChange> createState() => _CustomCredentialsChangeState();
 }
 
 class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
-  bool isReadOnly = true;
   TextEditingController firstTextFieldController = TextEditingController();
   TextEditingController secondTextFieldController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -28,61 +23,52 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
       children: [
-        const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
-        OutlinedButton(
-          onPressed: (){
-            setState(() {
-              isReadOnly = false;
-            });
-          },
-          child: const Text("Edit")
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        SizedBox(
-          width: 190,
-            child: TextFormField(
-              readOnly: isReadOnly,
-              controller: firstTextFieldController,
-              style: const TextStyle(color: Colors.white),
-              obscureText: true, 
-              decoration: const InputDecoration(
-                hintText: "New Password",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blueAccent),), 
-                    labelStyle: TextStyle(
-                      color: Colors.white), 
-                      hintStyle: TextStyle(
-                        color: Colors.white)),)),
+        Text("Change ${widget.emailOrPassword}:", style: const TextStyle(fontSize: 24, color: Colors.white),),
         const SizedBox(
           height: 20,
         ),
         SizedBox(
           width: 190,
             child: TextFormField(
-              readOnly: isReadOnly,
+              controller: firstTextFieldController,
+              style: const TextStyle(color: Colors.white),
+              obscureText: true, 
+              decoration: InputDecoration(
+                hintText: "New ${widget.emailOrPassword}",
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.blueAccent),), 
+                    labelStyle: const TextStyle(
+                      color: Colors.white), 
+                      hintStyle: const TextStyle(
+                        color: Colors.white)),)),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          width: 190,
+            child: TextFormField(
               controller: secondTextFieldController,
               style: const TextStyle(color: Colors.white),
               obscureText: true, 
-              decoration: const InputDecoration(
-                hintText: "Confirm New Password",
-                border: OutlineInputBorder(
+              decoration: InputDecoration(
+                hintText: "Confirm New ${widget.emailOrPassword}",
+                border: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.blueAccent),), 
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: Colors.white), 
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Colors.white)),)),
         OutlinedButton(
           onPressed: (){
             try{
-              if (widget.editEmail && firstTextFieldController == secondTextFieldController){
+              if (widget.emailOrPassword == 'Email' && firstTextFieldController == secondTextFieldController){
                 ChangeCredentialsService().changeEmail(firstTextFieldController.text);
-              }else if (widget.editPassword && firstTextFieldController == secondTextFieldController){
+              }else if (widget.emailOrPassword == 'Password' && firstTextFieldController == secondTextFieldController){
                 ChangeCredentialsService().changePassword(firstTextFieldController.text);
               }
             }on FirebaseAuthException catch(e){
@@ -98,7 +84,7 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                         child: ListView(
                           shrinkWrap: true,
                           children: [
-                            Text("Please reauthenticate yourself by signing in using you old credentials"),
+                            const Text("Please reauthenticate yourself by signing in using you old credentials"),
                             TextFormField(
                               controller: emailController,
                               decoration: const InputDecoration(hintText: "Email"),
@@ -117,7 +103,8 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                           onPressed: (){
                             AuthCredential credential = EmailAuthProvider
                             .credential(email: emailController.text, password: passwordController.text);
-
+                            
+                            AuthService().reauthenticate(credential);
                             ChangeCredentialsService().changePassword(firstTextFieldController.text);
                           },
                           child: const Text("Cancel")),
@@ -130,13 +117,13 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                     ));
                   break;
                 case "invalid-email":
-                  SnackBar(content: Text("Email is invalid"));
+                  const SnackBar(content: Text("Email is invalid"));
                   break;
                 case "email-already-in-use":
-                  SnackBar(content: Text("Email is already in use"));
+                  const SnackBar(content: Text("Email is already in use"));
                   break;
                 case "weak-password":
-                  SnackBar(content: Text("Password is too weak"));
+                  const SnackBar(content: Text("Password is too weak"));
                   break;
               }
             }

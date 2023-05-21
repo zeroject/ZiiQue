@@ -4,8 +4,6 @@ import 'package:ziique/CustomWidgets/customdrawer.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/login-create/create_widget.dart';
 import 'package:ziique/login-create/login_widget.dart';
-import 'package:ziique/models/beat.dart';
-import 'package:ziique/models/owner.dart';
 import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../FireService/fire_beat_Service.dart';
