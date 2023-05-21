@@ -125,6 +125,40 @@ String nodeString(int position, int rowCount, int beat) {
   return node;
 }
 
+List<int> nodeInt()
+{
+  List<int> nodePosition = [];
+  Map rowMap = {
+    "A":1,
+    "B":2,
+    "C":3,
+    "D":4,
+    "E":5,
+  };
+  String rowString = "";
+  String pos = "";
+  int column = 4 * 4;
+  List<String> beatList = beatString.split(";");
+   for(int i = 0; i < beatList.length; i++)
+  {
+    //plits the string into 2 strings
+    // the first string placement, contains only the first charater of the string
+    // the second string timecontains the rest of the string
+    rowString = beatList[i][0];
+    pos = beatList[i][1];
+    if (beatList[i].length > 2)
+    {
+      pos +=beatList[i][2];
+    }
+    //converts the time string to int
+    num posInt = num.parse(pos);
+    num rowInt = rowMap[rowString];
+    num position = (column * (rowInt - 1)) + rowInt + posInt;
+    nodePosition.add(position.toInt());
+  }
+  return nodePosition;
+}
+
 void playBeat(String beatString)
 {
   List<String> beatList = beatString.split("");
