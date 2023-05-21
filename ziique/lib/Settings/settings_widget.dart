@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
+import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
@@ -37,8 +39,6 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   bool light = true;
   bool light2 = true;
   bool light3 = true;
-  TextEditingController currentpasswordController = TextEditingController();
-  TextEditingController newpasswordController = TextEditingController();
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
   final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 
@@ -215,10 +215,10 @@ Widget build2(BuildContext context){
                         width: 250,
                         height: 100,
                         color: Colors.grey,
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
@@ -317,6 +317,7 @@ Widget build2(BuildContext context){
     );
   }
     Widget build4(BuildContext context){
+      bool passwordIsReadOnly = true;
 
       return Scaffold(
         appBar: AppBar(title: Row(
@@ -363,23 +364,17 @@ Widget build2(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
-                    Padding(
+                     Padding(
                       padding: const EdgeInsets.all(81.0),
-                      child: Column(
-                        children: [
-                          const Text('Change Password', style: TextStyle(fontSize: 24, color: Colors.white),),
-                          const SizedBox(
-                            height: 30,
+                      child: ListView(
+                        children: const [
+                          CustomCredentialsChange(
+                            editEmail: false, 
+                            editPassword: true
                           ),
-                          SizedBox(
-                            width: 190,
-                              child: TextFormField(controller: currentpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                          SizedBox(
-                            width: 190,
-                            child: TextFormField(controller: newpasswordController, style: const TextStyle(color: Colors.white) ,obscureText: true, decoration: const InputDecoration(hintText: "Confrim New Password",border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent),), labelStyle: TextStyle(color: Colors.white), hintStyle: TextStyle(color: Colors.white)),)),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: ElevatedButton(onPressed: (){}, child: const Text('Update Password', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                          CustomCredentialsChange(
+                            editEmail: true, 
+                            editPassword: false
                           ),
                         ],
                       ),
@@ -467,7 +462,7 @@ Widget build2(BuildContext context){
                                   ),
                                   title: Text(
                                     "${friend.firstname} ${friend.lastname}",
-                                    style: TextStyle(fontSize: 20)),
+                                    style: const TextStyle(fontSize: 20)),
                                 children: [
                                   const ListTile(
                                     title: Text("A Description")

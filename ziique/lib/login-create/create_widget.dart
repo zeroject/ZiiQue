@@ -171,8 +171,8 @@ class _CreateDesktopState extends State<CreateDesktop> {
 class Functions {
   Future<void> validateAndSumbit(
       email, password, firstName, lastName, context) async {
-    await SignUpService().signUpWithEmailAndPassword(email, password);
-    await SignInService().signInWithEmailAndPassword(email, password);
+    await AuthService().signUpWithEmailAndPassword(email, password);
+    await AuthService().signInWithEmailAndPassword(email, password);
     await UserService()
         .createUser(FirebaseAuth.instance.currentUser, firstName, lastName);
   }
