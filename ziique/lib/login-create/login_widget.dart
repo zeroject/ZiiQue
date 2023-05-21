@@ -199,7 +199,7 @@ class LoginMobile extends StatelessWidget {
 
 class Functions {
   Future<void> validateAndSumbit(email, password, context) async {
-    await SignInService().signInWithEmailAndPassword(email, password);
+    await AuthService().signInWithEmailAndPassword(email, password);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
   }

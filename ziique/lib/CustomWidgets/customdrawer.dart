@@ -296,6 +296,29 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ],
                     ),
                   ],
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: SizedBox(
+                        width: widget.settingsButWidth,
+                        height: widget.settingsButHeight,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            AuthService().signOut();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => widget.beatBoardDesktop));
+                          },
+                          child: const Text(
+                            "Log Out",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             }),
