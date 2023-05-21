@@ -20,3 +20,17 @@ class SignOutService{
     .signOut();
   }
 }
+
+class ChangeCredentialsService{
+  Future<void> changeDisplayName(String newDisplayName) async{
+    await FirebaseAuth.instance.currentUser!.updateDisplayName(newDisplayName);
+  }
+
+  Future<void> changeEmail(String newEmail) async{
+    await FirebaseAuth.instance.currentUser!.updateEmail(newEmail);
+  }
+
+  Future<void> changePassword(String newPassword) async{
+    await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
+  }
+}
