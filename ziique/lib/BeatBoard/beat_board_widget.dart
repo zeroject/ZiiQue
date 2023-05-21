@@ -487,12 +487,6 @@ class BeatColor {
   final int bar;
 
   bool getColor(int i) {
-    if (kDebugMode) {
-      print(
-          "beatIndex: $i maxRange: $maxRange${i == maxRange
-              ? " true"
-              : " false"}");
-    }
     if (i == maxRange) {
       maxRange += (numberOfBars * 4) + 1;
       minRange += (numberOfBars * 4) + 1;

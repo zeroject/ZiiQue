@@ -44,6 +44,13 @@ class FireBeatItRealtimeService {
       throw Exception("Could not create Beat It Together session");
     }
   }
+
+  deleteSession(String sessionID) async{
+    final sessionRef = ref.child("beatItSessions").child(sessionID);
+    sessionRef.remove();
+  }
+
+
   Future<void> addFriendToBeatItSession(String sessionID, User friend) async {
     await FirebaseFirestore.instance.collection(CollectionNames.users).doc(friend.uid).collection("sessions").doc(sessionID).set({"RESPOND" : ""});
   }

@@ -125,6 +125,7 @@ String nodeString(int position, int rowCount, int beat) {
   return node;
 }
 
+//returns a list of ints, each int is a node
 List<int> nodeInt()
 {
   List<int> nodePosition = [];
@@ -170,19 +171,6 @@ void playBeat(String beatString)
     }
   }
 
-  // ignore: unused_element
-  void addNode(String beat)
-  {
-    //adds the string to the beatString
-    beatString += beat;
-  }
-
-  // ignore: unused_element
-  void removeNode(String beat)
-  {
-    //removes the string from the beatString
-    beatString = beatString.replaceAll(beat, "");
-  }
 
 }
 
