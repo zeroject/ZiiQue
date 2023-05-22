@@ -296,7 +296,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ],
                     ),
                   ],
-                  ),
                   Expanded(
                     child: Align(
                       alignment: Alignment.bottomRight,
