@@ -546,7 +546,7 @@ Widget paymentBuild(BuildContext context){
                                           style: const TextStyle(fontSize: 20)),
                                       children: [
                                         const ListTile(
-                                          title: Text("A Description"),
+                                          title: Text("A Description"), 
                                         ),
                                         SingleChildScrollView(
                                           child: FirestoreListView(

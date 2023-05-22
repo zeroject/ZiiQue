@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
-import '../models/Notifer.dart';
 import '../models/user.dart' as our_user;
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';

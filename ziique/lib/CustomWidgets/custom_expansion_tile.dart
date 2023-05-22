@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
-
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
-import '../models/Notifer.dart';
 import '../models/beat.dart';
 
 class CustomExpansionTile extends StatefulWidget {

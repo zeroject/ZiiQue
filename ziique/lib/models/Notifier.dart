@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-class Notifer{
+class Notifier{
   ValueNotifier reload = ValueNotifier<bool>(false);
 }

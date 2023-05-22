@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';

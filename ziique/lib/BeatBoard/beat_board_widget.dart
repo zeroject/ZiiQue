@@ -9,9 +9,8 @@ import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../FireService/fire_beat_Service.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:getwidget/getwidget.dart';
-import '../models/Notifer.dart';
+import '../models/Notifier.dart';
 import '../models/user.dart' as beat_user;
 
 int numberOfRows = 5;
@@ -19,7 +18,7 @@ int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 SoundEngine soundEngine = SoundEngine();
-Notifer notifer = Notifer();
+Notifier notifer = Notifier();
 LoadBeat _loadBeat = LoadBeat();
 final Future<beat_user.User?> userquery =
     Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
