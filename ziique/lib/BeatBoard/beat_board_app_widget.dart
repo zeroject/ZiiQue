@@ -86,7 +86,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         notifer: Notifer(),
-        soundEngine: SoundEngine(),
+        soundEngine: SoundEngine(), function: (){},
       ),
       body:  Column(
         children: [
