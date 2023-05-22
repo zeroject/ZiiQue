@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
 import 'package:ziique/models/fire_user.dart';
+import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
@@ -53,7 +54,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
         builder: (context, snapshot) {
           if (!snapshot.hasData){
             return const Center(
-                child: CircularProgressIndicator(),
+                child: LoadingScreen(),
               );
           } else{
             beatuser = snapshot.data;
