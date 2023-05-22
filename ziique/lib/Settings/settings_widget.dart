@@ -363,10 +363,10 @@ Widget build2(BuildContext context){
                     ),
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
-                        child: const Padding(
+                        child: Padding(
                         padding: EdgeInsets.all(81),
                         child: Column(
-                          children: [
+                          children: const [
                             SizedBox(
                               height: 220,
                               width: 269,
