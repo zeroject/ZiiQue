@@ -34,7 +34,8 @@ class CustomDrawer extends StatefulWidget {
       required this.loginPageDesktop,
       required this.loginPageMobile,
       required this.soundEngine,
-      required this.beatBoardDesktop});
+      required this.beatBoardDesktop,
+        required this.function});
 
   final double drawerWidth;
   final Color backgroundColor;
@@ -47,6 +48,7 @@ class CustomDrawer extends StatefulWidget {
   final Widget settingsPageMobile;
   final Widget beatBoardDesktop;
   final SoundEngine soundEngine;
+  final Function function;
 
   //Not logged in
   final double offsetHeight;
@@ -136,6 +138,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               tileRadius: 10,
                               beat: beat,
                               soundEngine: widget.soundEngine,
+                              function: widget.function,
                             );
                           },
                         ),
@@ -169,7 +172,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   height: widget.settingsButHeight,
                                   child: OutlinedButton(
                                     onPressed: () {
-                                      SignOutService().signOut();
+                                      AuthService().signOut();
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

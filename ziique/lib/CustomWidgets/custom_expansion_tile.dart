@@ -20,7 +20,8 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.tileColor,
       required this.tileRadius,
       required this.soundEngine,
-      required this.beat});
+      required this.beat,
+        required this.function});
 
   final String beatId;
   final String beatTitle;
@@ -30,6 +31,7 @@ class CustomExpansionPanel extends StatefulWidget {
   final double tileRadius;
   final Beat beat;
   final SoundEngine soundEngine;
+  final Function function;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -64,6 +66,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
+                    widget.function;
                   },
                   child: Text("Load Beat", style: TextStyle(),
                   ),

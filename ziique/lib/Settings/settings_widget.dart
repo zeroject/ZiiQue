@@ -214,7 +214,7 @@ Widget build2(BuildContext context){
                         width: 250,
                         height: 100,
                         color: Colors.grey,
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

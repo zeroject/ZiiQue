@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/CustomWidgets/customdrawer.dart';
@@ -14,6 +16,7 @@ import 'package:getwidget/getwidget.dart';
 import '../models/user.dart' as beat_user;
 
 
+ValueNotifier reload = ValueNotifier<bool>(false);
 int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
@@ -106,6 +109,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
+        function: ()
+        {
+          LoadBeat().loadBeat(soundEngine, boolList);
+          },
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
           future: userquery,
@@ -388,60 +395,65 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
               builder: (BuildContext context,
                   AsyncSnapshot<String> snapshot) {
                 if (snapshot.hasData) {
-                  return Expanded(
-                    child: GridView.count(
-                      padding:
-                      const EdgeInsets.only(
-                          left: 8, right: 8),
-                      crossAxisCount: (numberOfBars * 4) + 1,
-                      children: [
-                        for (var i = 0;
-                        i < ((numberOfBars * 4) + 1) * numberOfRows;
-                        i++)
-                          Container(
-                            color: Colors.black,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: StatefulBuilder(
-                                builder: (context, reload) {
-                                  return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: (alpha
-                                            .calcGreenBut(
-                                            i, numberOfBars) ==
-                                            0)
-                                            ? Colors.green
-                                            : BeatColor(
-                                            bar: numberOfBars)
-                                            .getColor(i)
-                                            ? (boolList[i] == true)
-                                            ? Colors.grey[900]
-                                            : Colors.grey
-                                            : (boolList[i] == true)
-                                            ? Colors.grey[900]
-                                            : Colors.blueGrey),
-                                    onPressed: () {
-                                      reload(() {
-                                        alpha.greenBut == 0 ? _playSingleSound("A") : (boolList[i] ? _removeFromBeat(i, numberOfRows, numberOfBars) : _addToBeat(i, numberOfRows, numberOfBars));
-                                        boolList[i] = !boolList[i];
-                                        maxRange = (numberOfBars * 4);
-                                        minRange = 1;
-                                      });
+                  return ValueListenableBuilder(
+                    valueListenable: reload,
+                    builder: (context, value, child) {
+                      return Expanded(
+                        child: GridView.count(
+                          padding:
+                          const EdgeInsets.only(
+                              left: 8, right: 8),
+                          crossAxisCount: (numberOfBars * 4) + 1,
+                          children: [
+                            for (var i = 0;
+                            i < ((numberOfBars * 4) + 1) * numberOfRows;
+                            i++)
+                              Container(
+                                color: Colors.black,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: StatefulBuilder(
+                                    builder: (context, reload) {
+                                      return ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: (alpha
+                                                .calcGreenBut(
+                                                i, numberOfBars) ==
+                                                0)
+                                                ? Colors.green
+                                                : BeatColor(
+                                                bar: numberOfBars)
+                                                .getColor(i)
+                                                ? (boolList[i] == true)
+                                                ? Colors.grey[900]
+                                                : Colors.grey
+                                                : (boolList[i] == true)
+                                                ? Colors.grey[900]
+                                                : Colors.blueGrey),
+                                        onPressed: () {
+                                          reload(() {
+                                            alpha.greenBut == 0 ? _playSingleSound("A") : (boolList[i] ? _removeFromBeat(i, numberOfRows, numberOfBars) : _addToBeat(i, numberOfRows, numberOfBars));
+                                            boolList[i] = !boolList[i];
+                                            maxRange = (numberOfBars * 4);
+                                            minRange = 1;
+                                          });
+                                        },
+                                        child: Text(
+                                          alpha.getAlphebat(
+                                              i, numberOfBars),
+                                          style:
+                                          const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      );
                                     },
-                                    child: Text(
-                                      alpha.getAlphebat(
-                                          i, numberOfBars),
-                                      style:
-                                      const TextStyle(
-                                          color: Colors.white),
-                                    ),
-                                  );
-                                },
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                      ],
-                    ),
+                          ],
+                        ),
+                      );
+                    }
                   );
                 } else {
                   return const SizedBox(
@@ -479,6 +491,20 @@ class Alpha {
     }
     return i.toString();
   }
+}
+
+class LoadBeat {
+  LoadBeat();
+  List<int> nodes = [];
+  loadBeat(SoundEngine soundEngine, List bools){
+    bools.every((element) => false);
+    nodes = soundEngine.nodeInt();
+    for (var node in nodes){
+      bools[node] = true;
+    }
+    reload.value = !reload.value;
+  }
+
 }
 
 class BeatColor {
