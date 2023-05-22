@@ -214,10 +214,10 @@ Widget build2(BuildContext context){
                         width: 250,
                         height: 100,
                         color: Colors.grey,
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
@@ -364,7 +364,7 @@ Widget build2(BuildContext context){
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
                         child: Padding(
-                        padding: EdgeInsets.all(81),
+                        padding: const EdgeInsets.all(81),
                         child: Column(
                           children: const [
                             SizedBox(

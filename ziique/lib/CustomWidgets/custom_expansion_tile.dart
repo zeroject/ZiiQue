@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
@@ -65,7 +63,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
                   },
-                  child: Text("Load Beat", style: TextStyle(),
+                  child: const Text("Load Beat", style: TextStyle(),
                   ),
                 ),
                 OutlinedButton(
@@ -154,11 +152,11 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                     our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
                     user!.sessionID = await FireBeatItRealtimeService().createSession(
                         widget.beat, FirebaseAuth.instance.currentUser!.uid);
-                    user!.inSession = true;
+                    user.inSession = true;
                     UserService().updateUser(user);
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Start Session",
                     style: TextStyle(),
                   ),
