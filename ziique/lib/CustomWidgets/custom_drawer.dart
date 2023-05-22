@@ -132,6 +132,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           itemBuilder: (BuildContext context, snapshot) {
                             Beat beat = snapshot.data();
                             return CustomExpansionTile(
+                              isFriendBeat: false,
                               beat: beat,
                               fontSize: 20,
                               tileColor:

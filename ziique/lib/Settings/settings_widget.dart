@@ -7,6 +7,7 @@ import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/models/fire_user.dart';
+import '../CustomWidgets/custom_expansion_tile.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/beat.dart';
@@ -553,19 +554,13 @@ Widget paymentBuild(BuildContext context){
                                             shrinkWrap: true,
                                             itemBuilder: (context, snapshot) {
                                               Beat beat = snapshot.data();
-                                              return const Center(
-                                                child: CircularProgressIndicator(),
-                                              );
-                                              /*
                                               return CustomExpansionTile(
+                                                isFriendBeat: true,
                                                 beat: beat,
                                                 fontSize: 20,
                                                 tileColor: const Color.fromARGB(255, 255, 255, 255),
                                                 tileRadius: 10,
-                                                soundEngine: widget.soundEngine,
-                                                onLoadBeat: widget.onLoadBeat,
                                               );
-                                              */
                                             },
                                           ),
                                         ),

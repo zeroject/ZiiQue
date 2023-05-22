@@ -13,19 +13,21 @@ import '../models/beat.dart';
 class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile(
       {super.key,
+      required this.isFriendBeat,
       required this.fontSize,
       required this.tileColor,
       required this.tileRadius,
-      required this.soundEngine,
       required this.beat,
-        required this.onLoadBeat,});
+      this.soundEngine,
+      this.onLoadBeat,});
 
   final Beat beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
-  final SoundEngine soundEngine;
-  final LoadBeatCallback onLoadBeat;
+  final SoundEngine? soundEngine;
+  final LoadBeatCallback? onLoadBeat;
+  final bool isFriendBeat;
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
@@ -59,13 +61,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    widget.soundEngine.beatString = widget.beat.beatString;
+                    widget.soundEngine!.beatString = widget.beat.beatString;
                     widget.onLoadBeat;
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
                 ),
-                OutlinedButton(
+                widget.isFriendBeat ? OutlinedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -107,7 +109,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                           id: widget.beat.id,
                                           title: titleController.text,
                                           by: widget.beat.by,
-                                          beatString: widget.soundEngine.beatString,
+                                          beatString: widget.soundEngine!.beatString,
                                           description: descriptionController.text,
                                           publicity: widget.beat.publicity
                                           ));
@@ -118,8 +120,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                       ));
                     },
-                    child: const Text("Update Beat")),
-                OutlinedButton(
+                    child: const Text("Update Beat")) : Text(""),
+                widget.isFriendBeat ? OutlinedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -147,8 +149,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                               ));
                     },
-                    child: const Text("Delete Beat")),
-                OutlinedButton(
+                    child: const Text("Delete Beat")) : Text(""),
+                widget.isFriendBeat ? OutlinedButton(
                   onPressed: () async {
                     our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
                     user!.sessionID = await FireBeatItRealtimeService().createSession(
@@ -161,7 +163,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                     "Start Session",
                     style: TextStyle(),
                   ),
-                ),
+                ) : Text("")
               ],
             )
           ],
