@@ -22,6 +22,7 @@ int maxRange = (numberOfBars * 4);
 int minRange = 1;
 SoundEngine soundEngine = SoundEngine();
 Notifer notifer = Notifer();
+LoadBeat _loadBeat = LoadBeat();
 final Future<beat_user.User?> userquery =
     Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 beat_user.User? beatuser;
@@ -111,8 +112,12 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
         notifer: notifer,
-        function: () {boolList = LoadBeat().loadBeat(soundEngine, boolList, internalSetter);
-          print("Hello");},
+        loadBeat: _loadBeat,
+        boolList: boolList,
+        function: () {
+          print("Hello");
+          internalSetter((){});
+          },
       ),
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
@@ -301,13 +306,13 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                                 numberOfBars)
                                                                         .getColor(
                                                                             i)
-                                                                    ? (boolList[i] ==
+                                                                    ? (_loadBeat.boolList[i] ==
                                                                             true)
                                                                         ? Colors.grey[
                                                                             900]
                                                                         : Colors
                                                                             .grey
-                                                                    : (boolList[i] ==
+                                                                    : (_loadBeat.boolList[i] ==
                                                                             true)
                                                                         ? Colors.grey[
                                                                             900]
@@ -322,8 +327,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                 i,
                                                                 numberOfRows,
                                                                 numberOfBars);
-                                                        boolList[i] =
-                                                            !boolList[i];
+                                                        _loadBeat.boolList[i] =
+                                                            !_loadBeat.boolList[i];
                                                         maxRange =
                                                             (numberOfBars * 4);
                                                         minRange = 1;
@@ -555,19 +560,16 @@ class LoadBeat {
   LoadBeat();
 
   List<int> nodes = [];
+  List<bool> boolList = [];
 
-  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools, StateSetter setter) {
-    print(bools);
+  loadBeat(SoundEngine soundEngine, List<bool> bools) {
     bools.every((element) => false);
-    print(bools);
     nodes = soundEngine.nodeInt();
-    print("Nodes : ${nodes}");
     for (var node in nodes) {
       bools[node] = true;
     }
     print(bools);
-    setter((){});
-    return bools;
+    boolList = bools;
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/Notifer.dart';
 import '../models/user.dart' as our_user;
@@ -37,7 +38,8 @@ class CustomDrawer extends StatefulWidget {
       required this.soundEngine,
       required this.beatBoardDesktop,
         required this.notifer,
-        required this.function});
+        required this.function, required this.loadBeat,
+        required this.boolList});
 
   final double drawerWidth;
   final Color backgroundColor;
@@ -51,7 +53,9 @@ class CustomDrawer extends StatefulWidget {
   final Widget beatBoardDesktop;
   final SoundEngine soundEngine;
   final Notifer notifer;
+  final LoadBeat loadBeat;
   final Function function;
+  final List<bool> boolList;
 
   //Not logged in
   final double offsetHeight;
@@ -141,7 +145,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               tileRadius: 10,
                               beat: beat,
                               soundEngine: widget.soundEngine,
-                              notifer: widget.notifer, function: widget.function,
+                              notifer: widget.notifer,
+                              function: widget.function,
+                              loadBeat: widget.loadBeat,
+                              boolList: widget.boolList,
                             );
                           },
                         ),
