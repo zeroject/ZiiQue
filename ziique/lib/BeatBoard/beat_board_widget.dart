@@ -111,10 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         soundEngine: soundEngine,
         function: ()
         {
-          boolList = LoadBeat().loadBeat(soundEngine, boolList);
-          print(reload.value);
           reload.value = !reload.value;
-          print(reload.value);
           },
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
@@ -401,6 +398,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                   return ValueListenableBuilder(
                     valueListenable: reload,
                     builder: (context, value, child) {
+                      boolList = LoadBeat().loadBeat(soundEngine, boolList);
                       return Expanded(
                         child: GridView.count(
                           padding:
