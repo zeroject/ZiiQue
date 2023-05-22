@@ -465,8 +465,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                 : Colors
                                                                     .blueGrey),
                                                 onPressed: () {
-                                                  LoadBeat().loadBeat(soundEngine, boolList);
                                                   reload(() {
+                                                    LoadBeat().loadBeat(soundEngine, boolList);
                                                     alpha.greenBut == 0
                                                         ? _playSingleSound("A")
                                                         : (boolList[i]
