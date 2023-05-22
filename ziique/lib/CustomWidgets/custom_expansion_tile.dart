@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
@@ -20,7 +21,10 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.tileRadius,
       required this.soundEngine,
       required this.beat,
-        required this.notifer});
+        required this.notifer,
+        required this.function,
+        required this.loadBeat,
+        required this.boolList});
 
   final String beatId;
   final String beatTitle;
@@ -31,6 +35,9 @@ class CustomExpansionPanel extends StatefulWidget {
   final Beat beat;
   final SoundEngine soundEngine;
   final Notifer notifer;
+  final Function function;
+  final LoadBeat loadBeat;
+  final List<bool> boolList;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -65,9 +72,9 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
-                    print(widget.notifer.reload.value);
                     widget.notifer.reload.value = !widget.notifer.reload.value;
-                    print(widget.notifer.reload.value);
+                    widget.loadBeat.loadBeat(widget.soundEngine, widget.boolList);
+                    widget.function;
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
