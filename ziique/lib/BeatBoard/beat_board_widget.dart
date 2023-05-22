@@ -543,6 +543,7 @@ class LoadBeat {
   List<int> nodes = [];
 
   List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
+    print("HELLO");
     print(bools);
     bools.every((element) => false);
     print(bools);
@@ -551,6 +552,7 @@ class LoadBeat {
     for (var node in nodes) {
       bools[node] = true;
     }
+    throw Error();
     return bools;
   }
 }
