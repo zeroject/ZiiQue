@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ziique/CustomWidgets/customdrawer.dart';
 import 'package:ziique/login-create/create_widget.dart';
 import 'package:ziique/login-create/login_widget.dart';
+import 'package:ziique/models/Notifer.dart';
+import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -83,7 +85,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         loginPageDesktop: LoginDesktop(context),
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
-        soundEngine: soundEngine, function: () {},
+        notifer: Notifer(), 
+        soundEngine: SoundEngine(),
       ),
       body:  Column(
         children: [
