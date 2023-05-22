@@ -65,9 +65,9 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
-                    print(widget.notifer.noti);
-                    widget.notifer.noti = !widget.notifer.noti;
-                    print(widget.notifer.noti);
+                    print(widget.notifer.reload.value);
+                    widget.notifer.reload.value = !widget.notifer.reload.value;
+                    print(widget.notifer.reload.value);
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),

@@ -43,7 +43,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
   Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
   Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
-  ValueNotifier reload = ValueNotifier<bool>(notifer.noti);
   List<bool> boolList =
   List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
@@ -395,7 +394,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                   AsyncSnapshot<String> snapshot) {
                 if (snapshot.hasData) {
                   return ValueListenableBuilder(
-                    valueListenable: reload,
+                    valueListenable: notifer.reload,
                     builder: (context, value, child) {
                       boolList = LoadBeat().loadBeat(soundEngine, boolList);
                       return Expanded(
