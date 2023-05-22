@@ -6,7 +6,7 @@ class SoundEngine {
 AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
-bool repeat = false;
+bool repeat = true;
 bool shouldPlay = true;
 
 String beatString = "";
@@ -250,7 +250,10 @@ List<List<Node>> convertStringToNodes(String beatString)
   }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodes, int playerCount, num time)
+//return true once the playNodes function is done
+//return false if the playNodes function is stopped
+
+Future<void> playNodes(List<Node> nodes, int playerCount, num time) async
 {
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
@@ -259,7 +262,7 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
-      if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
+      if (timer.tick >= (nodes[i].time.toInt() / 10) + 1 && shouldPlay == true)
       {
         if (players[j].state == PlayerState.playing) 
          {
@@ -268,22 +271,15 @@ void playNodes(List<Node> nodes, int playerCount, num time)
          players[j].play(DeviceFileSource(nodes[i].source));
          i == nodes.length -1 ? timer.cancel() : i++;  
     }
-
-    //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == time && repeat == false)
+    if (timer.tick == time)
     {
       timer.cancel();
-    }
-    else if (timer.tick == time && repeat == true)
-    {
-      timer.cancel();
-      playNodes(nodes, playerCount, time);
     }
   });
 }
 
 play()
-  {
+{
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
@@ -295,15 +291,27 @@ play()
     maxTime = ((maxTime /10) +1);
     for(int i = 0; i < nodes.length; i++)
     {
-
       if (nodes[i].isNotEmpty)
       {
-      playNodes(nodes[i], 2, maxTime);
+         //await for all playNodes to finish, then call play again if repeat is true
+         //if repeat is false, set shouldPlay to false
+        playNodes(nodes[i], 2, maxTime).then((value) {
+          if (repeat == true && shouldPlay == true)
+          {
+            play();
+            shouldPlay =true;
+          }
+          else
+          {
+            shouldPlay = false;
+          }
+        });
       }
     }
-    return shouldPlay;
-  }
 }
+
+}
+
 
 class Node
 {
