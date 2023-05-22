@@ -466,7 +466,14 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                     .blueGrey),
                                                 onPressed: () {
                                                   reload(() {
-                                                    LoadBeat().loadBeat(soundEngine, boolList);
+                                                      print("HELLO");
+                                                      print(boolList);
+                                                      boolList.every((element) => false);
+                                                      print(boolList);
+                                                      print("Nodes : ${soundEngine.nodeInt()}");
+                                                      for (var node in soundEngine.nodeInt()) {
+                                                        boolList[node] = true;
+                                                      }
                                                     alpha.greenBut == 0
                                                         ? _playSingleSound("A")
                                                         : (boolList[i]
@@ -542,19 +549,7 @@ class LoadBeat {
 
   List<int> nodes = [];
 
-  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
-    print("HELLO");
-    print(bools);
-    bools.every((element) => false);
-    print(bools);
-    nodes = soundEngine.nodeInt();
-    print("Nodes : ${nodes}");
-    for (var node in nodes) {
-      bools[node] = true;
-    }
-    throw Error();
-    return bools;
-  }
+
 }
 
 class BeatColor {
