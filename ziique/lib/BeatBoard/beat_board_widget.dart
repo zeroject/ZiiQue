@@ -16,7 +16,6 @@ import 'package:getwidget/getwidget.dart';
 import '../models/user.dart' as beat_user;
 
 
-ValueNotifier reload = ValueNotifier<bool>(false);
 int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
@@ -42,6 +41,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
   Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
   Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
+  ValueNotifier reload = ValueNotifier<bool>(false);
   List<bool> boolList =
   List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
@@ -112,6 +112,9 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         function: ()
         {
           boolList = LoadBeat().loadBeat(soundEngine, boolList);
+          print(reload.value);
+          reload.value = !reload.value;
+          print(reload.value);
           },
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
