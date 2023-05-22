@@ -111,7 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
         function: ()
-        {},
+        {notifer.noti = !notifer.noti;},
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
           future: userquery,
