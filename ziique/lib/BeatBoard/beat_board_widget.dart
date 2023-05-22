@@ -21,6 +21,7 @@ int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 SoundEngine soundEngine = SoundEngine();
+Notifer notifer = Notifer();
 final Future<beat_user.User?> userquery = Future(() =>
     UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 beat_user.User? beatuser;
@@ -41,7 +42,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
   Color beatNorm = const Color.fromARGB(255, 0, 178, 255);
   Color beatNormPress = const Color.fromARGB(255, 0, 105, 147);
-  ValueNotifier reload = ValueNotifier<bool>(false);
+  ValueNotifier reload = ValueNotifier<bool>(notifer.noti);
   List<bool> boolList =
   List.generate(numberOfRows * ((numberOfBars * 4) + 1), (index) => false);
   Alpha alpha = Alpha();
@@ -110,9 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
         function: ()
-        {
-          reload.value = !reload.value;
-          },
+        {},
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
           future: userquery,
@@ -506,6 +505,10 @@ class LoadBeat {
     return bools;
   }
 
+}
+
+class Notifer{
+  bool noti = false;
 }
 
 class BeatColor {
