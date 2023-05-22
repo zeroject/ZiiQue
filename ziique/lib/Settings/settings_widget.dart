@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
+import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';
+import '../models/beat.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
 import 'package:qr_flutter/qr_flutter.dart';
@@ -524,9 +526,6 @@ Widget paymentBuild(BuildContext context){
                                 child: beatuser!.friends.isNotEmpty ? FirestoreListView(
                                 query: UserService().getFriends(beatuser!.friends),
                                 shrinkWrap: true,
-                                errorBuilder: (context, error, stackTrace){
-                                  return const Text("Error");
-                                },
                                 itemBuilder: (context, snapshot) { 
                                   beat_user.User friend = snapshot.data();
                                   return ListView(
@@ -546,7 +545,29 @@ Widget paymentBuild(BuildContext context){
                                           style: const TextStyle(fontSize: 20)),
                                       children: [
                                         const ListTile(
-                                          title: Text("A Description")
+                                          title: Text("A Description"),
+                                        ),
+                                        SingleChildScrollView(
+                                          child: FirestoreListView(
+                                            query: BeatService().getAllPublicBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, snapshot) {
+                                              Beat beat = snapshot.data();
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                              /*
+                                              return CustomExpansionTile(
+                                                beat: beat,
+                                                fontSize: 20,
+                                                tileColor: const Color.fromARGB(255, 255, 255, 255),
+                                                tileRadius: 10,
+                                                soundEngine: widget.soundEngine,
+                                                onLoadBeat: widget.onLoadBeat,
+                                              );
+                                              */
+                                            },
+                                          ),
                                         ),
                                         ButtonBar(
                                           alignment: MainAxisAlignment.spaceEvenly,

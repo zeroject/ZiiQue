@@ -15,11 +15,24 @@ String generateUid() {
 }
 
 class BeatService{
-  Query<Beat> getBeats(String userUid){
+  Query<Beat> getAllBeatsFromUser(String userUid){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)
     .doc(userUid)
     .collection(CollectionNames.beats)
+    .orderBy(BeatKeys.lastEdited)
+    .withConverter(
+      fromFirestore: (snapshot, options) => Beat.fromMap(snapshot.id, snapshot.data()!), 
+      toFirestore: (value, options) => value.toMap(),
+    );
+  }
+
+  Query<Beat> getAllPublicBeatsFromUser(String userUid){
+    return FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .doc(userUid)
+    .collection(CollectionNames.beats)
+    .where('publicity', isEqualTo: 'Public')
     .orderBy(BeatKeys.lastEdited)
     .withConverter(
       fromFirestore: (snapshot, options) => Beat.fromMap(snapshot.id, snapshot.data()!), 

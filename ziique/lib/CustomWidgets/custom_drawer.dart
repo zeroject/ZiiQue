@@ -128,7 +128,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         FirestoreListView<Beat>(
                           shrinkWrap: true,
                           query: BeatService()
-                              .getBeats(FirebaseAuth.instance.currentUser!.uid),
+                              .getAllBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
                           itemBuilder: (BuildContext context, snapshot) {
                             Beat beat = snapshot.data();
                             return CustomExpansionTile(
