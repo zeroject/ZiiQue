@@ -8,6 +8,8 @@ import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
+import 'package:qr_flutter/qr_flutter.dart';
+
 
 String scene = "Account";
 String friendcode = '1234';
@@ -146,7 +148,8 @@ Widget accountBuild(BuildContext context){
                           .of(context)
                           .showSnackBar(snackBar);});
                           }, 
-                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
+                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
+                        QrImageView(data: friendcode, size: 50,)
                       ],
                     ),
                     )
