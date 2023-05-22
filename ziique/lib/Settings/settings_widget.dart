@@ -134,21 +134,38 @@ Widget accountBuild(BuildContext context){
                       width: 269,
                       child: Column(
                       children: [
-                        Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
-                        Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
+                        Row(
+                          children: [
+                            Text('Name: ', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text('Email: ', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
+                          ],
+                        ),
                         TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
                         const SizedBox(
                           height: 30,
                         ),
                         const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
-                        Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
-                        OutlinedButton(onPressed: (){
-                          Clipboard.setData(ClipboardData(text: friendcode))
-                          .then((value){ScaffoldMessenger
-                          .of(context)
-                          .showSnackBar(snackBar);});
-                          }, 
-                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
+                            OutlinedButton(style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                                onPressed: (){
+                              Clipboard.setData(ClipboardData(text: friendcode))
+                                  .then((value){ScaffoldMessenger
+                                  .of(context)
+                                  .showSnackBar(snackBar);});
+                            },
+                                child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
+                          ],
+                        ),
+
                         QrImageView(data: friendcode, size: 50,)
                       ],
                     ),
