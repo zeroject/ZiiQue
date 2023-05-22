@@ -140,6 +140,7 @@ List<int> nodeInt()
   String pos = "";
   int column = 4 * 4;
   List<String> beatList = beatString.split(";");
+  beatList.removeLast();
    for(int i = 0; i < beatList.length; i++)
   {
     //plits the string into 2 strings

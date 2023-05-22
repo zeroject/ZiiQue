@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
+import '../models/Notifer.dart';
 import '../models/user.dart' as our_user;
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
@@ -34,7 +35,8 @@ class CustomDrawer extends StatefulWidget {
       required this.loginPageDesktop,
       required this.loginPageMobile,
       required this.soundEngine,
-      required this.beatBoardDesktop});
+      required this.beatBoardDesktop,
+        required this.notifer});
 
   final double drawerWidth;
   final Color backgroundColor;
@@ -47,6 +49,7 @@ class CustomDrawer extends StatefulWidget {
   final Widget settingsPageMobile;
   final Widget beatBoardDesktop;
   final SoundEngine soundEngine;
+  final Notifer notifer;
 
   //Not logged in
   final double offsetHeight;
@@ -136,6 +139,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               tileRadius: 10,
                               beat: beat,
                               soundEngine: widget.soundEngine,
+                              notifer: widget.notifer,
                             );
                           },
                         ),
