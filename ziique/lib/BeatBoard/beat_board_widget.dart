@@ -13,6 +13,7 @@ import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:getwidget/getwidget.dart';
+import '../models/Notifer.dart';
 import '../models/user.dart' as beat_user;
 
 
@@ -110,8 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
-        function: ()
-        {notifer.noti = !notifer.noti;},
+        notifer: notifer,
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
           future: userquery,
@@ -505,10 +505,6 @@ class LoadBeat {
     return bools;
   }
 
-}
-
-class Notifer{
-  bool noti = false;
 }
 
 class BeatColor {

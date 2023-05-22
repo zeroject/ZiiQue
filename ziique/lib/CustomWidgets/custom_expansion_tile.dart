@@ -6,6 +6,7 @@ import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
 
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
+import '../models/Notifer.dart';
 import '../models/beat.dart';
 
 class CustomExpansionPanel extends StatefulWidget {
@@ -19,7 +20,7 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.tileRadius,
       required this.soundEngine,
       required this.beat,
-        required this.function});
+        required this.notifer});
 
   final String beatId;
   final String beatTitle;
@@ -29,7 +30,7 @@ class CustomExpansionPanel extends StatefulWidget {
   final double tileRadius;
   final Beat beat;
   final SoundEngine soundEngine;
-  final Function function;
+  final Notifer notifer;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -64,7 +65,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
-                    widget.function;
+                    widget.notifer.noti = !widget.notifer.noti;
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
