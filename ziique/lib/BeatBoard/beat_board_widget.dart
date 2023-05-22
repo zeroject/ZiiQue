@@ -396,7 +396,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                   return ValueListenableBuilder(
                     valueListenable: notifer.reload,
                     builder: (context, value, child) {
-                      boolList = LoadBeat().loadBeat(soundEngine, boolList);
                       return Expanded(
                         child: GridView.count(
                           padding:
@@ -430,6 +429,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                 ? Colors.grey[900]
                                                 : Colors.blueGrey),
                                         onPressed: () {
+                                          boolList = LoadBeat().loadBeat(soundEngine, boolList);
                                           reload(() {
                                             alpha.greenBut == 0 ? _playSingleSound("A") : (boolList[i] ? _removeFromBeat(i, numberOfRows, numberOfBars) : _addToBeat(i, numberOfRows, numberOfBars));
                                             boolList[i] = !boolList[i];
