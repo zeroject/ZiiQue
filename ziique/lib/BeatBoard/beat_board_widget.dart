@@ -111,7 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         soundEngine: soundEngine,
         function: ()
         {
-          LoadBeat().loadBeat(soundEngine, boolList);
+          boolList = LoadBeat().loadBeat(soundEngine, boolList);
           },
       ),
       body: FirebaseAuth.instance.currentUser != null ? FutureBuilder(
@@ -496,13 +496,14 @@ class Alpha {
 class LoadBeat {
   LoadBeat();
   List<int> nodes = [];
-  loadBeat(SoundEngine soundEngine, List bools){
+  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools){
     bools.every((element) => false);
     nodes = soundEngine.nodeInt();
     for (var node in nodes){
       bools[node] = true;
     }
     reload.value = !reload.value;
+    return bools;
   }
 
 }
