@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
-import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
+import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';

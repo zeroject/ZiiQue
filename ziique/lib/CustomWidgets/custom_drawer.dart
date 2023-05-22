@@ -131,7 +131,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               .getBeats(FirebaseAuth.instance.currentUser!.uid),
                           itemBuilder: (BuildContext context, snapshot) {
                             Beat beat = snapshot.data();
-                            return CustomExpansionPanel(
+                            return CustomExpansionTile(
                               beatId: beat.id,
                               beatTitle: beat.title,
                               beatDescription: beat.description,

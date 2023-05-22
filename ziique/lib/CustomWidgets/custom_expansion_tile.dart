@@ -10,8 +10,8 @@ import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/Notifer.dart';
 import '../models/beat.dart';
 
-class CustomExpansionPanel extends StatefulWidget {
-  const CustomExpansionPanel(
+class CustomExpansionTile extends StatefulWidget {
+  const CustomExpansionTile(
       {super.key,
       required this.beatId,
       required this.beatTitle,
@@ -34,10 +34,10 @@ class CustomExpansionPanel extends StatefulWidget {
   final LoadBeatCallback onLoadBeat;
 
   @override
-  State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
+  State<CustomExpansionTile> createState() => _CustomExpansionTileState();
 }
 
-class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
+class _CustomExpansionTileState extends State<CustomExpansionTile> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
