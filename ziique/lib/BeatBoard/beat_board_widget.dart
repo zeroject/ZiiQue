@@ -263,72 +263,85 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                           builder: (BuildContext context,
                               AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasData) {
-                              return Expanded(
-                                child: GridView.count(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  crossAxisCount: (numberOfBars * 4) + 1,
-                                  children: [
-                                    for (var i = 0;
-                                        i <
-                                            ((numberOfBars * 4) + 1) *
-                                                numberOfRows;
-                                        i++)
-                                      Container(
-                                        color: Colors.black,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: StatefulBuilder(
-                                            builder: (context, reload) {
-                                              return ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor: (alpha
-                                                                .calcGreenBut(i,
-                                                                    numberOfBars) ==
-                                                            0)
-                                                        ? Colors.green
-                                                        : BeatColor(
-                                                                    bar:
-                                                                        numberOfBars)
-                                                                .getColor(i)
-                                                            ? (boolList[i] ==
-                                                                    true)
-                                                                ? Colors
-                                                                    .grey[900]
-                                                                : Colors.grey
-                                                            : (boolList[i] ==
-                                                                    true)
-                                                                ? Colors
-                                                                    .grey[900]
-                                                                : Colors
-                                                                    .blueGrey),
-                                                onPressed: () {
-                                                  reload(() {
-                                                    alpha.greenBut == 0
-                                                        ? _playSingleSound("A")
-                                                        : _addToBeat(
-                                                            i,
-                                                            numberOfRows,
-                                                            numberOfBars);
-                                                    boolList[i] = !boolList[i];
-                                                    maxRange =
-                                                        (numberOfBars * 4);
-                                                    minRange = 1;
-                                                  });
+                              return ValueListenableBuilder(
+                                valueListenable: notifer.reload,
+                                builder: (context, value, child) {
+                                  return Expanded(
+                                    child: GridView.count(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8),
+                                      crossAxisCount: (numberOfBars * 4) + 1,
+                                      children: [
+                                        for (var i = 0;
+                                            i <
+                                                ((numberOfBars * 4) + 1) *
+                                                    numberOfRows;
+                                            i++)
+                                          Container(
+                                            color: Colors.black,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: StatefulBuilder(
+                                                builder: (context, reload) {
+                                                  return ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            backgroundColor: (alpha
+                                                                        .calcGreenBut(
+                                                                            i,
+                                                                            numberOfBars) ==
+                                                                    0)
+                                                                ? Colors.green
+                                                                : BeatColor(
+                                                                            bar:
+                                                                                numberOfBars)
+                                                                        .getColor(
+                                                                            i)
+                                                                    ? (boolList[i] ==
+                                                                            true)
+                                                                        ? Colors.grey[
+                                                                            900]
+                                                                        : Colors
+                                                                            .grey
+                                                                    : (boolList[i] ==
+                                                                            true)
+                                                                        ? Colors.grey[
+                                                                            900]
+                                                                        : Colors
+                                                                            .blueGrey),
+                                                    onPressed: () {
+                                                      boolList = LoadBeat().loadBeat(soundEngine, boolList);
+                                                      reload(() {
+                                                        alpha.greenBut == 0
+                                                            ? _playSingleSound(
+                                                                "A")
+                                                            : _addToBeat(
+                                                                i,
+                                                                numberOfRows,
+                                                                numberOfBars);
+                                                        boolList[i] =
+                                                            !boolList[i];
+                                                        maxRange =
+                                                            (numberOfBars * 4);
+                                                        minRange = 1;
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      alpha.getAlphebat(
+                                                          i, numberOfBars),
+                                                      style: const TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  );
                                                 },
-                                                child: Text(
-                                                  alpha.getAlphebat(
-                                                      i, numberOfBars),
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              );
-                                            },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                                      ],
+                                    ),
+                                  );
+                                },
                               );
                             } else {
                               return const SizedBox(
@@ -466,14 +479,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                     .blueGrey),
                                                 onPressed: () {
                                                   reload(() {
-                                                      print("HELLO");
-                                                      print(boolList);
-                                                      boolList.every((element) => false);
-                                                      print(boolList);
-                                                      print("Nodes : ${soundEngine.nodeInt()}");
-                                                      for (var node in soundEngine.nodeInt()) {
-                                                        boolList[node] = true;
-                                                      }
                                                     alpha.greenBut == 0
                                                         ? _playSingleSound("A")
                                                         : (boolList[i]
@@ -549,7 +554,17 @@ class LoadBeat {
 
   List<int> nodes = [];
 
-
+  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
+    print(bools);
+    bools.every((element) => false);
+    print(bools);
+    nodes = soundEngine.nodeInt();
+    print("Nodes : ${nodes}");
+    for (var node in nodes) {
+      bools[node] = true;
+    }
+    return bools;
+  }
 }
 
 class BeatColor {
