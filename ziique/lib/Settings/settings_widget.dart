@@ -56,17 +56,17 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               if (scene.contains('Account')) {
-                return build1(context);
+                return accountBuild(context);
               } else if(scene.contains('Payment')){
-                return build2(context);
+                return paymentBuild(context);
               } else if(scene.contains('Notifications')){
-                return build3(context);
+                return notificationsBuild(context);
               }else if(scene.contains('Security')){
-                return build4(context);
+                return securityBuild(context);
               }else if(scene.contains('Friends')){
-                return build5(context);
+                return friendBuild(context);
               }
-              return build1(context);
+              return accountBuild(context);
 
             });
           }
@@ -77,7 +77,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
 
 
 
-Widget build1(BuildContext context){
+Widget accountBuild(BuildContext context){
 
   return Scaffold(
       appBar: AppBar(title: Row(
@@ -124,9 +124,13 @@ Widget build1(BuildContext context){
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(84.0),
-                    child: Column(
+                  Container(
+                    color: const Color.fromARGB(255, 57, 54, 54),
+                    child:Padding(
+                    padding: const EdgeInsets.all(81.0),
+                    child: SizedBox(
+                      width: 269,
+                      child: Column(
                       children: [
                         Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
                         Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
@@ -145,6 +149,8 @@ Widget build1(BuildContext context){
                           child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),))
                       ],
                     ),
+                    )
+                  )
                   )
                 ],
               ),
@@ -155,7 +161,7 @@ Widget build1(BuildContext context){
   );
 }
 
-Widget build2(BuildContext context){
+Widget paymentBuild(BuildContext context){
   return Scaffold(
     appBar: AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -201,9 +207,13 @@ Widget build2(BuildContext context){
                     OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(84.0),
-                  child: Column(
+                Container(
+                  color: const Color.fromARGB(255, 57, 54, 54),
+                  child: Padding(
+                  padding: const EdgeInsets.all(81),
+                  child: SizedBox(
+                    width: 269,
+                    child: Column(
                     children: [
                       Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
                       const SizedBox(
@@ -230,6 +240,9 @@ Widget build2(BuildContext context){
                       ElevatedButton(onPressed: (){}, child: const Text('Add Card', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.white),))
                     ],
                   ),
+                  )
+                  
+                )
                 )
               ],
             ),
@@ -239,7 +252,7 @@ Widget build2(BuildContext context){
     ),
   );
 }
-  Widget build3(BuildContext context){
+  Widget notificationsBuild(BuildContext context){
 
     return Scaffold(
       appBar: AppBar(title: Row(
@@ -286,26 +299,37 @@ Widget build2(BuildContext context){
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
+                  Container(
+                    color: const Color.fromARGB(255, 57, 54, 54),
+                    child: Padding(
+                    padding: const EdgeInsets.all(81),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(children: [
-                          const Text('Friend Request Notifications', style: TextStyle(fontSize: 18, color: Colors.white), ),
+                        SizedBox(
+                          width: 269,
+                          child: Row(children: [
+                          const Text('Friend Requests', style: TextStyle(fontSize: 18, color: Colors.white), ),
                           Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
-                        ],),
-                        Row(children: [
-                          const Text('General Notifications', style: TextStyle(fontSize: 18, color: Colors.white),),
+                        ],),),
+                        SizedBox(
+                          width: 269,
+                          child: Row(children: [
+                          const Text('General', style: TextStyle(fontSize: 18, color: Colors.white),),
                           Switch(value: light2, activeColor: Colors.blue, onChanged: (bool value){setState(() {light2 = value;});}),
-                        ],),
-                        Row(children: [
-                          const Text('Notifications About Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
+                        ],),),
+                        
+                        SizedBox(
+                          width: 269,
+                          child: Row(children: [
+                          const Text('Updates', style: TextStyle(fontSize: 18, color: Colors.white),),
                           Switch(value: light3, activeColor: Colors.blue, onChanged: (bool value){setState(() {light3 = value;});}),
-                        ],),
+                        ],),),
+                        
                       ],
                     ),
+                  )
                   )
                 ],
               ),
@@ -315,7 +339,7 @@ Widget build2(BuildContext context){
       ),
     );
   }
-    Widget build4(BuildContext context){
+    Widget securityBuild(BuildContext context){
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -358,29 +382,29 @@ Widget build2(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        OutlinedButton(onPressed: (){scene = 'friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
+                        OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
                         child: Padding(
                         padding: const EdgeInsets.all(81),
-                        child: Column(
-                          children: const [
-                            SizedBox(
-                              height: 220,
-                              width: 269,
-                              child: CustomCredentialsChange(
-                                emailOrPassword: 'Email', 
+                          child: Column(
+                            children: const [
+                              SizedBox(
+                                height: 220,
+                                width: 269,
+                                child: CustomCredentialsChange(
+                                  emailOrPassword: 'Email', 
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 220,
-                              width: 269,
-                              child: CustomCredentialsChange(
-                                emailOrPassword: 'Password', 
-                              ),
-                            )
+                              SizedBox(
+                                height: 220,
+                                width: 269,
+                                child: CustomCredentialsChange(
+                                  emailOrPassword: 'Password', 
+                                ),
+                              )
                           ],
                         ),
                       ),
@@ -393,7 +417,7 @@ Widget build2(BuildContext context){
         ),
       );
     }
-    Widget build5(BuildContext context){
+    Widget friendBuild(BuildContext context){
       
       return Scaffold(
         appBar: AppBar(title: Row(
@@ -440,88 +464,95 @@ Widget build2(BuildContext context){
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(84.0),
-                      child: SizedBox(
-                        height: 700,
-                        width: 250,
-                        child: SingleChildScrollView(
-                          child: FirestoreListView(
-                          query: UserService().getFriends(beatuser!.friends),
-                          shrinkWrap: true,
-                          errorBuilder: (context, error, stackTrace){
-                            return const Text("Error");
-                          },
-                          itemBuilder: (context, snapshot) { 
-                            beat_user.User friend = snapshot.data();
-                            return Column(
-                              children: [
-                                ExpansionTile(
-                                  textColor: const Color.fromARGB(255, 0, 0, 0),
-                                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                                  collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
-                                  ),
-                                  collapsedShape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(10))
-                                  ),
-                                  title: Text(
-                                    "${friend.firstname} ${friend.lastname}",
-                                    style: const TextStyle(fontSize: 20)),
-                                children: [
-                                  const ListTile(
-                                    title: Text("A Description")
-                                  ),
-                                  ButtonBar(
-                                    alignment: MainAxisAlignment.spaceEvenly,
+                    Container(
+                      color: const Color.fromARGB(255, 57, 54, 54),
+                      child: Padding(
+                        padding: const EdgeInsets.all(81),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 700,
+                              width: 269,
+                              child: SingleChildScrollView(
+                                child: beatuser!.friends.isNotEmpty ? FirestoreListView(
+                                query: UserService().getFriends(beatuser!.friends),
+                                shrinkWrap: true,
+                                errorBuilder: (context, error, stackTrace){
+                                  return const Text("Error");
+                                },
+                                itemBuilder: (context, snapshot) { 
+                                  beat_user.User friend = snapshot.data();
+                                  return ListView(
                                     children: [
-                                      OutlinedButton(onPressed: (){
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                                title: const Text("WARNING", style: TextStyle(
-                                                  color: Color.fromARGB(255, 255, 60, 60)
-                                                ),),
-                                                content: const Text(
-                                                    "You are about to remove one of your friends. Are you sure this is what you wanted?"),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: const Text("Cancel")),
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        List<String> tempList = beatuser!.friends;
-                                                        tempList.remove(friend.uid);
-                                                        UserService().updateUser(
-                                                          beat_user.User(
-                                                          uid: FirebaseAuth.instance.currentUser!.uid, 
-                                                          firstname: beatuser!.firstname, 
-                                                          lastname: beatuser!.lastname, 
-                                                          friends: tempList)
-                                                        );
-                                                      },
-                                                      child: const Text("Yes"))
-                                                ],
-                                        ));
-                                      }, 
-                                      child: const Text("Remove Friend"))
-                                    ],
+                                      ExpansionTile(
+                                        textColor: const Color.fromARGB(255, 0, 0, 0),
+                                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                                        collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10))
+                                        ),
+                                        collapsedShape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10))
+                                        ),
+                                        title: Text(
+                                          "${friend.firstname} ${friend.lastname}",
+                                          style: const TextStyle(fontSize: 20)),
+                                      children: [
+                                        const ListTile(
+                                          title: Text("A Description")
+                                        ),
+                                        ButtonBar(
+                                          alignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            OutlinedButton(onPressed: (){
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => AlertDialog(
+                                                      title: const Text("WARNING", style: TextStyle(
+                                                        color: Color.fromARGB(255, 255, 60, 60)
+                                                      ),),
+                                                      content: const Text(
+                                                          "You are about to remove one of your friends. Are you sure this is what you wanted?"),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            child: const Text("Cancel")),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              List<String> tempList = beatuser!.friends;
+                                                              tempList.remove(friend.uid);
+                                                              UserService().updateUser(
+                                                                beat_user.User(
+                                                                uid: FirebaseAuth.instance.currentUser!.uid, 
+                                                                firstname: beatuser!.firstname, 
+                                                                lastname: beatuser!.lastname, 
+                                                                friends: tempList)
+                                                              );
+                                                            },
+                                                            child: const Text("Yes"))
+                                                      ],
+                                              ));
+                                            }, 
+                                            child: const Text("Remove Friend"))
+                                          ],
+                                        )
+                                      ],
+                                  ),
+                                    const SizedBox(
+                                      height: 5,
                                   )
-                                ],
+                                    ],
+                                  ); 
+                                  }
+                                ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),)
+                              ),
                             ),
-                              const SizedBox(
-                                height: 5,
-                            )
-                              ],
-                            ); 
-                            }
-                          ),
+                          ],
                         ),
                       ),
-                  )
+                    )
                 ],
               ),
             )

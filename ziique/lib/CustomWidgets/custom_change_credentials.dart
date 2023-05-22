@@ -35,7 +35,7 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
             child: TextFormField(
               controller: firstTextFieldController,
               style: const TextStyle(color: Colors.white),
-              obscureText: true, 
+              obscureText: widget.emailOrPassword == "Email" ? false : true, 
               decoration: InputDecoration(
                 hintText: "New ${widget.emailOrPassword}",
                 border: const OutlineInputBorder(
@@ -53,7 +53,7 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
             child: TextFormField(
               controller: secondTextFieldController,
               style: const TextStyle(color: Colors.white),
-              obscureText: true, 
+              obscureText: widget.emailOrPassword == "Email" ? false : true, 
               decoration: InputDecoration(
                 hintText: "Confirm New ${widget.emailOrPassword}",
                 border: const OutlineInputBorder(
@@ -64,12 +64,12 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                       hintStyle: const TextStyle(
                         color: Colors.white)),)),
         OutlinedButton(
-          onPressed: (){
+          onPressed: () async {
             try{
               if (widget.emailOrPassword == 'Email' && firstTextFieldController == secondTextFieldController){
-                ChangeCredentialsService().changeEmail(firstTextFieldController.text);
+                await ChangeCredentialsService().changeEmail(firstTextFieldController.text);
               }else if (widget.emailOrPassword == 'Password' && firstTextFieldController == secondTextFieldController){
-                ChangeCredentialsService().changePassword(firstTextFieldController.text);
+                await ChangeCredentialsService().changePassword(firstTextFieldController.text);
               }
             }on FirebaseAuthException catch(e){
               switch(e.code){
@@ -100,12 +100,12 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                       ),
                       actions: [
                         OutlinedButton(
-                          onPressed: (){
+                          onPressed: () async{
                             AuthCredential credential = EmailAuthProvider
                             .credential(email: emailController.text, password: passwordController.text);
                             
-                            AuthService().reauthenticate(credential);
-                            ChangeCredentialsService().changePassword(firstTextFieldController.text);
+                            await AuthService().reauthenticate(credential);
+                            await ChangeCredentialsService().changePassword(firstTextFieldController.text);
                           },
                           child: const Text("Cancel")),
                         OutlinedButton(
