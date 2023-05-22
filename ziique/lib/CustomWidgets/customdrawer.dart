@@ -90,8 +90,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           onPressed: () async {
                             our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
                             FireBeatItRealtimeService().deleteSession(user!.sessionID);
-                            user!.inSession = false;
-                            user!.sessionID = "";
+                            user.inSession = false;
+                            user.sessionID = "";
                             UserService().updateUser(user);
                             Navigator.pop(context);
                           },
