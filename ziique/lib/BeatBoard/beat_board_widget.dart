@@ -34,6 +34,7 @@ class BeatBoardDesktop extends StatefulWidget {
 }
 
 class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
+  late StateSetter internalSetter;
   final Future<String> _calculation = Future<String>.delayed(
     const Duration(milliseconds: 1200),
     () => 'Data Loaded',
@@ -263,9 +264,9 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                           builder: (BuildContext context,
                               AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasData) {
-                              return ValueListenableBuilder(
-                                valueListenable: notifer.reload,
-                                builder: (context, value, child) {
+                              return StatefulBuilder(
+                                builder: (context, setter) {
+                                  internalSetter = setter;
                                   return Expanded(
                                     child: GridView.count(
                                       padding: const EdgeInsets.only(
@@ -311,7 +312,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                         : Colors
                                                                             .blueGrey),
                                                     onPressed: () {
-                                                      boolList = LoadBeat().loadBeat(soundEngine, boolList);
+                                                      boolList = LoadBeat().loadBeat(soundEngine, boolList, setter);
                                                       reload(() {
                                                         alpha.greenBut == 0
                                                             ? _playSingleSound(
@@ -554,7 +555,7 @@ class LoadBeat {
 
   List<int> nodes = [];
 
-  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
+  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools, StateSetter setter) {
     print(bools);
     bools.every((element) => false);
     print(bools);
@@ -564,6 +565,7 @@ class LoadBeat {
       bools[node] = true;
     }
     print(bools);
+    setter((){});
     return bools;
   }
 }
