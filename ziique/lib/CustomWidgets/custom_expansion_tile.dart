@@ -13,9 +13,6 @@ import '../models/beat.dart';
 class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile(
       {super.key,
-      required this.beatId,
-      required this.beatTitle,
-      required this.beatDescription,
       required this.fontSize,
       required this.tileColor,
       required this.tileRadius,
@@ -23,13 +20,10 @@ class CustomExpansionTile extends StatefulWidget {
       required this.beat,
         required this.onLoadBeat,});
 
-  final String beatId;
-  final String beatTitle;
-  final String beatDescription;
+  final Beat beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
-  final Beat beat;
   final SoundEngine soundEngine;
   final LoadBeatCallback onLoadBeat;
 
@@ -55,11 +49,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           collapsedShape: RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.all(Radius.circular(widget.tileRadius))),
-          leading: Text(widget.beatId),
-          title: Text(widget.beatTitle,
+          leading: Text(widget.beat.publicity),
+          title: Text(widget.beat.title,
               style: TextStyle(fontSize: widget.fontSize)),
           children: [
-            ListTile(title: Text(widget.beatDescription)),
+            ListTile(title: Text(widget.beat.description)),
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -114,7 +108,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                           title: titleController.text,
                                           by: widget.beat.by,
                                           beatString: widget.soundEngine.beatString,
-                                          description: descriptionController.text));
+                                          description: descriptionController.text,
+                                          publicity: widget.beat.publicity
+                                          ));
                                     Navigator.pop(context);
                                   }
                                 }, 

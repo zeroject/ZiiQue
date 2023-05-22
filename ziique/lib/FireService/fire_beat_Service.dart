@@ -44,7 +44,8 @@ class BeatService{
           BeatKeys.lastEdited: FieldValue.serverTimestamp(),
           BeatKeys.by: owner.toMap(),
           BeatKeys.beatString: beatstring,
-          BeatKeys.description: description
+          BeatKeys.description: description,
+          BeatKeys.publicity: "Private"
         });
   }
 

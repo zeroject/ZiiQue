@@ -132,14 +132,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           itemBuilder: (BuildContext context, snapshot) {
                             Beat beat = snapshot.data();
                             return CustomExpansionTile(
-                              beatId: beat.id,
-                              beatTitle: beat.title,
-                              beatDescription: beat.description,
+                              beat: beat,
                               fontSize: 20,
                               tileColor:
                                   const Color.fromARGB(255, 255, 255, 255),
                               tileRadius: 10,
-                              beat: beat,
                               soundEngine: widget.soundEngine,
                               onLoadBeat: widget.onLoadBeat,
                             );
