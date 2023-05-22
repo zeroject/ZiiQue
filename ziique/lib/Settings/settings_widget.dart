@@ -12,7 +12,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 
 String scene = "Account";
-String friendcode = '1234';
+String friendcode = beatuser!.uid;
 beat_user.User? beatuser;
 
 
@@ -146,7 +146,6 @@ Widget accountBuild(BuildContext context){
                             Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
                           ],
                         ),
-                        TextButton(onPressed: (){}, child: const Text('Change Email', style: TextStyle(decoration: TextDecoration.underline,fontSize: 24, color: Colors.blue),)),
                         const SizedBox(
                           height: 30,
                         ),
@@ -154,18 +153,21 @@ Widget accountBuild(BuildContext context){
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
-                            OutlinedButton(style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
-                                onPressed: (){
+                            Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 16, backgroundColor: Colors.grey),),
+
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        OutlinedButton(style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                            onPressed: (){
                               Clipboard.setData(ClipboardData(text: friendcode))
                                   .then((value){ScaffoldMessenger
                                   .of(context)
                                   .showSnackBar(snackBar);});
                             },
-                                child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
-                          ],
-                        ),
-
+                            child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
                         QrImageView(data: friendcode, size: 50,)
                       ],
                     ),
