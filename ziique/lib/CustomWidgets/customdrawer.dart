@@ -302,8 +302,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ],
                     ),
                   ],
-                  Expanded(
-                    child: Align(
+                  Align(
                       alignment: Alignment.bottomRight,
                       child: SizedBox(
                         width: widget.settingsButWidth,
@@ -323,7 +322,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         ),
                       ),
                     ),
-                  ),
                 ],
               );
             }),

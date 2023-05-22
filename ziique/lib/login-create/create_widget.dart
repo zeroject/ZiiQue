@@ -42,8 +42,8 @@ class _CreateDesktopState extends State<CreateDesktop> {
               ),
               SizedBox(
                 height: 200,
-                child: SvgPicture.asset(
-                  'assets/images/ZiiQue-Logo.svg',
+                child: Image.asset(
+                  '../assets/images/ZiiQue-Logo.png',
                 ),
               ),
               const SizedBox(
@@ -205,8 +205,8 @@ class _CreateMobileState extends State<CreateMobile> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/images/ZiiQue-Logo.svg',
+            Image.asset(
+              '../assets/images/ZiiQue-Logo.png',
               height: 120,
               width: 120,
               alignment: Alignment.topCenter,

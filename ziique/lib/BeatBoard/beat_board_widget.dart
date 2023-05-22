@@ -78,8 +78,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
         leading: Center(
-          child: SvgPicture.asset(
-            "assets/images/ZiiQue-Logo.svg",
+          child: Image.asset(
+            "../assets/images/ZiiQue-Logo.png",
             fit: BoxFit.scaleDown,
           ),
         ),
@@ -110,7 +110,12 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
         onLoadBeat: ()
-        {},
+        {
+          print("TEST");
+          print(boolList);
+          boolList = _loadBeat.loadBeat(soundEngine, boolList);
+          print(boolList);
+          },
       ),
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
