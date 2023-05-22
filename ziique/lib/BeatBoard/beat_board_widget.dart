@@ -563,6 +563,7 @@ class LoadBeat {
     for (var node in nodes) {
       bools[node] = true;
     }
+    print(bools);
     return bools;
   }
 }
