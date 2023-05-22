@@ -111,6 +111,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
         notifer: notifer,
+        function: () {boolList = LoadBeat().loadBeat(soundEngine, boolList, internalSetter);},
       ),
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
@@ -312,7 +313,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                         : Colors
                                                                             .blueGrey),
                                                     onPressed: () {
-                                                      boolList = LoadBeat().loadBeat(soundEngine, boolList, setter);
                                                       reload(() {
                                                         alpha.greenBut == 0
                                                             ? _playSingleSound(

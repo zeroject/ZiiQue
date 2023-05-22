@@ -20,7 +20,7 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.tileRadius,
       required this.soundEngine,
       required this.beat,
-        required this.notifer});
+        required this.notifer, required this.function});
 
   final String beatId;
   final String beatTitle;
@@ -31,6 +31,7 @@ class CustomExpansionPanel extends StatefulWidget {
   final Beat beat;
   final SoundEngine soundEngine;
   final Notifer notifer;
+  final Function function;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -65,9 +66,8 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
-                    print(widget.notifer.reload.value);
                     widget.notifer.reload.value = !widget.notifer.reload.value;
-                    print(widget.notifer.reload.value);
+                    widget.function;
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
