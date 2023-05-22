@@ -37,9 +37,8 @@ class CustomDrawer extends StatefulWidget {
       required this.loginPageMobile,
       required this.soundEngine,
       required this.beatBoardDesktop,
-        required this.notifer,
-        required this.function, required this.loadBeat,
-        required this.boolList});
+        required this.onLoadBeat,
+      });
 
   final double drawerWidth;
   final Color backgroundColor;
@@ -52,10 +51,6 @@ class CustomDrawer extends StatefulWidget {
   final Widget settingsPageMobile;
   final Widget beatBoardDesktop;
   final SoundEngine soundEngine;
-  final Notifer notifer;
-  final LoadBeat loadBeat;
-  final Function function;
-  final List<bool> boolList;
 
   //Not logged in
   final double offsetHeight;
@@ -69,6 +64,7 @@ class CustomDrawer extends StatefulWidget {
   final double loginButWidth;
   final Widget loginPageDesktop;
   final Widget loginPageMobile;
+  final LoadBeatCallback onLoadBeat;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -114,8 +110,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             decoration: BoxDecoration(
                               color: widget.backgroundColor,
                             ),
-                            child: Stack(
-                              children: const [
+                            child: const Stack(
+                              children: [
                                 Positioned(
                                   bottom: 8.0,
                                   left: 4.0,
@@ -145,10 +141,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               tileRadius: 10,
                               beat: beat,
                               soundEngine: widget.soundEngine,
-                              notifer: widget.notifer,
-                              function: widget.function,
-                              loadBeat: widget.loadBeat,
-                              boolList: widget.boolList,
+                              onLoadBeat: widget.onLoadBeat,
                             );
                           },
                         ),
@@ -338,3 +331,5 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 }
+
+typedef LoadBeatCallback = void Function();

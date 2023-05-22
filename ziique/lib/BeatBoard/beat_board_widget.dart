@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/CustomWidgets/customdrawer.dart';
@@ -111,13 +109,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
-        notifer: notifer,
-        loadBeat: _loadBeat,
-        boolList: boolList,
-        function: () {
-          print("Hello");
-          internalSetter((){});
-          },
+        onLoadBeat: ()
+        {},
       ),
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
@@ -306,13 +299,13 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                                 numberOfBars)
                                                                         .getColor(
                                                                             i)
-                                                                    ? (_loadBeat.boolList[i] ==
+                                                                    ? (boolList[i] ==
                                                                             true)
                                                                         ? Colors.grey[
                                                                             900]
                                                                         : Colors
                                                                             .grey
-                                                                    : (_loadBeat.boolList[i] ==
+                                                                    : (boolList[i] ==
                                                                             true)
                                                                         ? Colors.grey[
                                                                             900]
@@ -327,8 +320,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                 i,
                                                                 numberOfRows,
                                                                 numberOfBars);
-                                                        _loadBeat.boolList[i] =
-                                                            !_loadBeat.boolList[i];
+                                                        boolList[i] =
+                                                            !boolList[i];
                                                         maxRange =
                                                             (numberOfBars * 4);
                                                         minRange = 1;
@@ -442,9 +435,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.hasData) {
-                        return ValueListenableBuilder(
-                            valueListenable: notifer.reload,
-                            builder: (context, value, child) {
                               return Expanded(
                                 child: GridView.count(
                                   padding:
@@ -517,7 +507,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   ],
                                 ),
                               );
-                            });
                       } else {
                         return const SizedBox(
                           height: 200,
@@ -560,16 +549,15 @@ class LoadBeat {
   LoadBeat();
 
   List<int> nodes = [];
-  List<bool> boolList = [];
 
-  loadBeat(SoundEngine soundEngine, List<bool> bools) {
+  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
     bools.every((element) => false);
     nodes = soundEngine.nodeInt();
     for (var node in nodes) {
       bools[node] = true;
     }
     print(bools);
-    boolList = bools;
+    return bools;
   }
 }
 

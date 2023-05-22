@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 class CustomQrScanner extends StatelessWidget{
-  MobileScannerController scannerController = MobileScannerController();
+  //MobileScannerController scannerController = MobileScannerController();
 
   CustomQrScanner({super.key});
 
@@ -14,17 +13,13 @@ class CustomQrScanner extends StatelessWidget{
         actions: [
           IconButton(
             onPressed: (){
-              scannerController.switchCamera();
+              //scannerController.switchCamera();
             },
             icon: const Icon(Icons.camera_rear_outlined)
           ), 
         ],
       ),
-      body: MobileScanner(
-        controller: scannerController,
-        onDetect: (barcode, args) { 
-          Navigator.pop(context);
-        },),
+      body: Container(),
     );
   }
 }

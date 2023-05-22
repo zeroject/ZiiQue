@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
-import 'package:ziique/CustomWidgets/custom_mobile_scanner.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
@@ -624,8 +624,9 @@ Widget paymentBuild(BuildContext context){
                                     children: [
                                       OutlinedButton(
                                         onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(
-                                            builder: (context) => CustomQrScanner()));
+                                          if (kIsWeb){
+
+                                          }
                                         }, 
                                         child: const Text("Scan QR-code"))
                                     ],

@@ -21,10 +21,7 @@ class CustomExpansionPanel extends StatefulWidget {
       required this.tileRadius,
       required this.soundEngine,
       required this.beat,
-        required this.notifer,
-        required this.function,
-        required this.loadBeat,
-        required this.boolList});
+        required this.onLoadBeat,});
 
   final String beatId;
   final String beatTitle;
@@ -34,10 +31,7 @@ class CustomExpansionPanel extends StatefulWidget {
   final double tileRadius;
   final Beat beat;
   final SoundEngine soundEngine;
-  final Notifer notifer;
-  final Function function;
-  final LoadBeat loadBeat;
-  final List<bool> boolList;
+  final LoadBeatCallback onLoadBeat;
 
   @override
   State<CustomExpansionPanel> createState() => _CustomExpansionPanelState();
@@ -72,9 +66,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
                 OutlinedButton(
                   onPressed: () {
                     widget.soundEngine.beatString = widget.beat.beatString;
-                    widget.notifer.reload.value = !widget.notifer.reload.value;
-                    widget.loadBeat.loadBeat(widget.soundEngine, widget.boolList);
-                    widget.function;
+                    widget.onLoadBeat;
                   },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
@@ -185,3 +177,5 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
     );
   }
 }
+
+typedef LoadBeatCallback = void Function();
