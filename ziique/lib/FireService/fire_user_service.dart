@@ -52,6 +52,15 @@ class UserService{
     .delete();
   }
 
+  Future<void> updateFriendList(List<String> friendUids) async {
+    await FirebaseFirestore.instance
+    .collection(CollectionNames.users)
+    .doc(FirebaseAuth.instance.currentUser?.uid)
+    .update({
+      beat_user.UserKeys.friends: friendUids
+    });
+  }
+
   Query<beat_user.User> getFriends(List<String> friendIds){
     return FirebaseFirestore.instance
     .collection(CollectionNames.users)

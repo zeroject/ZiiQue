@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_change_credentials.dart';
+import 'package:ziique/CustomWidgets/custom_mobile_scanner.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
@@ -40,6 +41,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   bool light = true;
   bool light2 = true;
   bool light3 = true;
+  TextEditingController addFriendController = TextEditingController();
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
   final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 
@@ -143,13 +145,34 @@ Widget accountBuild(BuildContext context){
                         const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
                         Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 24, backgroundColor: Colors.grey),),
                         OutlinedButton(onPressed: (){
-                          Clipboard.setData(ClipboardData(text: friendcode))
+                          Clipboard.setData(ClipboardData(text: beatuser!.uid))
                           .then((value){ScaffoldMessenger
                           .of(context)
                           .showSnackBar(snackBar);});
                           }, 
-                          child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
-                        QrImageView(data: friendcode, size: 50,)
+                          child: const Text('Copy to clipboard', style: TextStyle(fontSize: 20),)),
+                          OutlinedButton(
+                            onPressed: (){
+                              showDialog(
+                                context: context, 
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Friend QR-code"),
+                                  content: SizedBox(
+                                    height: 220,
+                                    width: 220,
+                                    child: QrImageView(data: beatuser!.uid, size: 200,)
+                                  ),
+                                  actions: [
+                                    OutlinedButton(
+                                      onPressed: (){
+                                        Navigator.pop(context);
+                                      }, 
+                                      child: const Text("Ok")
+                                    )
+                                  ],
+                                ));
+                            },
+                            child: const Text("Show QR-code", style: TextStyle(fontSize: 20),))
                       ],
                     ),
                     )
@@ -421,7 +444,6 @@ Widget paymentBuild(BuildContext context){
       );
     }
     Widget friendBuild(BuildContext context){
-      
       return Scaffold(
         appBar: AppBar(title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -474,7 +496,7 @@ Widget paymentBuild(BuildContext context){
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 700,
+                              height: 600,
                               width: 269,
                               child: SingleChildScrollView(
                                 child: beatuser!.friends.isNotEmpty ? FirestoreListView(
@@ -550,6 +572,44 @@ Widget paymentBuild(BuildContext context){
                                   ); 
                                   }
                                 ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),)
+                              ),
+                            ),
+                            SizedBox(
+                              height: 100,
+                              width: 269,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      TextFormField(
+                                        controller: addFriendController,
+                                        decoration: const InputDecoration(hintText: "Friendcode"),
+                                      ),
+                                      OutlinedButton(
+                                        onPressed: (){
+                                          List<String> friends = beatuser!.friends;
+                                          friends.add(addFriendController.text);
+                                          UserService().updateFriendList(friends);
+                                        }, 
+                                        child: const Text("Add Friend", 
+                                          style: TextStyle(
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      OutlinedButton(
+                                        onPressed: (){
+                                          Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => CustomQrScanner()));
+                                        }, 
+                                        child: const Text("Scan QR-code"))
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ],
