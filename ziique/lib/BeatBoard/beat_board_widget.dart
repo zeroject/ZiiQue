@@ -505,7 +505,6 @@ class LoadBeat {
     for (var node in nodes){
       bools[node] = true;
     }
-    reload.value = !reload.value;
     return bools;
   }
 
