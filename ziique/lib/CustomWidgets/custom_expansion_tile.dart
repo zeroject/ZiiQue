@@ -18,12 +18,12 @@ class CustomExpansionTile extends StatefulWidget {
       this.soundEngine,
       this.onLoadBeat,});
 
-  final Beat beat;
+  final Beat? beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
   final SoundEngine? soundEngine;
-  final Function(Beat beat)? onLoadBeat;
+  final Function(Beat? beat)? onLoadBeat;
   final bool isFriendBeat;
 
   @override
@@ -48,11 +48,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           collapsedShape: RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.all(Radius.circular(widget.tileRadius))),
-          leading: Text(widget.beat.publicity),
-          title: Text(widget.beat.title,
+          leading: Text(widget.beat!.publicity),
+          title: Text(widget.beat!.title,
               style: TextStyle(fontSize: widget.fontSize)),
           children: [
-            ListTile(title: Text(widget.beat.description)),
+            ListTile(title: Text(widget.beat!.description)),
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -75,13 +75,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                   shrinkWrap: true,
                                   children: [
                                     TextFormField(
-                                      initialValue: widget.beat.title,
+                                      initialValue: widget.beat!.title,
                                       controller: titleController,
                                       decoration: const InputDecoration(hintText: "Title"),
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
-                                      initialValue: widget.beat.description,
+                                      initialValue: widget.beat!.description,
                                       controller: descriptionController,
                                       decoration: const InputDecoration(hintText: "Description"),
                                       maxLines: 3,
@@ -93,7 +93,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                               TextButton(
                                 onPressed: (){
                                   Navigator.pop(context);
-                                }, 
+                                },
                                 child: const Text("Cancel")),
                               TextButton(
                                 onPressed: (){
@@ -101,16 +101,16 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                     BeatService().updateBeat(
                                       FirebaseAuth.instance.currentUser!.uid,
                                       Beat(
-                                          id: widget.beat.id,
+                                          id: widget.beat!.id,
                                           title: titleController.text,
-                                          by: widget.beat.by,
+                                          by: widget.beat!.by,
                                           beatString: widget.soundEngine!.beatString,
                                           description: descriptionController.text,
-                                          publicity: widget.beat.publicity
+                                          publicity: widget.beat!.publicity
                                           ));
                                     Navigator.pop(context);
                                   }
-                                }, 
+                                },
                                 child: const Text("Save")),
                                 ],
                       ));
@@ -137,7 +137,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                         BeatService().deleteBeat(
                                             FirebaseAuth
                                                 .instance.currentUser!.uid,
-                                            widget.beat.id);
+                                            widget.beat!.id);
                                         Navigator.pop(context);
                                       },
                                       child: const Text("Yes"))

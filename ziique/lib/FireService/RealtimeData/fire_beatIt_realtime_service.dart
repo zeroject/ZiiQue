@@ -21,7 +21,7 @@ class FireBeatItRealtimeService {
   int timesplayed = 0;
   int versionID = 1;
 
-  Future<String> createSession(Beat beat, String hostUID) async {
+  Future<String> createSession(Beat? beat, String hostUID) async {
     try {
       String id = uuid.v4();
       BeatItSession beatItSession = BeatItSession(
@@ -29,7 +29,7 @@ class FireBeatItRealtimeService {
           usersadded: users,
           creationTime: DateTime.now().toString(),
           lastModified: DateTime.now().toString(),
-          beatString: beat.beatString,
+          beatString: beat!.beatString,
           timeschanged: timeschanged,
           timesplayed: timesplayed,
           hostID: hostUID,
