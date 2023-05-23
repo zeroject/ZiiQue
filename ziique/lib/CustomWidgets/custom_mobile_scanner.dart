@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as beat_user;
@@ -107,4 +107,4 @@ class MobileScannerOverlay extends StatelessWidget {
       ),
     ]);
   }
-}
+}*/

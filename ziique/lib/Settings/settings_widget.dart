@@ -7,7 +7,6 @@ import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/models/fire_user.dart';
-import '../CustomWidgets/custom_mobile_scanner.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
@@ -610,8 +609,8 @@ Widget paymentBuild(BuildContext context){
                                   OutlinedButton(
                                     style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                                     onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,)));
-                                    }, 
+                                      //!kIsWeb ? Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,))) : "";
+                                    },
                                     child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))),
                                       ],
                                     ),
