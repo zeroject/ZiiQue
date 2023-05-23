@@ -62,7 +62,7 @@ class CustomDrawer extends StatefulWidget {
   final double loginButWidth;
   final Widget loginPageDesktop;
   final Widget loginPageMobile;
-  final LoadBeatCallback onLoadBeat;
+  final Function(Beat beat) onLoadBeat;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -137,7 +137,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   const Color.fromARGB(255, 255, 255, 255),
                               tileRadius: 10,
                               soundEngine: widget.soundEngine,
-                              onLoadBeat: widget.onLoadBeat,
+                              onLoadBeat: widget.onLoadBeat(beat)
                             );
                           },
                         ),

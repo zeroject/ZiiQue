@@ -8,22 +8,22 @@ import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/beat.dart';
 
 class CustomExpansionTile extends StatefulWidget {
-  const CustomExpansionTile(
+  CustomExpansionTile(
       {super.key,
       required this.isFriendBeat,
       required this.fontSize,
       required this.tileColor,
       required this.tileRadius,
       required this.beat,
-      this.soundEngine,
-      this.onLoadBeat,});
+      required this.soundEngine,
+        required this.onLoadBeat,});
 
   final Beat beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
   final SoundEngine? soundEngine;
-  final LoadBeatCallback? onLoadBeat;
+  final Function(Beat beat) onLoadBeat;
   final bool isFriendBeat;
 
   @override
@@ -57,10 +57,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 OutlinedButton(
-                  onPressed: () {
-                    widget.soundEngine!.beatString = widget.beat.beatString;
-                    widget.onLoadBeat;
-                  },
+                  onPressed:
+                    widget.onLoadBeat(widget.beat),
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
                 ),

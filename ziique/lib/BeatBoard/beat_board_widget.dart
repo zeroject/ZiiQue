@@ -11,6 +11,7 @@ import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getwidget/getwidget.dart';
 import '../models/Notifier.dart';
+import '../models/beat.dart';
 import '../models/user.dart' as beat_user;
 
 int numberOfRows = 5;
@@ -108,11 +109,12 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
-        onLoadBeat: ()
+        onLoadBeat: (Beat beat)
         {
           print("TEST");
           print(boolList);
           boolList = _loadBeat.loadBeat(soundEngine, boolList);
+          soundEngine.beatString = beat.beatString;
           print(boolList);
           },
       ),
