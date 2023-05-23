@@ -127,7 +127,7 @@ Widget accountBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -253,7 +253,7 @@ Widget paymentBuild(BuildContext context){
                   children: [
                     OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                    !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
                     OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                   ],
@@ -345,7 +345,7 @@ Widget paymentBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -431,7 +431,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
                         OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -509,7 +509,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
                         OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -520,137 +520,38 @@ Widget paymentBuild(BuildContext context){
                         padding: const EdgeInsets.all(81),
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: 600,
-                              width: 269,
-                              child: SingleChildScrollView(
-                                child: beatuser!.friends.isNotEmpty ? FirestoreListView(
-                                query: UserService().getFriends(beatuser!.friends),
-                                shrinkWrap: true,
-                                itemBuilder: (context, snapshot) { 
-                                  beat_user.User friend = snapshot.data();
-                                  return ListView(
-                                    children: [
-                                      ExpansionTile(
-                                        textColor: const Color.fromARGB(255, 0, 0, 0),
-                                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                                        collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(10))
-                                        ),
-                                        collapsedShape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(10))
-                                        ),
-                                        title: Text(
-                                          "${friend.firstname} ${friend.lastname}",
-                                          style: const TextStyle(fontSize: 20)),
-                                      children: [
-                                        const ListTile(
-                                          title: Text("A Description"), 
-                                        ),
-                                        SingleChildScrollView(
-                                          child: FirestoreListView(
-                                            query: BeatService().getAllPublicBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, snapshot) {
-                                              Beat beat = snapshot.data();
-                                              return CustomExpansionTile(
-                                                isFriendBeat: true,
-                                                beat: beat,
-                                                fontSize: 20,
-                                                tileColor: const Color.fromARGB(255, 255, 255, 255),
-                                                tileRadius: 10,
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        ButtonBar(
-                                          alignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            OutlinedButton(onPressed: (){
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) => AlertDialog(
-                                                      title: const Text("WARNING", style: TextStyle(
-                                                        color: Color.fromARGB(255, 255, 60, 60)
-                                                      ),),
-                                                      content: const Text(
-                                                          "You are about to remove one of your friends. Are you sure this is what you wanted?"),
-                                                      actions: [
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                            child: const Text("Cancel")),
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              List<String> tempList = beatuser!.friends;
-                                                              tempList.remove(friend.uid);
-                                                              UserService().updateUser(
-                                                                beat_user.User(
-                                                                uid: FirebaseAuth.instance.currentUser!.uid, 
-                                                                firstname: beatuser!.firstname, 
-                                                                lastname: beatuser!.lastname, 
-                                                                friends: tempList)
-                                                              );
-                                                            },
-                                                            child: const Text("Yes"))
-                                                      ],
-                                              ));
-                                            }, 
-                                            child: const Text("Remove Friend"))
-                                          ],
-                                        )
-                                      ],
-                                  ),
-                                    const SizedBox(
-                                      height: 5,
-                                  )
-                                    ],
-                                  ); 
-                                  }
-                                ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),)
-                              ),
-                            ),
-                            SizedBox(
-                              height: 100,
-                              width: 269,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      TextFormField(
-                                        controller: addFriendController,
-                                        decoration: const InputDecoration(hintText: "Friendcode"),
-                                      ),
-                                      OutlinedButton(
-                                        onPressed: (){
-                                          List<String> friends = beatuser!.friends;
-                                          friends.add(addFriendController.text);
-                                          UserService().updateFriendList(friends);
-                                        }, 
-                                        child: const Text("Add Friend", 
-                                          style: TextStyle(
-                                            color: Colors.white
-                                          ),
+                              SizedBox(
+                                height: 200,
+                                width: 269,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    TextFormField(
+                                      controller: addFriendController,
+                                      decoration: const InputDecoration(hintText: "Friendcode"),
+                                    ),
+                                    OutlinedButton(
+                                      onPressed: (){
+                                        List<String> friends = beatuser!.friends;
+                                        friends.add(addFriendController.text);
+                                        UserService().updateFriendList(friends);
+                                      }, 
+                                      child: const Text("Add Friend with code", 
+                                        style: TextStyle(
+                                          color: Colors.white
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      OutlinedButton(
-                                        onPressed: (){
-                                          if (kIsWeb){
-
-                                          }
-                                        }, 
-                                        child: const Text("Scan QR-code"))
-                                    ],
-                                  )
-                                ],
+                                    ),
+                                    OutlinedButton(
+                                      onPressed: (){
+                                        if (kIsWeb){                              
+                                        }
+                                      }, 
+                                      child: const Text("Scan QR-code"))
+                                      
+                                  ],
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),

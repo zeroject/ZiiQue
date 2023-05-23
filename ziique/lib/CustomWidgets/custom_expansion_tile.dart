@@ -15,15 +15,15 @@ class CustomExpansionTile extends StatefulWidget {
       required this.tileColor,
       required this.tileRadius,
       required this.beat,
-      required this.soundEngine,
-        required this.onLoadBeat,});
+      this.soundEngine,
+      this.onLoadBeat,});
 
   final Beat beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
   final SoundEngine? soundEngine;
-  final Function(Beat beat) onLoadBeat;
+  final Function(Beat beat)? onLoadBeat;
   final bool isFriendBeat;
 
   @override
@@ -56,12 +56,12 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(
+                !widget.isFriendBeat ? OutlinedButton(
                   onPressed:
-                    widget.onLoadBeat(widget.beat),
+                    widget.onLoadBeat!(widget.beat),
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
-                ),
+                ) :
                 !widget.isFriendBeat ? OutlinedButton(
                     onPressed: () {
                       showDialog(
