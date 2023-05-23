@@ -3,16 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
-import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/models/fire_user.dart';
-import '../CustomWidgets/custom_expansion_tile.dart';
+import '../CustomWidgets/custom_mobile_scanner.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../FireService/fire_user_service.dart';
-import '../models/beat.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
 import 'package:qr_flutter/qr_flutter.dart';
@@ -149,19 +146,24 @@ Widget accountBuild(BuildContext context){
                         Row(
                           children: [
                             const Text('Name: ', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
+                            Text(beatuser!.firstname, 
+                              style: const TextStyle(color: Colors.white, fontSize: 24),),
                           ],
                         ),
                         Row(
                           children: [
                             const Text('Email: ', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text(fireuser.email.toString(), style: const TextStyle(color: Colors.white, fontSize: 24),),
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: Text(fireuser.email.toString(), 
+                              style: const TextStyle(color: Colors.white, fontSize: 24),)),
                           ],
                         ),
                         const SizedBox(
                           height: 30,
                         ),
-                        const Text('Your Friend Code:', style: TextStyle(color: Colors.white, fontSize: 14),),
+                        const Text('Your Friend Code:', 
+                          style: TextStyle(color: Colors.white, fontSize: 14),),
 
                           Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -204,7 +206,7 @@ Widget accountBuild(BuildContext context){
                                 ));
                             },
                             child: const Text("Show QR-code", style: TextStyle(fontSize: 20),)),
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
                         TextFormField(
@@ -223,8 +225,8 @@ Widget accountBuild(BuildContext context){
                         ElevatedButton(onPressed: (){
                           ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
                           ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
-                        }, child: Text('Set Name', style: TextStyle(color: Colors.white, fontSize: 16),)),
-                        SizedBox(
+                        }, child: const Text('Set Name', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                        const SizedBox(
                           height: 120,
                         ),
                         ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),onPressed: (){
@@ -251,7 +253,7 @@ Widget accountBuild(BuildContext context){
                               UserService().deleteUser(FirebaseAuth.instance.currentUser!.uid);
                             }, child: const Text('Delete Account'))
                           ],
-                        ));}, child: Text('Delete Account', style: TextStyle(color: Colors.white, fontSize: 16),))
+                        ));}, child: const Text('Delete Account', style: TextStyle(color: Colors.white, fontSize: 16),))
                       ],
                       ),
                     ),
@@ -329,10 +331,10 @@ Widget paymentBuild(BuildContext context){
                         width: 250,
                         height: 100,
                         color: Colors.grey,
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
@@ -492,10 +494,10 @@ Widget paymentBuild(BuildContext context){
                     ),
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
-                        child: Padding(
-                        padding: const EdgeInsets.all(81),
+                        child: const Padding(
+                        padding: EdgeInsets.all(81),
                           child: Column(
-                            children: const [
+                            children: [
                               SizedBox(
                                 height: 220,
                                 width: 269,
@@ -608,7 +610,7 @@ Widget paymentBuild(BuildContext context){
                                   OutlinedButton(
                                     style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                                     onPressed: (){
-
+                                      Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,)));
                                     }, 
                                     child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))),
                                       ],

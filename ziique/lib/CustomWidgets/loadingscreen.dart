@@ -7,7 +7,9 @@ class LoadingScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 44, 41, 41),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
