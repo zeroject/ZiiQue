@@ -7,6 +7,7 @@ import 'package:ziique/sound_engine.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/beat.dart';
 import 'beat_board_widget.dart';
 
 Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
@@ -84,7 +85,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         loginPageDesktop: LoginDesktop(context),
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
-        soundEngine: SoundEngine(), onLoadBeat: () {  },
+        soundEngine: SoundEngine(),
+        onLoadBeat: (Beat beat) {  },
       ),
       body:  Column(
         children: [
