@@ -64,7 +64,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
                 ),
-                widget.isFriendBeat ? OutlinedButton(
+                !widget.isFriendBeat ? OutlinedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -118,7 +118,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                       ));
                     },
                     child: const Text("Update Beat")) : Text(""),
-                widget.isFriendBeat ? OutlinedButton(
+                !widget.isFriendBeat ? OutlinedButton(
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -147,7 +147,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                               ));
                     },
                     child: const Text("Delete Beat")) : Text(""),
-                widget.isFriendBeat ? OutlinedButton(
+                !widget.isFriendBeat ? OutlinedButton(
                   onPressed: () async {
                     our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
                     user!.sessionID = await FireBeatItRealtimeService().createSession(
