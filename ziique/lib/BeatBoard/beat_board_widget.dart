@@ -57,6 +57,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
     soundEngine.beatString = beat.beatString;
     print(boolList);
+    internalSetter((){});
   }
 
   void _addToBeat(int input, int row, int beat) {

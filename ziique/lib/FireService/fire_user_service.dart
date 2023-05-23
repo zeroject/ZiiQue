@@ -50,6 +50,7 @@ class UserService{
     .collection(CollectionNames.users)
     .doc(UserUid)
     .delete();
+    await FirebaseAuth.instance.currentUser!.delete();
   }
 
   Future<void> updateFriendList(List<String> friendUids) async {

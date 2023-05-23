@@ -137,7 +137,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       const Color.fromARGB(255, 255, 255, 255),
                                       tileRadius: 10,
                                       soundEngine: widget.soundEngine,
-
+                                    onLoadBeat: widget.onLoadBeat,
                                   );
                           },
                         ),
