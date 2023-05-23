@@ -132,7 +132,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             return FutureBuilder(
                               future: beatGet,
                               builder: (context, snapshot) {
-                                if (snapshot.hasData){
+                                if (snapshot.data != null){
                                   return CustomExpansionTile(
                                       isFriendBeat: false,
                                       beat: snapshot.data,
