@@ -15,108 +15,102 @@ class CustomFriendListView extends StatelessWidget{
     required this.beatuser,
     });
     
-    final beat_user.User beatuser;
+    final beat_user.User? beatuser;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      width: 269,
-      child: SingleChildScrollView(
-        child: beatuser.friends.isNotEmpty ? FirestoreListView(
-          query: UserService().getFriends(beatuser.friends),
-          shrinkWrap: true,
-          itemBuilder: (context, snapshot) { 
-          beat_user.User friend = snapshot.data();
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              ExpansionTile(
-                textColor: const Color.fromARGB(255, 0, 0, 0),
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-                ),
-                collapsedShape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-                ),
-                title: Text(
-                  "${friend.firstname} ${friend.lastname}",
-                  style: const TextStyle(fontSize: 20)),
-                  children: [
-                const ListTile(
-                  title: Text("A Description"), 
-                ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 1,
-                    itemBuilder: (context, index){
-                    return FirestoreListView(
-                      query: BeatService().getAllPublicBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
-                      shrinkWrap: true,
-                      itemBuilder: (context, snapshot) {
-                        Beat beat = snapshot.data();
-                        return CustomExpansionTile(
-                          isFriendBeat: true,
-                          beat: beat,
-                          fontSize: 20,
-                          tileColor: const Color.fromARGB(255, 255, 255, 255),
-                          tileRadius: 10,
-                        );
-                      },
+    return beatuser!.friends.isNotEmpty ? FirestoreListView(
+      query: UserService().getFriends(beatuser!.friends),
+      shrinkWrap: true,
+      itemBuilder: (context, snapshot) { 
+      beat_user.User friend = snapshot.data();
+      return ListView(
+        shrinkWrap: true,
+        children: [
+          ExpansionTile(
+            textColor: const Color.fromARGB(255, 0, 0, 0),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            collapsedShape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            title: Text(
+              "${friend.firstname} ${friend.lastname}",
+              style: const TextStyle(fontSize: 20)),
+              children: [
+            const ListTile(
+              title: Text("A Description"), 
+            ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: 1,
+                itemBuilder: (context, index){
+                return FirestoreListView(
+                  query: BeatService().getAllPublicBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
+                  shrinkWrap: true,
+                  itemBuilder: (context, snapshot) {
+                    Beat beat = snapshot.data();
+                    return CustomExpansionTile(
+                      isFriendBeat: true,
+                      beat: beat,
+                      fontSize: 20,
+                      tileColor: const Color.fromARGB(255, 255, 255, 255),
+                      tileRadius: 10,
                     );
-                    }
-                  ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    OutlinedButton(onPressed: (){
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: const Text("WARNING", style: TextStyle(
-                                color: Color.fromARGB(255, 255, 60, 60)
-                              ),),
-                              content: const Text(
-                                  "You are about to remove one of your friends. Are you sure this is what you wanted?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Cancel")),
-                                TextButton(
-                                    onPressed: () {
-                                      List<String> tempList = beatuser.friends;
-                                      tempList.remove(friend.uid);
-                                      UserService().updateUser(
-                                        beat_user.User(
-                                        uid: FirebaseAuth.instance.currentUser!.uid, 
-                                        firstname: beatuser.firstname, 
-                                        lastname: beatuser.lastname, 
-                                        friends: tempList)
-                                      );
-                                    },
-                                    child: const Text("Yes"))
-                              ],
-                        ));
-                      }, 
-                      child: const Text("Remove Friend"))
-                  ],
-                )
+                  },
+                );
+                }
+              ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                OutlinedButton(onPressed: (){
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text("WARNING", style: TextStyle(
+                            color: Color.fromARGB(255, 255, 60, 60)
+                          ),),
+                          content: const Text(
+                              "You are about to remove one of your friends. Are you sure this is what you wanted?"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel")),
+                            TextButton(
+                                onPressed: () {
+                                  List<String> tempList = beatuser!.friends;
+                                  tempList.remove(friend.uid);
+                                  UserService().updateUser(
+                                    beat_user.User(
+                                    uid: FirebaseAuth.instance.currentUser!.uid, 
+                                    firstname: beatuser!.firstname, 
+                                    lastname: beatuser!.lastname, 
+                                    friends: tempList)
+                                  );
+                                },
+                                child: const Text("Yes"))
+                          ],
+                    ));
+                  }, 
+                  child: const Text("Remove Friend"))
               ],
-          ),
-            const SizedBox(
-              height: 5,
-          )
-            ],
-          ); 
-          }
-        ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),)
+            )
+          ],
       ),
-    );
+        const SizedBox(
+          height: 5,
+      )
+        ],
+      ); 
+      }
+    ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),);
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
+import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../CustomWidgets/custom_expansion_tile.dart';
@@ -48,6 +49,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   TextEditingController addFriendController = TextEditingController();
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
   final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
+  Color textFieldColor = const Color.fromARGB(255, 46, 43, 43);
 
   @override
   Widget build(BuildContext context) {
@@ -520,35 +522,55 @@ Widget paymentBuild(BuildContext context){
                         padding: const EdgeInsets.all(81),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 140,
+                              width: 269,
+                              child: ListView(
+                                children: [
+                                  TextFormField(
+                                    style: const TextStyle(color: Colors.white),
+                                    controller: addFriendController,
+                                    decoration: const InputDecoration(
+                                      hintText: "Insert Friendcode",
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.blueAccent),), 
+                                          labelStyle: TextStyle(
+                                            color: Colors.white), 
+                                            hintStyle: TextStyle(
+                                              color: Colors.white)),
+                                  ),
+                                  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                                    onPressed: (){
+                                      List<String> friends = beatuser!.friends;
+                                      friends.add(addFriendController.text);
+                                      UserService().updateFriendList(friends);
+                                    }, 
+                                    child: const Text("Add Friend with code", 
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                  ),
+                                  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                                    onPressed: (){
+
+                                    }, 
+                                    child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))),
+                                      ],
+                                    ),
+                                  ),
                               SizedBox(
                                 height: 200,
                                 width: 269,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
-                                    TextFormField(
-                                      controller: addFriendController,
-                                      decoration: const InputDecoration(hintText: "Friendcode"),
-                                    ),
-                                    OutlinedButton(
-                                      onPressed: (){
-                                        List<String> friends = beatuser!.friends;
-                                        friends.add(addFriendController.text);
-                                        UserService().updateFriendList(friends);
-                                      }, 
-                                      child: const Text("Add Friend with code", 
-                                        style: TextStyle(
-                                          color: Colors.white
-                                        ),
+                                    CustomFriendListView(
+                                      beatuser: beatuser
                                       ),
-                                    ),
-                                    OutlinedButton(
-                                      onPressed: (){
-                                        if (kIsWeb){                              
-                                        }
-                                      }, 
-                                      child: const Text("Scan QR-code"))
-                                      
                                   ],
                                 ),
                               ),
