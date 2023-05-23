@@ -25,6 +25,7 @@ beat_user.User? beatuser;
 
 const snackBar = SnackBar(content: Text('Code has been copied!'));
 
+const editDisplayNameSnackBar = SnackBar(content: Text('Your Display Name has been updated!'));
 
 class SettingsPageDesktop extends StatelessWidget {
   const SettingsPageDesktop({super.key});
@@ -206,9 +207,22 @@ Widget accountBuild(BuildContext context){
                         SizedBox(
                           height: 100,
                         ),
-                        TextFormField(controller: changeDisplayName, decoration: InputDecoration(hintText: 'Change Display Name', hintStyle: TextStyle(color: Colors.white, fontSize: 16)),),
+                        TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          controller: changeDisplayName,
+                          decoration: const InputDecoration(
+                              hintText: "Insert New Display Name",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blueAccent),),
+                              labelStyle: TextStyle(
+                                  color: Colors.white),
+                              hintStyle: TextStyle(
+                                  color: Colors.white)),
+                        ),
                         ElevatedButton(onPressed: (){
                           ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
+                          ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
                         }, child: Text('Set Name', style: TextStyle(color: Colors.white, fontSize: 16),)),
                         SizedBox(
                           height: 120,
@@ -216,17 +230,25 @@ Widget accountBuild(BuildContext context){
                         ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),onPressed: (){
                           showDialog(context: context, builder: (context) => AlertDialog(
                           title: const Text('You are trying to delete your Account, Are you sure?'),
-                          content: SizedBox(
-                            height: 220,
+                          content: const SizedBox(
+                            height: 50,
                             width: 220,
+                            child: Text('If your delete your account, you will lose all of your beats permanently.'),
                           ),
                           actions: [
-                            ElevatedButton(onPressed: (){
+                            ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                onPressed: (){
                               Navigator.pop(context);
                             },
                                 child: const Text('Cancel')),
-                            ElevatedButton(onPressed: (){
-                              UserService().deleteUser();
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+                                onPressed: (){
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              AuthService().signOut();
+                              UserService().deleteUser(FirebaseAuth.instance.currentUser!.uid);
                             }, child: const Text('Delete Account'))
                           ],
                         ));}, child: Text('Delete Account', style: TextStyle(color: Colors.white, fontSize: 16),))

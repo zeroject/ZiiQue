@@ -45,10 +45,10 @@ class UserService{
     .update(updatedUser.toMap());
   }
 
-  Future<void> deleteUser() async {
+  Future<void> deleteUser(String UserUid) async {
     await FirebaseFirestore.instance
     .collection(CollectionNames.users)
-    .doc(FirebaseAuth.instance.currentUser?.uid)
+    .doc(UserUid)
     .delete();
   }
 
