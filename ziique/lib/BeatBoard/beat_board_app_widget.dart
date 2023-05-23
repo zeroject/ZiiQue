@@ -17,6 +17,7 @@ int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
+LoadBeat _loadBeat = LoadBeat();
 
 class BeatBoardApp extends StatefulWidget {
   const BeatBoardApp(BuildContext context, {super.key});
@@ -30,6 +31,14 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
     const Duration(seconds: 2),
         () => 'Data Loaded',
   );
+
+  void loadBeat(Beat beat){
+    print("TEST");
+    print(boolList);
+    boolList = _loadBeat.loadBeat(soundEngine, boolList);
+    soundEngine.beatString = beat.beatString;
+    print(boolList);
+  }
 
   Color beatInfo = const Color.fromARGB(255, 72, 72, 72);
 
@@ -86,7 +95,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: SoundEngine(),
-        onLoadBeat: (Beat beat) {  },
+        onLoadBeat: loadBeat,
       ),
       body:  Column(
         children: [
@@ -173,6 +182,22 @@ class Alpha {
       return alphabets[i == 1 ? 1 : i ~/ ((numberOfBars * 4) + 1)];
     }
     return i.toString();
+  }
+}
+
+class LoadBeat {
+  LoadBeat();
+
+  List<int> nodes = [];
+
+  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
+    bools.every((element) => false);
+    nodes = soundEngine.nodeInt();
+    for (var node in nodes) {
+      bools[node] = true;
+    }
+    print(bools);
+    return bools;
   }
 }
 

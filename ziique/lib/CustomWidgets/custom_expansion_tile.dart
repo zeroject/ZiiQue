@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
@@ -16,14 +17,15 @@ class CustomExpansionTile extends StatefulWidget {
       required this.tileRadius,
       required this.beat,
       this.soundEngine,
-      this.onLoadBeat,});
+      this.onLoadBeat
+      });
 
   final Beat? beat;
   final double fontSize;
   final Color tileColor;
   final double tileRadius;
   final SoundEngine? soundEngine;
-  final Function(Beat? beat)? onLoadBeat;
+  final LoadBeatCallback? onLoadBeat;
   final bool isFriendBeat;
 
   @override
@@ -57,8 +59,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 !widget.isFriendBeat ? OutlinedButton(
-                  onPressed:
-                    widget.onLoadBeat!(widget.beat),
+                  onPressed: (){
+                    widget.onLoadBeat!(widget.beat!);
+                  },
                   child: const Text("Load Beat", style: TextStyle(),
                   ),
                 ) :
@@ -171,4 +174,4 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
   }
 }
 
-typedef LoadBeatCallback = void Function();
+typedef LoadBeatCallback = void Function(Beat beat);

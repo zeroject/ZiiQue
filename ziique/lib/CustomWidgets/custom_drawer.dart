@@ -35,7 +35,7 @@ class CustomDrawer extends StatefulWidget {
       required this.loginPageMobile,
       required this.soundEngine,
       required this.beatBoardDesktop,
-        required this.onLoadBeat,
+      required this.onLoadBeat,
       });
 
   final double drawerWidth;
@@ -49,6 +49,7 @@ class CustomDrawer extends StatefulWidget {
   final Widget settingsPageMobile;
   final Widget beatBoardDesktop;
   final SoundEngine soundEngine;
+  final LoadBeatCallback onLoadBeat;
 
   //Not logged in
   final double offsetHeight;
@@ -62,7 +63,6 @@ class CustomDrawer extends StatefulWidget {
   final double loginButWidth;
   final Widget loginPageDesktop;
   final Widget loginPageMobile;
-  final Function(Beat beat) onLoadBeat;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -141,7 +141,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       const Color.fromARGB(255, 255, 255, 255),
                                       tileRadius: 10,
                                       soundEngine: widget.soundEngine,
-                                      onLoadBeat: widget.onLoadBeat(snapshot.data!)
                                   );
                                 } else {
                                   return CircularProgressIndicator();
@@ -335,4 +334,4 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 }
 
-typedef LoadBeatCallback = void Function();
+typedef LoadBeatCallback = void Function(Beat beat);
