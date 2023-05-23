@@ -128,14 +128,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           query: BeatService()
                               .getAllBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
                           itemBuilder: (BuildContext context, snapshot) {
-                            final Future<Beat> beatGet = Future(() => snapshot.data());
-                            return FutureBuilder(
-                              future: beatGet,
-                              builder: (context, snapshot) {
-                                if (snapshot.data != null){
+                            Beat beatTOget = snapshot.data();
                                   return CustomExpansionTile(
                                       isFriendBeat: false,
-                                      beat: snapshot.data,
+                                      beat: beatTOget,
                                       fontSize: 20,
                                       tileColor:
                                       const Color.fromARGB(255, 255, 255, 255),
@@ -143,11 +139,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       soundEngine: widget.soundEngine,
                                     onLoadBeat: widget.onLoadBeat,
                                   );
-                                } else {
-                                  return CircularProgressIndicator();
-                                }
-                              }
-                            );
                           },
                         ),
                         Row(

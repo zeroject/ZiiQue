@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
+import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/models/fire_user.dart';
@@ -49,7 +50,9 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   TextEditingController addFriendController = TextEditingController();
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
   final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
-  Color textFieldColor = const Color.fromARGB(255, 46, 43, 43);
+  TextEditingController changeDisplayName = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +202,34 @@ Widget accountBuild(BuildContext context){
                                   ],
                                 ));
                             },
-                            child: const Text("Show QR-code", style: TextStyle(fontSize: 20),))
+                            child: const Text("Show QR-code", style: TextStyle(fontSize: 20),)),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        TextFormField(controller: changeDisplayName, decoration: InputDecoration(hintText: 'Change Display Name', hintStyle: TextStyle(color: Colors.white, fontSize: 16)),),
+                        ElevatedButton(onPressed: (){
+                          ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
+                        }, child: Text('Set Name', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                        SizedBox(
+                          height: 120,
+                        ),
+                        ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),onPressed: (){
+                          showDialog(context: context, builder: (context) => AlertDialog(
+                          title: const Text('You are trying to delete your Account, Are you sure?'),
+                          content: SizedBox(
+                            height: 220,
+                            width: 220,
+                          ),
+                          actions: [
+                            ElevatedButton(onPressed: (){
+                              Navigator.pop(context);
+                            },
+                                child: const Text('Cancel')),
+                            ElevatedButton(onPressed: (){
+                              UserService().deleteUser();
+                            }, child: const Text('Delete Account'))
+                          ],
+                        ));}, child: Text('Delete Account', style: TextStyle(color: Colors.white, fontSize: 16),))
                       ],
                       ),
                     ),
