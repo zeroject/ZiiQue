@@ -51,6 +51,14 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+  void loadBeat(Beat beat){
+    print("TEST");
+    print(boolList);
+    boolList = _loadBeat.loadBeat(soundEngine, boolList);
+    soundEngine.beatString = beat.beatString;
+    print(boolList);
+  }
+
   void _addToBeat(int input, int row, int beat) {
     soundEngine.addToBeat(input, row, beat);
   }
@@ -109,14 +117,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         loginPageMobile: LoginMobile(context),
         beatBoardDesktop: BeatBoardDesktop(context),
         soundEngine: soundEngine,
-        onLoadBeat: (Beat beat)
-        {
-          print("TEST");
-          print(boolList);
-          boolList = _loadBeat.loadBeat(soundEngine, boolList);
-          soundEngine.beatString = beat.beatString;
-          print(boolList);
-          },
+        onLoadBeat: loadBeat,
       ),
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
