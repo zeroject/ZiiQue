@@ -95,7 +95,9 @@ class CustomFriendListView extends StatelessWidget{
                                     uid: FirebaseAuth.instance.currentUser!.uid, 
                                     firstname: beatuser!.firstname, 
                                     lastname: beatuser!.lastname, 
-                                    friends: tempList)
+                                    friends: tempList,
+                                    profileImgUrl: beatuser!.profileImgUrl
+                                    )
                                   );
                                 },
                                 child: const Text("Yes"))

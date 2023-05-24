@@ -62,46 +62,36 @@ num convertBPMToTime(num placement)
 
 void changeTheme(String newTheme)
 {
-  switch (theme) {
+  print(newTheme);
+  switch (newTheme) {
     case "House":
-    Map map = {
-      "A": "Clap.wav",
-      "B": "Kick.wav",
-      "C": "Shaker.wav",
-      "D": "Ride.wav",
-      "E": "Snare.wav"
-    };
-      soundFiles = map;
+    soundFiles["A"] = "Clap.wav";
+    soundFiles["B"] = "Kick.wav";
+    soundFiles["C"] = "Shaker.wav";
+    soundFiles["D"] = "Ride.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
     case "Hip-Hop":
-    Map map = {
-      "A": "808.mp3",
-      "B": "Hard_Kick.mp3",
-      "C": "Hihat.mp3",
-      "D": "Ride.mp3",
-      "E": "Snare_Claps.mp3"
-       };
-         soundFiles = map;
+    soundFiles["A"] = "808.mp3";
+    soundFiles["B"] = "Hard_Kick.mp3";
+    soundFiles["C"] = "Hihat.mp3";
+    soundFiles["D"] = "Ride.mp3";
+    soundFiles["E"] = "Snare_Claps.mp3";
       break;
-      case "Acoustic":
-      Map map = {
-      "A": "Hitom.wav",
-      "B": "Kick.wav",
-      "C": "Hihat.wav",
-      "D": "Ride.wav",
-      "E": "Snare.wav"
-       };
-         soundFiles = map;
+    case "Acoustic":
+    soundFiles["A"] = "Hitom.wav";
+    soundFiles["B"] = "Kick.wav";
+    soundFiles["C"] = "Hihat.wav";
+    soundFiles["D"] = "Ride.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
       case "Hardstyle":
-      Map map = {
-      "A": "Kick.wav",
-      "B": "Shaker.wav",
-      "C": "Hat.wav",
-      "D": "Cym.wav",
-      "E": "Snare.wav"
-       };
-         soundFiles = map;
+        print("Should fucking change sounds motherfucker");
+    soundFiles["A"] = "Kick.wav";
+    soundFiles["B"] = "Shaker.wav";
+    soundFiles["C"] = "Hat.wav";
+    soundFiles["D"] = "Cym.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
   }
   theme = newTheme + "/";
@@ -271,6 +261,7 @@ List<List<Node>> convertStringToNodes(String beatString)
       default:
       throw Exception("placement not found");
     }
+    print(soundFiles['A']);
   }
   nodeList.add(nodeA);
   nodeList.add(nodeB);
