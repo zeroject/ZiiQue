@@ -7,6 +7,7 @@ import 'package:ziique/CustomWidgets/change_credentials_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/models/fire_user.dart';
+import '../CustomWidgets/custom_mobile_scanner.dart';
 import '../CustomWidgets/loadingscreen.dart';
 import '../CustomWidgets/profile_image_widget.dart';
 import '../FireService/fire_user_service.dart';
@@ -138,9 +139,9 @@ Widget accountBuild(BuildContext context){
                   Container(
                     color: const Color.fromARGB(255, 57, 54, 54),
                     child:Padding(
-                    padding: const EdgeInsets.all(81.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: SizedBox(
-                      width: 269,
+                      width: 390,
                       child: Column(
                       children: [
                         ProfileImage(
@@ -148,9 +149,11 @@ Widget accountBuild(BuildContext context){
                         ),
                         Row(
                           children: [
-                            const Text('Displayname: ', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text("${FirebaseAuth.instance.currentUser!.displayName}", 
-                              style: const TextStyle(color: Colors.white, fontSize: 20),),
+                            const Text('Displayname: ', style: TextStyle(color: Colors.white, fontSize: 20),),
+                            FirebaseAuth.instance.currentUser!.displayName != null ? Text("${FirebaseAuth.instance.currentUser!.displayName}", 
+                              style: const TextStyle(color: Colors.white, fontSize: 20),) 
+                              : const Text("No DisplayName Yet", 
+                              style: TextStyle(color: Colors.white, fontSize: 20)),
                           ],
                         ),
                         Row(
@@ -175,13 +178,7 @@ Widget accountBuild(BuildContext context){
                         const Text('Your Friend Code:', 
                           style: TextStyle(color: Colors.white, fontSize: 14),),
 
-                          Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 16, backgroundColor: Colors.grey),),
-
-                          ],
-                        ),
+                        Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 16, backgroundColor: Color.fromARGB(255, 77, 74, 74)),),
                         const SizedBox(
                           height: 10,
                         ),
@@ -230,7 +227,7 @@ Widget accountBuild(BuildContext context){
                           alignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              width: 160,
+                              width: 250,
                               child: TextFormField(
                                 style: const TextStyle(color: Colors.white),
                                 controller: changeDisplayName,
@@ -248,7 +245,7 @@ Widget accountBuild(BuildContext context){
                           ElevatedButton(onPressed: (){
                             ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
                             ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
-                          }, child: const Text('Apply', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                          }, child: const Text('Set Name', style: TextStyle(color: Colors.white),)),
                           ],
                         ),
                         
@@ -343,9 +340,9 @@ Widget paymentBuild(BuildContext context){
                 Container(
                   color: const Color.fromARGB(255, 57, 54, 54),
                   child: Padding(
-                  padding: const EdgeInsets.all(81),
+                  padding: const EdgeInsets.all(30),
                   child: SizedBox(
-                    width: 269,
+                    width: 390,
                     child: Column(
                     children: [
                       Text(beatuser!.firstname, style: const TextStyle(color: Colors.white, fontSize: 24),),
@@ -435,13 +432,13 @@ Widget paymentBuild(BuildContext context){
                   Container(
                     color: const Color.fromARGB(255, 57, 54, 54),
                     child: Padding(
-                    padding: const EdgeInsets.all(81),
+                    padding: const EdgeInsets.all(30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 269,
+                          width: 390,
                           child: Row(children: [
                           const Text('Friend Requests', style: TextStyle(fontSize: 18, color: Colors.white), ),
                           Switch(value: light, activeColor: Colors.blue, onChanged: (bool value){setState(() {light = value;});}),
@@ -521,19 +518,19 @@ Widget paymentBuild(BuildContext context){
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
                         child: Padding(
-                        padding: const EdgeInsets.all(81),
+                        padding: const EdgeInsets.only(top: 30,bottom: 30,left: 50,right: 50),
                           child: Column(
                             children: const [
                               SizedBox(
                                 height: 220,
-                                width: 269,
+                                width: 350,
                                 child: CustomCredentialsChange(
                                   emailOrPassword: 'Email', 
                                 ),
                               ),
                               SizedBox(
                                 height: 220,
-                                width: 269,
+                                width: 350,
                                 child: CustomCredentialsChange(
                                   emailOrPassword: 'Password', 
                                 ),
@@ -599,12 +596,12 @@ Widget paymentBuild(BuildContext context){
                     Container(
                       color: const Color.fromARGB(255, 57, 54, 54),
                       child: Padding(
-                        padding: const EdgeInsets.all(81),
+                        padding: const EdgeInsets.all(30),
                         child: Column(
                           children: [
                             SizedBox(
                               height: 140,
-                              width: 269,
+                              width: 390,
                               child: ListView(
                                 children: [
                                   TextFormField(
@@ -633,18 +630,18 @@ Widget paymentBuild(BuildContext context){
                                       ),
                                     ),
                                   ),
-                                  OutlinedButton(
+                                  !kIsWeb ? OutlinedButton(
                                     style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                                     onPressed: (){
-                                      //!kIsWeb ? Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,))) : "";
+                                      Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,)));
                                     },
-                                    child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))),
+                                    child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))) : Text("")
                                       ],
                                     ),
                                   ),
                               SizedBox(
                                 height: 500,
-                                width: 269,
+                                width: 370,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [

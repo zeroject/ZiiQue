@@ -64,6 +64,7 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                       hintStyle: const TextStyle(
                         color: Colors.white)),)),
         OutlinedButton(
+          style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
           onPressed: () async {
             try{
               if (widget.emailOrPassword == 'Email' && firstTextFieldController.text == secondTextFieldController.text){
@@ -130,7 +131,7 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
               }
             }
           },
-          child: const Text("Apply Changes")
+          child: const Text("Apply Changes", style: TextStyle(color: Colors.white))
         ), 
       ],
     );
