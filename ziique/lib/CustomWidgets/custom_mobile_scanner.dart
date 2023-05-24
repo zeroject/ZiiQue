@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as beat_user;
@@ -42,12 +42,11 @@ class _CustomMobileScannerState extends State<CustomMobileScanner> {
       body: Stack(
         children: [
           MobileScanner(
-          allowDuplicates: false,
           controller: scannerController,
-          onDetect: (barcode, args){
+          onDetect: (barcode){
               List<String> tempList;
               tempList = widget.user.friends;
-              tempList.add(barcode.rawValue!);
+              tempList.add(barcode.raw.toString());
               UserService().updateFriendList(tempList);
             }
           ),
@@ -107,4 +106,4 @@ class MobileScannerOverlay extends StatelessWidget {
       ),
     ]);
   }
-}*/
+}
