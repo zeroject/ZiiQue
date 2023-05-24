@@ -2,8 +2,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_Service.dart';
 import 'package:ziique/models/beatitsession.dart';
+import 'package:ziique/sound_engine.dart';
 
 import '../../models/beat.dart';
 import '../../models/user.dart';
@@ -55,18 +57,17 @@ class FireBeatItRealtimeService {
     await FirebaseFirestore.instance.collection(CollectionNames.users).doc(friend.uid).collection("sessions").doc(sessionID).set({"RESPOND" : ""});
   }
 
-  Future<bool> respondInvToBeatItSession(String sessionID, User person, bool respond) async {
-    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person.uid).collection("sessions").doc(sessionID).set({"RESPOND" : respond});
+  Future<bool> respondInvToBeatItSession(String sessionID, String person, bool respond) async {
+    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person).collection("sessions").doc(sessionID).set({"RESPOND" : respond});
     return respond;
   }
 
-  Future<void> listenToData(String sessionID) async{
-    String beatString = "";
+  Future<void> listenToData(String sessionID, SoundEngine? soundEngine) async{
+    print(sessionID);
     final sessionRef = ref.child("beatItSessions").child(sessionID);
     sessionRef.onValue.listen((DatabaseEvent event){
       final data = event.snapshot.value;
-      beatString = data.toString();
-
+      soundEngine!.beatString = data.toString();
     });
   }
 

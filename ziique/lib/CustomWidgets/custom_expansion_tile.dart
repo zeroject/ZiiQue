@@ -173,6 +173,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         widget.beat, FirebaseAuth.instance.currentUser!.uid);
                     user.inSession = true;
                     UserService().updateUser(user);
+                    FireBeatItRealtimeService().listenToData(user.sessionID, widget.soundEngine);
                     Navigator.pop(context);
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),

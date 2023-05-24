@@ -18,6 +18,8 @@ int numberOfRows = 5;
 int numberOfBars = 4;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
+
+final snack = SnackBar(content: Text("You have been inv to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
 SoundEngine soundEngine = SoundEngine();
 Notifier notifer = Notifier();
 LoadBeat _loadBeat = LoadBeat();
@@ -58,6 +60,20 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     soundEngine.beatString = beatString;
     print(boolList);
     internalSetter((){});
+  }
+
+  void _addToBeatLoggedin(int input, int row, int beat, beat_user.User? user){
+    soundEngine.addToBeat(input, row, beat);
+    if (user!.inSession){
+      FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString);
+    }
+  }
+
+  void _removeFromBeatLoggedin(int input, int row, int beat, beat_user.User? user){
+    soundEngine.removeFromBeat(input, row, beat);
+    if (user!.inSession){
+      FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString);
+    }
   }
 
   void _addToBeat(int input, int row, int beat) {
@@ -127,13 +143,13 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
       body: FirebaseAuth.instance.currentUser != null
           ? FutureBuilder(
               future: userquery,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+              builder: (context, snapshot2) {
+                if (!snapshot2.hasData) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  beatuser = snapshot.data;
+                  beatuser = snapshot2.data;
                   return Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
@@ -355,10 +371,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                         alpha.greenBut == 0
                                                             ? _playSingleSound(
                                                                 "A")
-                                                            : _addToBeat(
+                                                            : _addToBeatLoggedin(
                                                                 i,
                                                                 numberOfRows,
-                                                                numberOfBars);
+                                                                numberOfBars,
+                                                            snapshot2.data);
                                                         boolList[i] =
                                                             !boolList[i];
                                                         maxRange =
