@@ -326,4 +326,4 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 }
 
-typedef LoadBeatCallback = void Function(Beat beat);
+typedef LoadBeatCallback = void Function(String beatString);

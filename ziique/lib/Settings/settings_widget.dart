@@ -174,26 +174,31 @@ Widget accountBuild(BuildContext context){
                         const SizedBox(
                           height: 10,
                         ),
-                        OutlinedButton(style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
-                            onPressed: (){
-                              Clipboard.setData(ClipboardData(text: friendcode))
+                        ButtonBar(
+                          alignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                              onPressed: (){
+                                Clipboard.setData(ClipboardData(text: friendcode))
                                   .then((value){ScaffoldMessenger
                                   .of(context)
                                   .showSnackBar(snackBar);});
-                            },
-                            child: const Text('Copy', style: TextStyle(color: Colors.white, fontSize: 24),)),
-                          
-                          OutlinedButton(
-                            onPressed: (){
-                              showDialog(
-                                context: context, 
-                                builder: (context) => AlertDialog(
-                                  title: const Text("Friend QR-code"),
-                                  content: SizedBox(
-                                    height: 220,
-                                    width: 220,
-                                    child: QrImageView(data: beatuser!.uid, size: 200,)
-                                  ),
+                              },
+                              child: const Text('Copy code', style: TextStyle(color: Colors.white),)),
+                            Text("Or", style: TextStyle(color: Colors.white),),
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                              onPressed: (){
+                                showDialog(
+                                  context: context, 
+                                  builder: (context) => AlertDialog(
+                                    title: const Text("Friend QR-code"),
+                                    content: SizedBox(
+                                      height: 220,
+                                      width: 220,
+                                      child: QrImageView(data: beatuser!.uid, size: 200,)
+                                    ),
                                   actions: [
                                     OutlinedButton(
                                       onPressed: (){
@@ -203,8 +208,10 @@ Widget accountBuild(BuildContext context){
                                     )
                                   ],
                                 ));
-                            },
-                            child: const Text("Show QR-code", style: TextStyle(fontSize: 20),)),
+                              },
+                              child: const Text("Show QR-code", style: TextStyle(color: Colors.white),)),
+                          ],
+                        ),
                         const SizedBox(
                           height: 100,
                         ),

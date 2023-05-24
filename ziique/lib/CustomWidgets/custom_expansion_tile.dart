@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ziique/FireService/fire_beat_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
+import '../Settings/settings_widget.dart';
 import '../models/beat.dart';
 
 class CustomExpansionTile extends StatefulWidget {
@@ -53,18 +55,33 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           title: Text(widget.beat!.title,
               style: TextStyle(fontSize: widget.fontSize)),
           children: [
-            ListTile(title: Text(widget.beat!.description)),
+            ListTile(
+              title: Text("${widget.beat!.description}\n"),
+              subtitle: widget.isFriendBeat ? Text("BeatCode:\n ${widget.beat!.beatString}") : const Text("")),
+            widget.isFriendBeat ? OutlinedButton(
+              style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: widget.beat!.beatString))
+                  .then((value){ScaffoldMessenger
+                  .of(context)
+                  .showSnackBar(const SnackBar(
+                    content: Text('Code copied to clipboard')));});
+              },
+              child: const Text("Copy BeatCode", style: TextStyle(color: Colors.white),)) :
+
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 !widget.isFriendBeat ? OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                   onPressed: (){
-                    widget.onLoadBeat!(widget.beat!);
+                    widget.onLoadBeat!(widget.beat!.beatString);
                   },
-                  child: const Text("Load Beat", style: TextStyle(),
+                  child: const Text("Load Beat", style: TextStyle(color: Colors.white),
                   ),
                 ) :
                 !widget.isFriendBeat ? OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -117,8 +134,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                       ));
                     },
-                    child: const Text("Update Beat")) : Text(""),
+                    child: const Text("Update Beat", style: TextStyle(color: Colors.white),)) : Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -146,8 +164,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                               ));
                     },
-                    child: const Text("Delete Beat")) : Text(""),
+                    child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                   onPressed: () async {
                     our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
                     user!.sessionID = await FireBeatItRealtimeService().createSession(
@@ -156,9 +175,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                     UserService().updateUser(user);
                     Navigator.pop(context);
                   },
-                  child: const Text(
-                    "Start Session",
-                    style: TextStyle(),
+                  child: const Text("Start Session", style: TextStyle(color: Colors.white),
                   ),
                 ) : Text("")
               ],
@@ -173,4 +190,4 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
   }
 }
 
-typedef LoadBeatCallback = void Function(Beat beat);
+typedef LoadBeatCallback = void Function(String beatString);

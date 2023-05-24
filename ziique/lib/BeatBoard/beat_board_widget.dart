@@ -51,11 +51,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  void loadBeat(Beat beat){
+  void loadBeat(String beatString){
     print("TEST");
     print(boolList);
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
-    soundEngine.beatString = beat.beatString;
+    soundEngine.beatString = beatString;
     print(boolList);
     internalSetter((){});
   }
@@ -169,6 +169,33 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                             hintStyle:
                                                 TextStyle(color: Colors.white)),
                                       )),
+                                  ElevatedButton(
+                                      child: const Text("Load From BeatCode"),
+                                      onPressed: () {
+                                        TextEditingController loadBeatController = TextEditingController();
+                                        showDialog(
+                                          context: context, 
+                                          builder: (context) => AlertDialog(
+                                            title: Text("Load Beat From BeatCode"),
+                                            content: TextFormField(
+                                              controller: loadBeatController,
+                                              decoration: const InputDecoration(hintText:"BeatCode"),
+                                            ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: (){
+                                                Navigator.pop(context);
+                                              }, 
+                                              child: Text("Cancel")),
+                                            TextButton(
+                                              onPressed: (){
+                                                loadBeat(loadBeatController.text);
+                                                Navigator.pop(context);
+                                              }, 
+                                              child: Text("Ok")),
+                                          ],
+                                          ));
+                                      }),
                                   ElevatedButton(
                                       child: const Text("Save Beat"),
                                       onPressed: () {

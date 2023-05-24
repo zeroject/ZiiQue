@@ -51,7 +51,7 @@ class CustomFriendListView extends StatelessWidget{
                 itemCount: 1,
                 itemBuilder: (context, index){
                 return FirestoreListView(
-                  query: BeatService().getAllPublicBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
+                  query: BeatService().getAllPublicBeatsFromUser(friend.uid),
                   shrinkWrap: true,
                   itemBuilder: (context, snapshot) {
                     Beat beat = snapshot.data();
@@ -59,7 +59,7 @@ class CustomFriendListView extends StatelessWidget{
                       isFriendBeat: true,
                       beat: beat,
                       fontSize: 20,
-                      tileColor: const Color.fromARGB(255, 255, 255, 255),
+                      tileColor: Color.fromARGB(255, 180, 180, 180),
                       tileRadius: 10,
                     );
                   },
@@ -69,7 +69,9 @@ class CustomFriendListView extends StatelessWidget{
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(onPressed: (){
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                  onPressed: (){
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -100,7 +102,7 @@ class CustomFriendListView extends StatelessWidget{
                           ],
                     ));
                   }, 
-                  child: const Text("Remove Friend"))
+                  child: const Text("Remove Friend", style: TextStyle(color: Colors.white),))
               ],
             )
           ],
