@@ -163,7 +163,7 @@ String nodeString(int position, int rowCount, int beat) {
   for (var i = 0; i < total; i++) {
     if (i == position) {
       node += beatMap[currentRow];
-      node += (pos % 32).toString();
+      node += (pos % ((beat * 4) + 1)).toString();
       break;
     }
     else if (greens.contains(i) && i != 0)
