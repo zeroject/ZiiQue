@@ -62,7 +62,8 @@ num convertBPMToTime(num placement)
 
 void changeTheme(String newTheme)
 {
-  switch (theme) {
+  print(newTheme);
+  switch (newTheme) {
     case "House":
     soundFiles["A"] = "Clap.wav";
     soundFiles["B"] = "Kick.wav";
@@ -85,6 +86,7 @@ void changeTheme(String newTheme)
     soundFiles["E"] = "Snare.wav";
       break;
       case "Hardstyle":
+        print("Should fucking change sounds motherfucker");
     soundFiles["A"] = "Kick.wav";
     soundFiles["B"] = "Shaker.wav";
     soundFiles["C"] = "Hat.wav";
@@ -259,6 +261,7 @@ List<List<Node>> convertStringToNodes(String beatString)
       default:
       throw Exception("placement not found");
     }
+    print(soundFiles['A']);
   }
   nodeList.add(nodeA);
   nodeList.add(nodeB);

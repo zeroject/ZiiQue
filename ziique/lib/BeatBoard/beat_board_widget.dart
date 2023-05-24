@@ -188,6 +188,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                             hintText: 'BPM',
                                             hintStyle:
                                                 TextStyle(color: Colors.white)),
+                                        onChanged: (value) =>
+                                            changeBPM(int.parse(value)),
                                       )),
                                   ElevatedButton(
                                       child: const Text("Load From BeatCode"),
@@ -372,11 +374,17 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                         alpha.greenBut == 0
                                                             ? _playSingleSound(
                                                                 "A")
+                                                            :(boolList[i]
+                                                            ? _removeFromBeatLoggedin(
+                                                            i,
+                                                            numberOfRows,
+                                                            numberOfBars,
+                                                            snapshot2.data)
                                                             : _addToBeatLoggedin(
-                                                                i,
-                                                                numberOfRows,
-                                                                numberOfBars,
-                                                            snapshot2.data);
+                                                            i,
+                                                            numberOfRows,
+                                                            numberOfBars,
+                                                            snapshot2.data));
                                                         boolList[i] =
                                                             !boolList[i];
                                                         maxRange =
@@ -464,24 +472,25 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 1100,
                             ),
-                            GFDropdown(
-                                value: dropdownValue,
-                                items: [
-                                  'House',
-                                  'Hip-Hop',
-                                  'Acoustic',
-                                  'Hardstyle'
-                                ]
-                                    .map((value) => DropdownMenuItem(
-                                          value: value,
-                                          child: Text(value),
-                                        ))
-                                    .toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue;
-                                  });
-                                })
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          onChanged: (value) {
+                            _changeTheme(value.toString());
+                          },
+                          items: <String>[
+                            'House',
+                            'Hip-Hop',
+                            'Acoustic',
+                            'Hardstyle',
+                          ].map<DropdownMenuItem<String>>(
+                                (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            },
+                          ).toList(),
+                          ),
                           ],
                         ),
                       ),
