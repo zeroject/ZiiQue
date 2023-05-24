@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ziique/CustomWidgets/custom_friend_invlist.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/user.dart' as our_user;
 import 'package:flutter/material.dart';
@@ -69,12 +71,16 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  late final Stream<QuerySnapshot> _userInvStream;
   final Future<our_user.User?> userquery = Future(
       () => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
   our_user.User? beatuser;
 
   @override
   Widget build(BuildContext context) {
+    if(FirebaseAuth.instance.currentUser != null){
+      _userInvStream = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).collection("sessions").snapshots();
+    }
     return SizedBox(
       width: widget.drawerWidth,
       child: Drawer(
@@ -87,6 +93,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   if (widget.firebaseAuthUser) ...[
                     if (snapshot.hasData) ...[
                       if (snapshot.data!.inSession == true) ...[
+                        CustomFriendInvListView(beatuser: snapshot.data, sessionID: snapshot.data!.sessionID),
                         OutlinedButton(
                           onPressed: () async {
                             our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
@@ -188,6 +195,38 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 100,
+                          child: StreamBuilder<QuerySnapshot>(
+                              stream: _userInvStream,
+                              builder: (context, doc){
+                                if (doc.hasError){}
+
+                                if (doc.connectionState == ConnectionState.waiting){
+
+                                }
+                                return ListView(
+                                  shrinkWrap: true,
+                                  children: doc.data!.docs.map((DocumentSnapshot document) {
+                                    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                                    return ListTile(
+                                      title: const Text("Session INV"),
+                                      subtitle: const Text("From User TODO ADD USER NAME HERE"),
+                                      onTap: () async {
+                                        FireBeatItRealtimeService().respondInvToBeatItSession(document.id, snapshot.data!.uid, true);
+                                        our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
+                                        user!.sessionID = document.id;
+                                        user.inSession = true;
+                                        UserService().updateUser(user);
+                                        FireBeatItRealtimeService().listenToData(document.id, widget.soundEngine);
+                                        Navigator.pop;
+                                      },
+                                    );
+                                  }).toList(),
+                                );
+                              }
+                          ),
+                        )
                       ],
                     ] else ...[
                       const CircularProgressIndicator(),
@@ -298,26 +337,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ],
                     ),
                   ],
-                  Align(
-                      alignment: Alignment.bottomRight,
-                      child: SizedBox(
-                        width: widget.settingsButWidth,
-                        height: widget.settingsButHeight,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            AuthService().signOut();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => widget.beatBoardDesktop));
-                          },
-                          child: const Text(
-                            "Log Out",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
                 ],
               );
             }),
