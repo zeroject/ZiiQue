@@ -8,6 +8,8 @@ import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/beat.dart';
 
+bool tickChange = false;
+
 class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile(
       {super.key,
@@ -35,7 +37,6 @@ class CustomExpansionTile extends StatefulWidget {
 class _CustomExpansionTileState extends State<CustomExpansionTile> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  bool tickChange = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,24 +84,24 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
+                      titleController.text = widget.beat!.title;
+                      descriptionController.text = widget.beat!.description;
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: const Text("Update Beat"),
                               content: SizedBox(
-                                height: 180,
+                                height: 200,
                                 width: 300,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
                                     TextFormField(
-                                      initialValue: widget.beat!.title,
                                       controller: titleController,
                                       decoration: const InputDecoration(hintText: "Title"),
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
-                                      initialValue: widget.beat!.description,
                                       controller: descriptionController,
                                       decoration: const InputDecoration(hintText: "Description"),
                                       maxLines: 3,
@@ -108,14 +109,16 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                     ButtonBar(
                                       alignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("Private"),
+                                        const Text("Private"),
                                         Switch(
                                           value: tickChange, 
                                           activeColor: Colors.blue, 
                                           onChanged: (bool value){
-                                            setState(() {tickChange = value;});
+                                            setState(() {
+                                              tickChange = value;
+                                            });
                                           }),
-                                        Text("Public")
+                                        const Text("Public To Friends")
                                       ]
                                       
                                     )
