@@ -330,10 +330,10 @@ Widget paymentBuild(BuildContext context){
                         width: 250,
                         height: 100,
                         color: Colors.grey,
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text('Visa Credit Card', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('Ends in 5847', style: TextStyle(fontSize: 22, color: Colors.white),),
                             Text('06/25', style: TextStyle(fontSize: 22, color: Colors.white),),
@@ -493,10 +493,10 @@ Widget paymentBuild(BuildContext context){
                     ),
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
-                        child: const Padding(
-                        padding: EdgeInsets.all(81),
+                        child: Padding(
+                        padding: const EdgeInsets.all(81),
                           child: Column(
-                            children: [
+                            children: const [
                               SizedBox(
                                 height: 220,
                                 width: 269,
@@ -616,7 +616,7 @@ Widget paymentBuild(BuildContext context){
                                     ),
                                   ),
                               SizedBox(
-                                height: 200,
+                                height: 500,
                                 width: 269,
                                 child: ListView(
                                   shrinkWrap: true,

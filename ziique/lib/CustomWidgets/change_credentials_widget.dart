@@ -66,10 +66,12 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
         OutlinedButton(
           onPressed: () async {
             try{
-              if (widget.emailOrPassword == 'Email' && firstTextFieldController == secondTextFieldController){
+              if (widget.emailOrPassword == 'Email' && firstTextFieldController.text == secondTextFieldController.text){
                 await ChangeCredentialsService().changeEmail(firstTextFieldController.text);
-              }else if (widget.emailOrPassword == 'Password' && firstTextFieldController == secondTextFieldController){
+                Navigator.pop(context);
+              }else if (widget.emailOrPassword == 'Password' && firstTextFieldController.text == secondTextFieldController.text){
                 await ChangeCredentialsService().changePassword(firstTextFieldController.text);
+                Navigator.pop(context);
               }
             }on FirebaseAuthException catch(e){
               switch(e.code){
