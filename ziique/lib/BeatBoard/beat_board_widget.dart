@@ -9,13 +9,11 @@ import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../FireService/fire_beat_Service.dart';
 import '../Settings/settings_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:getwidget/getwidget.dart';
 import '../models/Notifier.dart';
-import '../models/beat.dart';
 import '../models/user.dart' as beat_user;
 
 int numberOfRows = 5;
-int numberOfBars = 4;
+int numberOfBars = 8;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 
@@ -85,6 +83,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   }
 
   void _playSingleSound(int soundName) {
+    print(boolList.length);
     soundEngine.playSingleSound(soundName);
   }
 
@@ -168,7 +167,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                             padding: const EdgeInsets.only(
                                 left: 8, right: 8, top: 100),
                             child: Container(
-                              decoration: BoxDecoration(color: Colors.black),
+                              decoration: const BoxDecoration(color: Colors.black),
                               child: Row(
                                 children: [
                                   ElevatedButton(
@@ -183,7 +182,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                       width: 100,
                                       child: TextFormField(
                                         controller: bpmController,
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                         decoration: const InputDecoration(
                                             hintText: 'BPM',
                                             hintStyle:
