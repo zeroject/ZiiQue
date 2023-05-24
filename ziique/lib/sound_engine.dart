@@ -12,7 +12,7 @@ bool shouldPlay = false;
 String beatString = "";
 
 String sourceFolder = "assets/samples/";
-String theme = "Hip-Hop";
+String theme = "Hip-Hop/";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
@@ -104,7 +104,7 @@ void changeTheme(String newTheme)
          soundFiles = map;
       break;
   }
-  theme = "$newTheme/";
+  theme = newTheme + "/";
 }
 
 void playSingleSound(String soundName)

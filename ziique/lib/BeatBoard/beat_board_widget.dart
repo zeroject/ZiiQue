@@ -76,6 +76,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     soundEngine.play();
   }
 
+  void _changeTheme(String theme){
+    soundEngine.changeTheme(theme);
+  }
+
   void changeBPM(int bpm) {
     soundEngine.changeBPM(bpm);
   }
@@ -273,6 +277,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   ),
                                   GFDropdown(
                                       value: dropdownValue,
+                                      onChanged: (dropdownValue) {
+                                    _changeTheme(dropdownValue.toString());
+                                    print(dropdownValue.toString());
+                                        },
                                       items: [
                                         'House',
                                         'Hip-Hop',
@@ -284,11 +292,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                 child: Text(value),
                                               ))
                                           .toList(),
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          dropdownValue = newValue;
-                                        });
-                                      })
+                                  ),
                                 ],
                               ),
                             ),
