@@ -8,6 +8,7 @@ import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/models/fire_user.dart';
 import '../CustomWidgets/loadingscreen.dart';
+import '../CustomWidgets/profile_image_widget.dart';
 import '../FireService/fire_user_service.dart';
 import '../models/user.dart' as beat_user;
 import '../models/fire_user.dart' as fire_user;
@@ -142,6 +143,9 @@ Widget accountBuild(BuildContext context){
                       width: 269,
                       child: Column(
                       children: [
+                        ProfileImage(
+                          imgUrl: beatuser!.profileImgUrl
+                        ),
                         Row(
                           children: [
                             const Text('Name: ', style: TextStyle(color: Colors.white, fontSize: 24),),

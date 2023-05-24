@@ -34,7 +34,8 @@ class UserService{
           beat_user.UserKeys.lastname: lastName,
           beat_user.UserKeys.inSession : false,
           beat_user.UserKeys.sessionID: "",
-          beat_user.UserKeys.friends: []
+          beat_user.UserKeys.friends: [],
+          beat_user.UserKeys.profileImgUrl: ""
         });
   }
 
