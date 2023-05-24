@@ -47,9 +47,18 @@ class FireBeatItRealtimeService {
     }
   }
 
-  deleteSession(String sessionID) async{
+  deleteSession(String sessionID, String userID) async{
     final sessionRef = ref.child("beatItSessions").child(sessionID);
-    sessionRef.remove();
+    final snapshot = await sessionRef.get();
+    print("wrong");
+    await snapshot.children.map((DataSnapshot dataSnapshot){
+      Map<String, dynamic> data = dataSnapshot.children as Map<String, dynamic>;
+      print("get data from your mom");
+      if (data["hostID"] == userID){
+        print("should delete the current session");
+        sessionRef.remove();
+      }
+    });
   }
 
 
@@ -59,6 +68,7 @@ class FireBeatItRealtimeService {
 
   Future<bool> respondInvToBeatItSession(String sessionID, String person, bool respond) async {
     await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person).collection("sessions").doc(sessionID).set({"RESPOND" : respond});
+    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person).collection("sessions").doc(sessionID).delete();
     return respond;
   }
 
@@ -66,8 +76,11 @@ class FireBeatItRealtimeService {
     print(sessionID);
     final sessionRef = ref.child("beatItSessions").child(sessionID);
     sessionRef.onValue.listen((DatabaseEvent event){
-      final data = event.snapshot.value;
-      soundEngine!.beatString = data.toString();
+      final data = event.snapshot.children;
+      data.map((DataSnapshot dataSnapshot){
+        Map<String, dynamic> data = dataSnapshot.children as Map<String, dynamic>;
+        soundEngine!.beatString = data['beatString'];
+      });
     });
   }
 

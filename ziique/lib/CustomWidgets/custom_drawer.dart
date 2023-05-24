@@ -97,7 +97,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         OutlinedButton(
                           onPressed: () async {
                             our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                            FireBeatItRealtimeService().deleteSession(user!.sessionID);
+                            FireBeatItRealtimeService().deleteSession(user!.sessionID, snapshot.data!.uid);
                             user.inSession = false;
                             user.sessionID = "";
                             UserService().updateUser(user);
