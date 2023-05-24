@@ -58,7 +58,7 @@ class BeatService{
           BeatKeys.by: owner.toMap(),
           BeatKeys.beatString: beatstring,
           BeatKeys.description: description,
-          BeatKeys.publicity: "Public"
+          BeatKeys.publicity: "Private"
         });
   }
 

@@ -148,9 +148,16 @@ Widget accountBuild(BuildContext context){
                         ),
                         Row(
                           children: [
+                            const Text('Displayname: ', style: TextStyle(color: Colors.white, fontSize: 24),),
+                            Text("${FirebaseAuth.instance.currentUser!.displayName}", 
+                              style: const TextStyle(color: Colors.white, fontSize: 20),),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             const Text('Name: ', style: TextStyle(color: Colors.white, fontSize: 24),),
-                            Text(beatuser!.firstname, 
-                              style: const TextStyle(color: Colors.white, fontSize: 24),),
+                            Text("${beatuser!.firstname} ${beatuser!.lastname}", 
+                              style: const TextStyle(color: Colors.white, fontSize: 20),),
                           ],
                         ),
                         Row(
@@ -159,7 +166,7 @@ Widget accountBuild(BuildContext context){
                             Flexible(
                               fit: FlexFit.tight,
                               child: Text(fireuser.email.toString(), 
-                              style: const TextStyle(color: Colors.white, fontSize: 24),)),
+                              style: const TextStyle(color: Colors.white, fontSize: 20),)),
                           ],
                         ),
                         const SizedBox(
@@ -169,7 +176,7 @@ Widget accountBuild(BuildContext context){
                           style: TextStyle(color: Colors.white, fontSize: 14),),
 
                           Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(friendcode, style: const TextStyle(color: Colors.white, fontSize: 16, backgroundColor: Colors.grey),),
 
@@ -190,7 +197,7 @@ Widget accountBuild(BuildContext context){
                                   .showSnackBar(snackBar);});
                               },
                               child: const Text('Copy code', style: TextStyle(color: Colors.white),)),
-                            Text("Or", style: TextStyle(color: Colors.white),),
+                            const Text("Or", style: TextStyle(color: Colors.white),),
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                               onPressed: (){
@@ -217,27 +224,36 @@ Widget accountBuild(BuildContext context){
                           ],
                         ),
                         const SizedBox(
-                          height: 100,
+                          height: 30,
                         ),
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          controller: changeDisplayName,
-                          decoration: const InputDecoration(
-                              hintText: "Insert New Display Name",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.blueAccent),),
-                              labelStyle: TextStyle(
-                                  color: Colors.white),
-                              hintStyle: TextStyle(
-                                  color: Colors.white)),
+                        ButtonBar(
+                          alignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              width: 160,
+                              child: TextFormField(
+                                style: const TextStyle(color: Colors.white),
+                                controller: changeDisplayName,
+                                decoration: const InputDecoration(
+                                  hintText: "New Display Name",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.blueAccent),),
+                                  labelStyle: TextStyle(
+                                    color: Colors.white),
+                                  hintStyle: TextStyle(
+                                    color: Colors.white)),
+                              ),
+                            ),
+                          ElevatedButton(onPressed: (){
+                            ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
+                            ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
+                          }, child: const Text('Apply', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                          ],
                         ),
-                        ElevatedButton(onPressed: (){
-                          ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
-                          ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
-                        }, child: const Text('Set Name', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                        
                         const SizedBox(
-                          height: 120,
+                          height: 200,
                         ),
                         ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),onPressed: (){
                           showDialog(context: context, builder: (context) => AlertDialog(
@@ -632,6 +648,7 @@ Widget paymentBuild(BuildContext context){
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
+                                    beatuser!.friends.isNotEmpty ? Text("Your friends:") : Text(""),
                                     CustomFriendListView(
                                       beatuser: beatuser
                                       ),

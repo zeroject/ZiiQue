@@ -115,6 +115,6 @@ class CustomFriendListView extends StatelessWidget{
         ],
       ); 
       }
-    ) : const Text("No friends", style: TextStyle(fontSize: 50, color: Colors.white),);
+    ) : const Text("You have no friends", style: TextStyle(fontSize: 30, color: Colors.white),);
   }
 }

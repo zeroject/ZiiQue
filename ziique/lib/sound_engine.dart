@@ -57,7 +57,7 @@ num convertBPMToTime(num placement)
   num time = 0;
   num beatTime = (60 / bpm * 1000);
   time = placement * beatTime;
-  return time;
+  return time /2;
 }
 
 void changeTheme(String newTheme)
@@ -97,20 +97,35 @@ void changeTheme(String newTheme)
   theme = newTheme + "/";
 }
 
-void playSingleSound(String soundName)
+void playSingleSound(int soundIndex)
 {
-  try
-  {
-     player.play(DeviceFileSource(sourceFolder + soundFiles[soundName]));
+  AudioPlayer player = AudioPlayer();
+  String sound ="";
+  
+  switch (soundIndex) {
+    case 0:
+     sound = soundFiles["A"];
+      break;
+      case 33:
+      sound = soundFiles["B"];
+      break;
+      case 66:
+      sound = soundFiles["C"];
+      break;
+      case 99:
+      sound = soundFiles["D"];
+      break;
+      case 132:
+      sound = soundFiles["E"];
+      break;
   }
-  catch(e)
-  {
-    throw Exception("Sound not found");
-  } 
+  player.play(DeviceFileSource(sourceFolder + theme + sound));
+  
 }
 
 void addToBeat(int pos, int rowMax, int beatMax)
 {
+  print(pos.toString() +"--" +rowMax.toString()  +"--" + beatString.toString());
   String node = nodeString(pos, rowMax, beatMax);
   node += ";";
   beatString = beatString + node;
@@ -148,7 +163,7 @@ String nodeString(int position, int rowCount, int beat) {
   for (var i = 0; i < total; i++) {
     if (i == position) {
       node += beatMap[currentRow];
-      node += (pos % 16).toString();
+      node += (pos % ((beat * 4) + 1)).toString();
       break;
     }
     else if (greens.contains(i) && i != 0)
@@ -176,7 +191,7 @@ List<int> nodeInt()
   };
   String rowString = "";
   String pos = "";
-  int column = 4 * 4;
+  int column = 8 * 4;
   List<String> beatList = beatString.split(";");
   beatList.removeLast();
    for(int i = 0; i < beatList.length; i++)
@@ -199,23 +214,11 @@ List<int> nodeInt()
   return nodePosition;
 }
 
-void playBeat(String beatString)
-{
-  List<String> beatList = beatString.split("");
-  for(int i = 0; i < beatList.length; i++)
-  {
-    if(beatList[i] != " ")
-    {
-      playSingleSound(beatList[i]);
-    }
-  }
-
-
-}
 
 //returns a list of lists of nodes, each list contains all nodes of a specific placement, sorted by time
 List<List<Node>> convertStringToNodes(String beatString)
 {
+  print(beatString);
   List<String> beatList = beatString.split(";");
   List<Node> nodeA = [];
   List<Node> nodeB = [];
@@ -351,7 +354,6 @@ play()
 else
 {
   shouldPlay = false;
-  print(shouldPlay.toString() + " 3" );
 }
   }
 }

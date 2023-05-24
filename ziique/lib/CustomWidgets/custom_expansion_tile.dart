@@ -6,11 +6,12 @@ import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
-import '../Settings/settings_widget.dart';
 import '../models/beat.dart';
 
+bool tickChange = false;
+
 class CustomExpansionTile extends StatefulWidget {
-  CustomExpansionTile(
+  const CustomExpansionTile(
       {super.key,
       required this.isFriendBeat,
       required this.fontSize,
@@ -79,32 +80,48 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   },
                   child: const Text("Load Beat", style: TextStyle(color: Colors.white),
                   ),
-                ) :
+                ) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
+                      titleController.text = widget.beat!.title;
+                      descriptionController.text = widget.beat!.description;
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: const Text("Update Beat"),
                               content: SizedBox(
-                                height: 150,
+                                height: 200,
                                 width: 300,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
                                     TextFormField(
-                                      initialValue: widget.beat!.title,
                                       controller: titleController,
                                       decoration: const InputDecoration(hintText: "Title"),
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
-                                      initialValue: widget.beat!.description,
                                       controller: descriptionController,
                                       decoration: const InputDecoration(hintText: "Description"),
                                       maxLines: 3,
                                     ),
+                                    ButtonBar(
+                                      alignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text("Private"),
+                                        Switch(
+                                          value: tickChange, 
+                                          activeColor: Colors.blue, 
+                                          onChanged: (bool value){
+                                            setState(() {
+                                              tickChange = value;
+                                            });
+                                          }),
+                                        const Text("Public To Friends")
+                                      ]
+                                      
+                                    )
                                     ],
                                   ),
                               ),
@@ -134,7 +151,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                       ));
                     },
-                    child: const Text("Update Beat", style: TextStyle(color: Colors.white),)) : Text(""),
+                    child: const Text("Update Beat", style: TextStyle(color: Colors.white),)) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
@@ -164,7 +181,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                               ));
                     },
-                    child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : Text(""),
+                    child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                   onPressed: () async {
@@ -178,7 +195,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),
                   ),
-                ) : Text("")
+                ) : const Text("")
               ],
             )
           ],

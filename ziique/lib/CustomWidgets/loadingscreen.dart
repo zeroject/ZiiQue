@@ -13,7 +13,7 @@ class LoadingScreen extends StatelessWidget{
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("../assets/images/Ziique_back.png"),
+            image: AssetImage("../assets/images/Ziique_back_grey.png"),
             fit: BoxFit.none
           )
         ),
