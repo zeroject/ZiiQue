@@ -85,8 +85,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     soundEngine.removeFromBeat(input, row, beat);
   }
 
-  void _playSingleSound(String soundName) {
-    //soundEngine.playSingleSound(soundName);
+  void _playSingleSound(int soundName) {
+    soundEngine.playSingleSound(soundName);
   }
 
   void _play() {
@@ -389,7 +389,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                       reload(() {
                                                         alpha.greenBut == 0
                                                             ? _playSingleSound(
-                                                                "A")
+                                                                i)
                                                             :(boolList[i]
                                                             ? _removeFromBeatLoggedin(
                                                             i,
@@ -559,7 +559,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                 onPressed: () {
                                                   reload(() {
                                                     alpha.greenBut == 0
-                                                        ? _playSingleSound("A")
+                                                        ? _playSingleSound(i)
                                                         : (boolList[i]
                                                             ? _removeFromBeat(
                                                                 i,
