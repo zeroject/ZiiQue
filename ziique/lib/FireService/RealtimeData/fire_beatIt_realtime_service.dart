@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +9,7 @@ import 'package:ziique/models/beatitsession.dart';
 import 'package:ziique/sound_engine.dart';
 
 import '../../models/beat.dart';
-import '../../models/user.dart';
+import '../../models/user.dart' as beat_user;
 
 /*
   Mangler at fåret lavet et ping system så den anden ved hvornår han er blevet inviteret så personen kan svare og join sessionen med litenOnData.
@@ -18,7 +19,7 @@ import '../../models/user.dart';
 class FireBeatItRealtimeService {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   var uuid = const Uuid();
-  Map<String ,String> users = {};
+  Map<String, String> users = {};
   int timeschanged = 0;
   int timesplayed = 0;
   int versionID = 1;
@@ -47,45 +48,51 @@ class FireBeatItRealtimeService {
     }
   }
 
-  deleteSession(String sessionID, String userID) async{
+  deleteSession(String sessionID, String userID) async {
     final sessionRef = ref.child("beatItSessions").child(sessionID);
-    final snapshot = await sessionRef.get();
-    print("wrong");
-    await snapshot.children.map((DataSnapshot dataSnapshot){
-      Map<String, dynamic> data = dataSnapshot.children as Map<String, dynamic>;
-      print("get data from your mom");
-      if (data["hostID"] == userID){
-        print("should delete the current session");
-        sessionRef.remove();
-      }
-    });
+    final snapshot = await sessionRef.child("hostID").get();
+    if (userID == snapshot.value) {
+      print("should delete the current session");
+      sessionRef.remove();
+    }
   }
 
-
-  Future<void> addFriendToBeatItSession(String sessionID, User friend) async {
-    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(friend.uid).collection("sessions").doc(sessionID).set({"RESPOND" : ""});
+  Future<void> addFriendToBeatItSession(
+      String sessionID, beat_user.User friend) async {
+    await FirebaseFirestore.instance
+        .collection(CollectionNames.users)
+        .doc(friend.uid)
+        .collection("sessions")
+        .doc(sessionID)
+        .set({"hostID": FirebaseAuth.instance.currentUser!.uid});
   }
 
-  Future<bool> respondInvToBeatItSession(String sessionID, String person, bool respond) async {
-    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person).collection("sessions").doc(sessionID).set({"RESPOND" : respond});
-    await FirebaseFirestore.instance.collection(CollectionNames.users).doc(person).collection("sessions").doc(sessionID).delete();
+  Future<bool> respondInvToBeatItSession(
+      String sessionID, String person, bool respond) async {
+    await FirebaseFirestore.instance
+        .collection(CollectionNames.users)
+        .doc(person)
+        .collection("sessions")
+        .doc(sessionID)
+        .delete();
     return respond;
   }
 
-  Future<void> listenToData(String sessionID, SoundEngine? soundEngine) async{
+  Future<void> listenToData(String sessionID, SoundEngine? soundEngine) async {
     print(sessionID);
     final sessionRef = ref.child("beatItSessions").child(sessionID);
-    sessionRef.onValue.listen((DatabaseEvent event){
+    sessionRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.children;
-      data.map((DataSnapshot dataSnapshot){
-        Map<String, dynamic> data = dataSnapshot.children as Map<String, dynamic>;
+      data.map((DataSnapshot dataSnapshot) {
+        Map<String, dynamic> data =
+            dataSnapshot.children as Map<String, dynamic>;
         soundEngine!.beatString = data['beatString'];
       });
     });
   }
 
-  Future<void> updateData(String sessionID, String beatString) async{
+  Future<void> updateData(String sessionID, String beatString) async {
     final sessionRef = ref.child("beatItSessions").child(sessionID);
-    sessionRef.update({"beatString" : beatString});
+    sessionRef.update({"beatString": beatString});
   }
 }
