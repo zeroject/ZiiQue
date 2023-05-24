@@ -1,13 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
-
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
-import '../FireService/fire_beat_Service.dart';
 import '../FireService/fire_user_service.dart';
-import '../models/beat.dart';
 import '../models/user.dart' as beat_user;
-import 'custom_expansion_tile.dart';
 
 class CustomFriendInvListView extends StatelessWidget {
   const CustomFriendInvListView({

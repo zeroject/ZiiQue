@@ -6,11 +6,10 @@ import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/models/user.dart' as our_user;
 import 'package:ziique/sound_engine.dart';
 import '../FireService/RealtimeData/fire_beatIt_realtime_service.dart';
-import '../Settings/settings_widget.dart';
 import '../models/beat.dart';
 
 class CustomExpansionTile extends StatefulWidget {
-  CustomExpansionTile(
+  const CustomExpansionTile(
       {super.key,
       required this.isFriendBeat,
       required this.fontSize,
@@ -36,6 +35,7 @@ class CustomExpansionTile extends StatefulWidget {
 class _CustomExpansionTileState extends State<CustomExpansionTile> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  bool tickChange = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   },
                   child: const Text("Load Beat", style: TextStyle(color: Colors.white),
                   ),
-                ) :
+                ) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
@@ -88,7 +88,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                           builder: (context) => AlertDialog(
                             title: const Text("Update Beat"),
                               content: SizedBox(
-                                height: 150,
+                                height: 180,
                                 width: 300,
                                 child: ListView(
                                   shrinkWrap: true,
@@ -105,6 +105,20 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                       decoration: const InputDecoration(hintText: "Description"),
                                       maxLines: 3,
                                     ),
+                                    ButtonBar(
+                                      alignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Private"),
+                                        Switch(
+                                          value: tickChange, 
+                                          activeColor: Colors.blue, 
+                                          onChanged: (bool value){
+                                            setState(() {tickChange = value;});
+                                          }),
+                                        Text("Public")
+                                      ]
+                                      
+                                    )
                                     ],
                                   ),
                               ),
@@ -134,7 +148,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                       ));
                     },
-                    child: const Text("Update Beat", style: TextStyle(color: Colors.white),)) : Text(""),
+                    child: const Text("Update Beat", style: TextStyle(color: Colors.white),)) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                     onPressed: () {
@@ -164,7 +178,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 ],
                               ));
                     },
-                    child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : Text(""),
+                    child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : const Text(""),
                 !widget.isFriendBeat ? OutlinedButton(
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                   onPressed: () async {
@@ -178,7 +192,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),
                   ),
-                ) : Text("")
+                ) : const Text("")
               ],
             )
           ],

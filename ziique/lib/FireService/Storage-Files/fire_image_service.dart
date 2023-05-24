@@ -5,9 +5,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ziique/models/fire_user.dart';
 
 class ImageService{
+  Reference ref = FirebaseStorage.instance.ref().child("profilePictures/${FirebaseAuth.instance.currentUser!.uid}/profilePic");
+
   Future<String> storeProfileImage(XFile image) async {
     if (kIsWeb){
-      Reference ref = FirebaseStorage.instance.ref().child("profilePictures/${FirebaseAuth.instance.currentUser!.uid}/profilePic");
       UploadTask uploadTask = ref.putData(await image.readAsBytes(), SettableMetadata(contentType: "image/jpeg"));
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
