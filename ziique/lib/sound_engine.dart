@@ -7,7 +7,7 @@ AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
 bool repeat = false;
-bool shouldPlay = true;
+bool shouldPlay = false;
 
 String beatString = "";
 
@@ -259,31 +259,38 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
+    if (shouldPlay == true)
+    {
       if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
         if (players[j].state == PlayerState.playing) 
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
+
          players[j].play(DeviceFileSource(nodes[i].source));
-         i == nodes.length -1 ? timer.cancel() : i++;  
+         (i == nodes.length -1) ? timer.cancel() : i++;  
+    }
+    }else 
+    {
+      timer.cancel();
     }
 
-    //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == time && repeat == false)
+    if (timer.tick >= time)
     {
-      timer.cancel();
-    }
-    else if (timer.tick == time && repeat == true)
-    {
-      timer.cancel();
-      playNodes(nodes, playerCount, time);
+      shouldPlay = false;
     }
   });
 }
 
 play()
   {
+    //alternate between shouldPlay and !shouldPlay
+    if (shouldPlay == false)
+    {
+      print(
+        shouldPlay.toString() + " 2"
+      );
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
@@ -301,7 +308,12 @@ play()
       playNodes(nodes[i], 2, maxTime);
       }
     }
-    return shouldPlay;
+}
+else
+{
+  shouldPlay = false;
+  print(shouldPlay.toString() + " 3" );
+}
   }
 }
 
