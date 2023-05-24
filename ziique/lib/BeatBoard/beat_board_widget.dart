@@ -52,6 +52,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController bpmController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  bool tickChange = false;
 
   void loadBeat(String beatString){
     print("TEST");
@@ -85,7 +86,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   }
 
   void _playSingleSound(String soundName) {
-    soundEngine.playSingleSound(soundName);
+    //soundEngine.playSingleSound(soundName);
   }
 
   void _play() {
@@ -227,7 +228,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                   title:
                                                       const Text("Save Beat"),
                                                   content: SizedBox(
-                                                    height: 150,
+                                                    height: 200,
                                                     width: 300,
                                                     child: ListView(
                                                       shrinkWrap: true,
@@ -251,6 +252,21 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                                       "Description"),
                                                           maxLines: 3,
                                                         ),
+                                                      ButtonBar(
+                                                        alignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                        const Text("Private"),
+                                                        Switch(
+                                                          value: tickChange, 
+                                                          activeColor: Colors.blue, 
+                                                          onChanged: (bool value){
+                                                            setState(() {
+                                                              tickChange = value;
+                                                            });
+                                                          }),
+                                                        const Text("Public To Friends")
+                                                      ]
+                                                      )
                                                       ],
                                                     ),
                                                   ),
