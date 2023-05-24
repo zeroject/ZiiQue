@@ -115,8 +115,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             decoration: BoxDecoration(
                               color: widget.backgroundColor,
                             ),
-                            child: Stack(
-                              children: const [
+                            child: const Stack(
+                              children: [
                                 Positioned(
                                   bottom: 8.0,
                                   left: 4.0,
