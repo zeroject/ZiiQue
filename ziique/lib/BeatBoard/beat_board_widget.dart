@@ -73,7 +73,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   }
 
   void _play() {
-    soundEngine.play();
+    soundEngine.stabilizePlay();
   }
 
   void changeBPM(int bpm) {

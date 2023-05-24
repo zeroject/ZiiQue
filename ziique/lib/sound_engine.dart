@@ -263,6 +263,7 @@ void playNodes(List<Node> nodes, int playerCount, num time)
     {
       if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
+        print(timer.tick.toString() + " --- " + nodes[i].time.toString());
         if (players[j].state == PlayerState.playing) 
          {
           j == playerCount -1 ? j = 0 : j++;  
@@ -288,9 +289,6 @@ play()
     //alternate between shouldPlay and !shouldPlay
     if (shouldPlay == false)
     {
-      print(
-        shouldPlay.toString() + " 2"
-      );
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
@@ -312,8 +310,37 @@ play()
 else
 {
   shouldPlay = false;
-  print(shouldPlay.toString() + " 3" );
 }
+  }
+
+  stabilizePlay()
+  {
+    List<AudioPlayer> players = getPlayers(14);
+    List<List<Node>> nodes = convertStringToNodes(beatString);
+    List<Node> totalList = [];
+
+    for (var node in nodes)
+    {
+      totalList.addAll(node);
+    }
+    totalList.sort((a, b) => a.time.compareTo(b.time));
+
+    int j = 0;
+    int k = 0;
+    Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+        for (var i = k; i < totalList.length; i++) {
+          print(k);
+          if (timer.tick >= (totalList[i].time.toInt() / 10) + 1)
+          {
+            if (players[j].state == PlayerState.playing) 
+            {
+              j == players.length -1 ? j = 0 : j++;  
+              }
+              players[j].play(DeviceFileSource(totalList[i].source));
+              k = i;
+          }
+        }
+    });
   }
 }
 
