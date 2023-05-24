@@ -247,10 +247,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   GFDropdown(
                                       value: dropdownValue,
                                       items: [
-                                        'Trap',
+                                        'House',
                                         'Hip-Hop',
-                                        '3rd Wave Ska',
-                                        'Dubstep'
+                                        'Acoustic',
+                                        'Hardstyle'
                                       ]
                                           .map((value) => DropdownMenuItem(
                                                 value: value,
@@ -418,10 +418,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                             GFDropdown(
                                 value: dropdownValue,
                                 items: [
-                                  'Trap',
+                                  'House',
                                   'Hip-Hop',
-                                  '3rd Wave Ska',
-                                  'Dubstep'
+                                  'Acoustic',
+                                  'Hardstyle'
                                 ]
                                     .map((value) => DropdownMenuItem(
                                           value: value,
