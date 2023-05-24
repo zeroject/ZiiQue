@@ -71,7 +71,8 @@ void changeTheme(String newTheme)
       "D": "Ride.wav",
       "E": "Snare.wav"
     };
-      soundFiles = map;
+      soundFiles.clear();
+      soundFiles.addAll(map);
       break;
     case "Hip-Hop":
     Map map = {
@@ -81,7 +82,8 @@ void changeTheme(String newTheme)
       "D": "Ride.mp3",
       "E": "Snare_Claps.mp3"
        };
-         soundFiles = map;
+    soundFiles.clear();
+    soundFiles.addAll(map);
       break;
       case "Acoustic":
       Map map = {
@@ -91,7 +93,8 @@ void changeTheme(String newTheme)
       "D": "Ride.wav",
       "E": "Snare.wav"
        };
-         soundFiles = map;
+      soundFiles.clear();
+      soundFiles.addAll(map);
       break;
       case "Hardstyle":
       Map map = {
@@ -101,7 +104,8 @@ void changeTheme(String newTheme)
       "D": "Cym.wav",
       "E": "Snare.wav"
        };
-         soundFiles = map;
+      soundFiles.clear();
+      soundFiles.addAll(map);
       break;
   }
   theme = newTheme + "/";

@@ -291,23 +291,24 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                     width: MediaQuery.of(context).size.width -
                                         1100,
                                   ),
-                                  GFDropdown(
-                                      value: dropdownValue,
-                                      onChanged: (dropdownValue) {
-                                    _changeTheme(dropdownValue.toString());
-                                    print(dropdownValue.toString());
-                                        },
-                                      items: [
-                                        'House',
-                                        'Hip-Hop',
-                                        'Acoustic',
-                                        'Hardstyle'
-                                      ]
-                                          .map((value) => DropdownMenuItem(
-                                                value: value,
-                                                child: Text(value),
-                                              ))
-                                          .toList(),
+                                  DropdownButton<String>(
+                                    value: dropdownValue,
+                                    onChanged: (value) {
+                                      _changeTheme(value.toString());
+                                    },
+                                    items: <String>[
+                                      'House',
+                                      'Hip-Hop',
+                                      'Acoustic',
+                                      'Hardstyle',
+                                    ].map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      },
+                                    ).toList(),
                                   ),
                                 ],
                               ),
