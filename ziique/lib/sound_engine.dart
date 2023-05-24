@@ -64,48 +64,32 @@ void changeTheme(String newTheme)
 {
   switch (theme) {
     case "House":
-    Map map = {
-      "A": "Clap.wav",
-      "B": "Kick.wav",
-      "C": "Shaker.wav",
-      "D": "Ride.wav",
-      "E": "Snare.wav"
-    };
-      soundFiles.clear();
-      soundFiles.addAll(map);
+    soundFiles["A"] = "Clap.wav";
+    soundFiles["B"] = "Kick.wav";
+    soundFiles["C"] = "Shaker.wav";
+    soundFiles["D"] = "Ride.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
     case "Hip-Hop":
-    Map map = {
-      "A": "808.mp3",
-      "B": "Hard_Kick.mp3",
-      "C": "Hihat.mp3",
-      "D": "Ride.mp3",
-      "E": "Snare_Claps.mp3"
-       };
-    soundFiles.clear();
-    soundFiles.addAll(map);
+    soundFiles["A"] = "808.mp3";
+    soundFiles["B"] = "Hard_Kick.mp3";
+    soundFiles["C"] = "Hihat.mp3";
+    soundFiles["D"] = "Ride.mp3";
+    soundFiles["E"] = "Snare_Claps.mp3";
       break;
-      case "Acoustic":
-      Map map = {
-      "A": "Hitom.wav",
-      "B": "Kick.wav",
-      "C": "Hihat.wav",
-      "D": "Ride.wav",
-      "E": "Snare.wav"
-       };
-      soundFiles.clear();
-      soundFiles.addAll(map);
+    case "Acoustic":
+    soundFiles["A"] = "Hitom.wav";
+    soundFiles["B"] = "Kick.wav";
+    soundFiles["C"] = "Hihat.wav";
+    soundFiles["D"] = "Ride.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
       case "Hardstyle":
-      Map map = {
-      "A": "Kick.wav",
-      "B": "Shaker.wav",
-      "C": "Hat.wav",
-      "D": "Cym.wav",
-      "E": "Snare.wav"
-       };
-      soundFiles.clear();
-      soundFiles.addAll(map);
+    soundFiles["A"] = "Kick.wav";
+    soundFiles["B"] = "Shaker.wav";
+    soundFiles["C"] = "Hat.wav";
+    soundFiles["D"] = "Cym.wav";
+    soundFiles["E"] = "Snare.wav";
       break;
   }
   theme = newTheme + "/";
