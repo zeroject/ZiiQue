@@ -32,11 +32,11 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         () => 'Data Loaded',
   );
 
-  void loadBeat(Beat beat){
+  void loadBeat(String beatString){
     print("TEST");
     print(boolList);
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
-    soundEngine.beatString = beat.beatString;
+    soundEngine.beatString = beatString;
     print(boolList);
   }
 

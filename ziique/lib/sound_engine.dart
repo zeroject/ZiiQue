@@ -7,11 +7,12 @@ AudioPlayer player = AudioPlayer();
 List<Node> nodes = [];
 
 bool repeat = false;
-bool shouldPlay = true;
+bool shouldPlay = false;
 
 String beatString = "";
 
 String sourceFolder = "assets/samples/";
+String theme = "Hip-Hop";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
@@ -57,6 +58,53 @@ num convertBPMToTime(num placement)
   num beatTime = (60 / bpm * 1000);
   time = placement * beatTime;
   return time;
+}
+
+void changeTheme(String newTheme)
+{
+  switch (theme) {
+    case "House":
+    Map map = {
+      "A": "Clap.wav",
+      "B": "Kick.wav",
+      "C": "Shaker.wav",
+      "D": "Ride.wav",
+      "E": "Snare.wav"
+    };
+      soundFiles = map;
+      break;
+    case "Hip-Hop":
+    Map map = {
+      "A": "808.mp3",
+      "B": "Hard_Kick.mp3",
+      "C": "Hihat.mp3",
+      "D": "Ride.mp3",
+      "E": "Snare_Claps.mp3"
+       };
+         soundFiles = map;
+      break;
+      case "Acoustic":
+      Map map = {
+      "A": "Hitom.wav",
+      "B": "Kick.wav",
+      "C": "Hihat.wav",
+      "D": "Ride.wav",
+      "E": "Snare.wav"
+       };
+         soundFiles = map;
+      break;
+      case "Hardstyle":
+      Map map = {
+      "A": "Kick.wav",
+      "B": "Shaker.wav",
+      "C": "Hat.wav",
+      "D": "Cym.wav",
+      "E": "Snare.wav"
+       };
+         soundFiles = map;
+      break;
+  }
+  theme = "$newTheme/";
 }
 
 void playSingleSound(String soundName)
@@ -203,7 +251,7 @@ List<List<Node>> convertStringToNodes(String beatString)
     num timeInt = num.parse(time);
 
     //creates a node with the source and time
-    Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
+    Node node = Node(convertBPMToTime(timeInt), sourceFolder + theme + soundFiles[placement]);
     switch (placement) {
       case "A":
         nodeA.add(node);  
@@ -259,31 +307,38 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
+    if (shouldPlay == true)
+    {
       if (timer.tick >= (nodes[i].time.toInt() / 10) + 1)
       {
         if (players[j].state == PlayerState.playing) 
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
+
          players[j].play(DeviceFileSource(nodes[i].source));
-         i == nodes.length -1 ? timer.cancel() : i++;  
+         (i == nodes.length -1) ? timer.cancel() : i++;  
+    }
+    }else 
+    {
+      timer.cancel();
     }
 
-    //if the timer is at the end of the last node, cancel the timer
-    if (timer.tick == time && repeat == false)
+    if (timer.tick >= time)
     {
-      timer.cancel();
-    }
-    else if (timer.tick == time && repeat == true)
-    {
-      timer.cancel();
-      playNodes(nodes, playerCount, time);
+      shouldPlay = false;
     }
   });
 }
 
 play()
   {
+    //alternate between shouldPlay and !shouldPlay
+    if (shouldPlay == false)
+    {
+      print(
+        shouldPlay.toString() + " 2"
+      );
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
@@ -301,7 +356,12 @@ play()
       playNodes(nodes[i], 2, maxTime);
       }
     }
-    return shouldPlay;
+}
+else
+{
+  shouldPlay = false;
+  print(shouldPlay.toString() + " 3" );
+}
   }
 }
 
