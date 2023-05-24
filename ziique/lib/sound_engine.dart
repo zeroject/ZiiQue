@@ -12,6 +12,7 @@ bool shouldPlay = false;
 String beatString = "";
 
 String sourceFolder = "assets/samples/";
+String theme = "Hip-Hop";
 Map soundFiles = {
   "A": "808.mp3",
   "B": "Hard_Kick.mp3",
@@ -57,6 +58,53 @@ num convertBPMToTime(num placement)
   num beatTime = (60 / bpm * 1000);
   time = placement * beatTime;
   return time;
+}
+
+void changeTheme(String newTheme)
+{
+  switch (theme) {
+    case "House":
+    Map map = {
+      "A": "Clap.wav",
+      "B": "Kick.wav",
+      "C": "Shaker.wav",
+      "D": "Ride.wav",
+      "E": "Snare.wav"
+    };
+      soundFiles = map;
+      break;
+    case "Hip-Hop":
+    Map map = {
+      "A": "808.mp3",
+      "B": "Hard_Kick.mp3",
+      "C": "Hihat.mp3",
+      "D": "Ride.mp3",
+      "E": "Snare_Claps.mp3"
+       };
+         soundFiles = map;
+      break;
+      case "Acoustic":
+      Map map = {
+      "A": "Hitom.wav",
+      "B": "Kick.wav",
+      "C": "Hihat.wav",
+      "D": "Ride.wav",
+      "E": "Snare.wav"
+       };
+         soundFiles = map;
+      break;
+      case "Hardstyle":
+      Map map = {
+      "A": "Kick.wav",
+      "B": "Shaker.wav",
+      "C": "Hat.wav",
+      "D": "Cym.wav",
+      "E": "Snare.wav"
+       };
+         soundFiles = map;
+      break;
+  }
+  theme = "$newTheme/";
 }
 
 void playSingleSound(String soundName)
@@ -203,7 +251,7 @@ List<List<Node>> convertStringToNodes(String beatString)
     num timeInt = num.parse(time);
 
     //creates a node with the source and time
-    Node node = Node(convertBPMToTime(timeInt), sourceFolder + soundFiles[placement]);
+    Node node = Node(convertBPMToTime(timeInt), sourceFolder + theme + soundFiles[placement]);
     switch (placement) {
       case "A":
         nodeA.add(node);  
