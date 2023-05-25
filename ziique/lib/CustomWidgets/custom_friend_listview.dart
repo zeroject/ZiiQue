@@ -59,7 +59,7 @@ class CustomFriendListView extends StatelessWidget{
                       isFriendBeat: true,
                       beat: beat,
                       fontSize: 20,
-                      tileColor: Color.fromARGB(255, 180, 180, 180),
+                      tileColor: const Color.fromARGB(255, 180, 180, 180),
                       tileRadius: 10,
                     );
                   },

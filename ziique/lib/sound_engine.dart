@@ -11,7 +11,7 @@ bool shouldPlay = false;
 
 String beatString = "";
 
-String sourceFolder = "assets/samples/";
+String sourceFolder = "samples/";
 String theme = "Hip-Hop/";
 Map soundFiles = {
   "A": "808.mp3",
@@ -62,7 +62,6 @@ num convertBPMToTime(num placement)
 
 void changeTheme(String newTheme)
 {
-  print(newTheme);
   switch (newTheme) {
     case "House":
     soundFiles["A"] = "Clap.wav";
@@ -86,7 +85,6 @@ void changeTheme(String newTheme)
     soundFiles["E"] = "Snare.wav";
       break;
       case "Hardstyle":
-        print("Should fucking change sounds motherfucker");
     soundFiles["A"] = "Kick.wav";
     soundFiles["B"] = "Shaker.wav";
     soundFiles["C"] = "Hat.wav";
@@ -119,13 +117,39 @@ void playSingleSound(int soundIndex)
       sound = soundFiles["E"];
       break;
   }
-  player.play(DeviceFileSource(sourceFolder + theme + sound));
+  player.play(AssetSource(sourceFolder + theme + sound));
   
 }
 
+void playSingleSoundMobile(int soundIndex)
+{
+  AudioPlayer player = AudioPlayer();
+  String sound ="";
+  
+  switch (soundIndex) {
+    case 0:
+     sound = soundFiles["A"];
+      break;
+      case 17:
+      sound = soundFiles["B"];
+      break;
+      case 34:
+      sound = soundFiles["C"];
+      break;
+      case 51:
+      sound = soundFiles["D"];
+      break;
+      case 68:
+      sound = soundFiles["E"];
+      break;
+  }
+  player.play(AssetSource(sourceFolder + theme + sound));
+  
+}
+
+
 void addToBeat(int pos, int rowMax, int beatMax)
 {
-  print(pos.toString() +"--" +rowMax.toString()  +"--" + beatString.toString());
   String node = nodeString(pos, rowMax, beatMax);
   node += ";";
   beatString = beatString + node;
@@ -155,15 +179,15 @@ String nodeString(int position, int rowCount, int beat) {
     greens.add(tempG);
     tempG += totalG;
   }
-  num rowL = beat*4+1;
-  num total = rowL * rowCount;
+  num rowL = beat*4;
+  num total = (rowL+1)  * rowCount;
   num pos = -1;
   num currentRow = 0;
 
   for (var i = 0; i < total; i++) {
     if (i == position) {
       node += beatMap[currentRow];
-      node += (pos % ((beat * 4) + 1)).toString();
+      node += (pos % rowL).toString();
       break;
     }
     else if (greens.contains(i) && i != 0)
@@ -179,7 +203,7 @@ String nodeString(int position, int rowCount, int beat) {
 }
 
 //returns a list of ints, each int is a node
-List<int> nodeInt()
+List<int> nodeInt( int beatMax)
 {
   List<int> nodePosition = [];
   Map rowMap = {
@@ -191,7 +215,7 @@ List<int> nodeInt()
   };
   String rowString = "";
   String pos = "";
-  int column = 8 * 4;
+  int column = beatMax * 4;
   List<String> beatList = beatString.split(";");
   beatList.removeLast();
    for(int i = 0; i < beatList.length; i++)
@@ -218,7 +242,6 @@ List<int> nodeInt()
 //returns a list of lists of nodes, each list contains all nodes of a specific placement, sorted by time
 List<List<Node>> convertStringToNodes(String beatString)
 {
-  print(beatString);
   List<String> beatList = beatString.split(";");
   List<Node> nodeA = [];
   List<Node> nodeB = [];
@@ -264,7 +287,6 @@ List<List<Node>> convertStringToNodes(String beatString)
       default:
       throw Exception("placement not found");
     }
-    print(soundFiles['A']);
   }
   nodeList.add(nodeA);
   nodeList.add(nodeB);
@@ -297,8 +319,11 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
   int i = 0;
+  for (var player in players) {
+    player.setSource(AssetSource(nodes.first.source));
+  }
   //create a timer, that counts up, in miliseconds
-  Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+  Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
     if (shouldPlay == true)
@@ -309,8 +334,8 @@ void playNodes(List<Node> nodes, int playerCount, num time)
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
-
-         players[j].play(DeviceFileSource(nodes[i].source));
+          players[j].seek(Duration.zero);
+          players[j].resume();
          (i == nodes.length -1) ? timer.cancel() : i++;  
     }
     }else 
@@ -330,9 +355,6 @@ play()
     //alternate between shouldPlay and !shouldPlay
     if (shouldPlay == false)
     {
-      print(
-        shouldPlay.toString() + " 2"
-      );
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
@@ -347,7 +369,7 @@ play()
 
       if (nodes[i].isNotEmpty)
       {
-      playNodes(nodes[i], 2, maxTime);
+      playNodes(nodes[i], 7, maxTime);
       }
     }
 }

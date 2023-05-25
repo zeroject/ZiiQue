@@ -110,7 +110,7 @@ class LoginMobile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              '../assets/images/ZiiQue-Logo.png',
+              'assets/images/ZiiQue-Logo.png',
               height: 120,
               width: 120,
               alignment: Alignment.topCenter,
@@ -123,7 +123,7 @@ class LoginMobile extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("../assets/images/Ziique_back.png"),
+          image: AssetImage("assets/images/Ziique_back.png"),
           fit: BoxFit.none,
         )),
         child: Column(

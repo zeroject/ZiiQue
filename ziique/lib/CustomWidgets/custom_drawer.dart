@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:ziique/BeatBoard/beat_board_app_widget.dart';
 import 'package:ziique/CustomWidgets/custom_friend_invlist.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/user.dart' as our_user;
@@ -184,9 +186,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       AuthService().signOut();
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  widget.beatBoardDesktop));
+                                          kIsWeb ? MaterialPageRoute(
+                                              builder: (context) => widget.beatBoardDesktop) : 
+                                          MaterialPageRoute(builder: (context) => BeatBoardApp(context)));
                                     },
                                     child: const Text(
                                       "Log Out",
@@ -211,7 +213,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 return ListView(
                                   shrinkWrap: true,
                                   children: doc.data!.docs.map((DocumentSnapshot document) {
-                                    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                                     return ListTile(
                                       title: const Text("Session INV"),
                                       subtitle: const Text("From User TODO ADD USER NAME HERE"),
@@ -241,8 +242,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ] else ...[
                     Column(
                       children: [
-                        SizedBox(
-                          height: widget.offsetHeight,
+                        kIsWeb ? SizedBox(
+                          height: widget.offsetHeight
+                        ) : SizedBox(
+                          height: MediaQuery.of(context).size.height - 300,
                         ),
                         const Align(
                           alignment: Alignment.center,
@@ -322,20 +325,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        widget.settingsPageMobile));
-                          },
-                          child: const Text("Account Settings",
-                              style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
