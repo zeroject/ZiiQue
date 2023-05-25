@@ -17,7 +17,7 @@ int numberOfBars = 8;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 
-final snack = SnackBar(content: Text("You have been inv to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
+final snack = SnackBar(content: const Text("You have been inv to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
 SoundEngine soundEngine = SoundEngine();
 Notifier notifer = Notifier();
 LoadBeat _loadBeat = LoadBeat();
@@ -52,11 +52,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController descriptionController = TextEditingController();
 
   void loadBeat(String beatString){
-    print("TEST");
-    print(boolList);
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
     soundEngine.beatString = beatString;
-    print(boolList);
     internalSetter((){});
   }
 
@@ -83,7 +80,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   }
 
   void _playSingleSound(int soundName) {
-    print(boolList.length); 
     soundEngine.playSingleSound(soundName);
   }
 
@@ -197,7 +193,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                         showDialog(
                                           context: context, 
                                           builder: (context) => AlertDialog(
-                                            title: Text("Load Beat From BeatCode"),
+                                            title: const Text("Load Beat From BeatCode"),
                                             content: TextFormField(
                                               controller: loadBeatController,
                                               decoration: const InputDecoration(hintText:"BeatCode"),
@@ -207,13 +203,13 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                               onPressed: (){
                                                 Navigator.pop(context);
                                               }, 
-                                              child: Text("Cancel")),
+                                              child: const Text("Cancel")),
                                             TextButton(
                                               onPressed: (){
                                                 loadBeat(loadBeatController.text);
                                                 Navigator.pop(context);
                                               }, 
-                                              child: Text("Ok")),
+                                              child: const Text("Ok")),
                                           ],
                                           ));
                                       }),
@@ -345,7 +341,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                   return ElevatedButton(
                                                     style: ElevatedButton
                                                         .styleFrom(
-                                                            backgroundColor: (alpha.calcGreenBut(i, numberOfBars) == 0) ? Colors.green
+                                                            backgroundColor: (alpha.calcGreenBut(i, numberOfBars) == 0) ? alpha.getColor(numberOfBars, i)
                                                                 : BeatColor( bar: numberOfBars).getColor(i) ? (boolList[i] == true)
                                                                         ? Colors.grey[900] : Colors.grey
                                                                     : (boolList[i] == true) ? Colors.grey[900]
@@ -373,10 +369,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                         minRange = 1;
                                                       });
                                                     },
-                                                    child: Text(
-                                                      alpha.getAlphebat(
-                                                          i, numberOfBars),
-                                                      style: const TextStyle(
+                                                    child: const Text("",
+                                                      style: TextStyle(
                                                           color: Colors.white),
                                                     ),
                                                   );
@@ -420,10 +414,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                       padding:
                           const EdgeInsets.only(left: 8, right: 8, top: 100),
                       child: Container(
-                        decoration: BoxDecoration(color: Colors.black),
+                        decoration: const BoxDecoration(color: Colors.black),
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             ElevatedButton(
@@ -434,7 +428,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   'Play',
                                   style: TextStyle(fontSize: 8),
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
                             SizedBox(
@@ -442,8 +436,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   controller: bpmController,
-                                  style: TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: const InputDecoration(
                                       hintText: 'BPM',
                                       hintStyle:
                                           TextStyle(color: Colors.white)),
@@ -501,26 +495,10 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                             builder: (context, reload) {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                    backgroundColor: (alpha
-                                                                .calcGreenBut(i,
-                                                                    numberOfBars) ==
-                                                            0)
-                                                        ? Colors.green
-                                                        : BeatColor(
-                                                                    bar:
-                                                                        numberOfBars)
-                                                                .getColor(i)
-                                                            ? (boolList[i] ==
-                                                                    true)
-                                                                ? Colors
-                                                                    .grey[900]
-                                                                : Colors.grey
-                                                            : (boolList[i] ==
-                                                                    true)
-                                                                ? Colors
-                                                                    .grey[900]
-                                                                : Colors
-                                                                    .blueGrey),
+                                                    backgroundColor: (alpha.calcGreenBut(i,numberOfBars) == 0) ? alpha.getColor(numberOfBars, i)
+                                                        : BeatColor(bar : numberOfBars).getColor(i) ? (boolList[i] == true) ? Colors.grey[900]
+                                                                : Colors.grey: (boolList[i] ==true) ? Colors.grey[900]
+                                                                : Colors.blueGrey),
                                                 onPressed: () {
                                                   reload(() {
                                                     alpha.greenBut == 0
@@ -540,10 +518,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                     minRange = 1;
                                                   });
                                                 },
-                                                child: Text(
-                                                  alpha.getAlphebat(
-                                                      i, numberOfBars),
-                                                  style: const TextStyle(
+                                                child: const Text("",
+                                                  style: TextStyle(
                                                       color: Colors.white),
                                                 ),
                                               );
@@ -570,6 +546,27 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 }
 
 class Alpha {
+  Map colors = {
+    0: Colors.green,
+    1: const Color.fromARGB(255, 2, 164, 245),
+    2: const Color.fromARGB(255, 227, 11, 11),
+    3: const Color.fromARGB(255, 202, 48, 195),
+    4: const Color.fromARGB(255, 210, 194, 12),
+  };
+
+  Color getColor(int beat, int pos)
+  {
+    num baseVal = (numberOfBars * 4) + 1;
+    num green = 0;
+    for (num i = 0; i < numberOfRows; i++) {
+      if (pos == (baseVal * i))
+      {
+      green = (baseVal * i);
+      }
+    }
+          return colors[green / baseVal];
+  }
+
   Alpha() {
     for (int i = 65; i <= 90; i++) {
       alphabets.add(String.fromCharCode(i));
@@ -583,6 +580,8 @@ class Alpha {
     greenBut = i % ((numberOfBars * 4) + 1);
     return greenBut;
   }
+
+
 
   String getAlphebat(i, numberOfBars) {
     if (greenBut == 0) {
@@ -603,7 +602,6 @@ class LoadBeat {
     for (var node in nodes) {
       bools[node] = true;
     }
-    print(bools);
     return bools;
   }
 }
