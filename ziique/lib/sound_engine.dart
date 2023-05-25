@@ -86,7 +86,6 @@ void changeTheme(String newTheme)
     soundFiles["E"] = "Snare.wav";
       break;
       case "Hardstyle":
-        print("Should fucking change sounds motherfucker");
     soundFiles["A"] = "Kick.wav";
     soundFiles["B"] = "Shaker.wav";
     soundFiles["C"] = "Hat.wav";
@@ -97,7 +96,7 @@ void changeTheme(String newTheme)
   theme = newTheme + "/";
 }
 
-void playSingleSound(int soundIndex, int beat)
+void playSingleSound(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
   String sound ="";
@@ -123,7 +122,7 @@ void playSingleSound(int soundIndex, int beat)
   
 }
 
-void playSingleSoundMobile(int soundIndex, int beat)
+void playSingleSoundMobile(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
   String sound ="";
@@ -151,7 +150,7 @@ void playSingleSoundMobile(int soundIndex, int beat)
 
 void addToBeat(int pos, int rowMax, int beatMax)
 {
-  print(pos.toString() +"--" +rowMax.toString()  +"--" + beatString.toString());
+  print(pos);
   String node = nodeString(pos, rowMax, beatMax);
   node += ";";
   beatString = beatString + node;
@@ -181,15 +180,16 @@ String nodeString(int position, int rowCount, int beat) {
     greens.add(tempG);
     tempG += totalG;
   }
-  num rowL = beat*4+1;
-  num total = rowL * rowCount;
+  num rowL = beat*4;
+  num total = (rowL+1)  * rowCount;
   num pos = -1;
   num currentRow = 0;
 
   for (var i = 0; i < total; i++) {
     if (i == position) {
       node += beatMap[currentRow];
-      node += (pos % ((beat * 4) + 1)).toString();
+      node += (pos % rowL).toString();
+      print(node);
       break;
     }
     else if (greens.contains(i) && i != 0)
@@ -290,7 +290,6 @@ List<List<Node>> convertStringToNodes(String beatString)
       default:
       throw Exception("placement not found");
     }
-    print(soundFiles['A']);
   }
   nodeList.add(nodeA);
   nodeList.add(nodeB);
@@ -356,9 +355,6 @@ play()
     //alternate between shouldPlay and !shouldPlay
     if (shouldPlay == false)
     {
-      print(
-        shouldPlay.toString() + " 2"
-      );
     shouldPlay = true;
     num maxTime = 0;
     List<List<Node>> nodes = convertStringToNodes(beatString).toList();
