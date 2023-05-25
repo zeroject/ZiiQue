@@ -319,6 +319,9 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
   int i = 0;
+  for (var player in players) {
+    player.setSource(AssetSource(nodes.first.source));
+  }
   //create a timer, that counts up, in miliseconds
   Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
@@ -331,9 +334,8 @@ void playNodes(List<Node> nodes, int playerCount, num time)
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
-
-         players[j].play(AssetSource(nodes[i].source));
-         players[j].dispose;
+          players[j].seek(Duration.zero);
+          players[j].resume();
          (i == nodes.length -1) ? timer.cancel() : i++;  
     }
     }else 
@@ -367,7 +369,7 @@ play()
 
       if (nodes[i].isNotEmpty)
       {
-      playNodes(nodes[i], 2, maxTime);
+      playNodes(nodes[i], 7, maxTime);
       }
     }
 }
