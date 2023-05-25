@@ -50,14 +50,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyATEA7TiRitkaQ9ImiBkPCJ0TRBqNXnzXM',
-    appId: '1:781887836387:web:400868335c4465ddb1b5d6',
-    messagingSenderId: '781887836387',
-    projectId: 'ziique-7aa1b',
-    authDomain: 'ziique-7aa1b.firebaseapp.com',
-    databaseURL: 'https://ziique-7aa1b-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'ziique-7aa1b.appspot.com',
-    measurementId: 'G-41XM8EHP53',
+      apiKey: "AIzaSyCVklS2SI8pUdP96DBiUsA2iyoYqub2MTI",
+      authDomain: "ziique-e74ad.firebaseapp.com",
+      databaseURL: "https://ziique-e74ad-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "ziique-e74ad",
+      storageBucket: "ziique-e74ad.appspot.com",
+      messagingSenderId: "620903528169",
+      appId: "1:620903528169:web:2a5d008559bb135cc46278"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
