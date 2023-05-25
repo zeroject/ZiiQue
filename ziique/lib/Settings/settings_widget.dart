@@ -24,16 +24,6 @@ const snackBar = SnackBar(content: Text('Code has been copied!'));
 
 const editDisplayNameSnackBar = SnackBar(content: Text('Your Display Name has been updated!'));
 
-class SettingsPageDesktop extends StatelessWidget {
-  const SettingsPageDesktop({super.key});
-
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
-
 class SettingsPageMobile extends StatefulWidget {
     const SettingsPageMobile(BuildContext context, {super.key});
 
