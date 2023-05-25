@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ziique/CustomWidgets/custom_drawer.dart';
 import 'package:ziique/FireService/fire_beat_Service.dart';
 import 'package:ziique/models/beatitsession.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -15,6 +16,7 @@ import '../../models/user.dart' as beat_user;
 
 class FireBeatItRealtimeService {
   CollectionReference sessionRef = FirebaseFirestore.instance.collection("Sessions");
+  CollectionReference multiBeatRef = FirebaseFirestore.instance.collection("Sessions");
   var uuid = const Uuid();
   Map<String, String> users = {};
   int timeschanged = 0;
@@ -66,17 +68,21 @@ class FireBeatItRealtimeService {
   }
 
 
-  Stream<String> getBeatString(String sessionID){
-    return sessionRef.doc(sessionID).snapshots().asyncMap((snapshot){
-      if (snapshot.exists){
+   getBeatString(String sessionID, LoadBeatCallback? loadbeat) async {
+    String result = "";
+    await multiBeatRef.doc(sessionID).get();
+    multiBeatRef.doc(sessionID).snapshots().listen(onDone: (){print("you are not done");}, onError: (error) => print("hovsa : $error"),(DocumentSnapshot snapshot) {
+      print("Should update the beatstring");
+      if (snapshot.exists) {
         final data = snapshot.data() as Map<String, dynamic>;
-        final String beatString = data["beatString"];
-
-        if (beatString != ""){
-          return beatString.toString();
-        }
+        // Process the updated document data here
+        final String updatedString = data['beatString'];
+        result = updatedString;
+        print('Updated String: $updatedString');
+        loadbeat!(result);
+      } else {
+        print('Document does not exist.');
       }
-      return "ERROR";
     });
   }
 
@@ -95,9 +101,10 @@ class FireBeatItRealtimeService {
       final data = result.data as Map<String, dynamic>;
       final succes = data['success'] as bool;
       if (succes){
-        print("Succes this client got the beat string");
+        print(beatString);
+        print("Succes this client sent the beat string");
       } else{
-        print("Error this client did not get ");
+        print("Error this client did not sent");
       }
     } catch (error){
       print("whoops, could not call setBeatString statement");

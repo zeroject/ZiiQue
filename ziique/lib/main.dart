@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -32,6 +33,7 @@ void main() async {
       FirebaseAuth.instance.useAuthEmulator(host, 9099);
       FirebaseStorage.instance.useStorageEmulator(host, 9199);
       FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
+      FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
     }
   }
   runApp(const MyApp());
