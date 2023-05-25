@@ -117,32 +117,6 @@ void playSingleSound(int soundIndex)
       sound = soundFiles["E"];
       break;
   }
-  player.play(DeviceFileSource(sourceFolder + theme + sound));
-  
-}
-
-void playSingleSoundMobile(int soundIndex)
-{
-  AudioPlayer player = AudioPlayer();
-  String sound ="";
-  
-  switch (soundIndex) {
-    case 0:
-     sound = soundFiles["A"];
-      break;
-      case 17:
-      sound = soundFiles["B"];
-      break;
-      case 34:
-      sound = soundFiles["C"];
-      break;
-      case 51:
-      sound = soundFiles["D"];
-      break;
-      case 68:
-      sound = soundFiles["E"];
-      break;
-  }
   player.play(AssetSource(sourceFolder + theme + sound));
   
 }
@@ -172,6 +146,7 @@ void playSingleSoundMobile(int soundIndex)
   player.play(AssetSource(sourceFolder + theme + sound));
   
 }
+
 
 void addToBeat(int pos, int rowMax, int beatMax)
 {
@@ -357,7 +332,7 @@ void playNodes(List<Node> nodes, int playerCount, num time)
           j == playerCount -1 ? j = 0 : j++;  
           }
 
-         players[j].play(DeviceFileSource(nodes[i].source));
+         players[j].play(AssetSource(nodes[i].source));
          (i == nodes.length -1) ? timer.cancel() : i++;  
     }
     }else 
