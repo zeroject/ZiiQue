@@ -41,6 +41,9 @@ exports.setBeatString = functions.https.onCall(async (data, context) => {
   
       return { success: true, message: `Session document created with ID: ${sessionID}` };
     } catch (error) {
+        
+      console.log('sessionID is: ' + sessionID);
       throw new functions.https.HttpsError('internal', 'An error occurred while creating the session document.', error);
+      
     }
   });
