@@ -1,13 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
-import 'package:ziique/BeatBoard/beat_board_widget.dart';
-import 'package:ziique/CustomWidgets/custom_expansion_tile.dart';
 import 'package:ziique/FireService/fire_beat_Service.dart';
 import 'package:ziique/models/beatitsession.dart';
-import 'package:ziique/sound_engine.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../models/beat.dart';
 import '../../models/user.dart' as beat_user;
@@ -18,6 +14,7 @@ import '../../models/user.dart' as beat_user;
  */
 
 class FireBeatItRealtimeService {
+  CollectionReference sessionRef = FirebaseFirestore.instance.collection("Sessions");
   var uuid = const Uuid();
   Map<String, String> users = {};
   int timeschanged = 0;
@@ -36,8 +33,8 @@ class FireBeatItRealtimeService {
         timesplayed: timesplayed,
         hostID: hostUID,
         versionid: versionID);
-    DocumentReference sessionRef = FirebaseFirestore.instance.collection("Sessions").doc(beatItSession.sessionid);
-    await sessionRef.set(beatItSession.toMap());
+    DocumentReference docRef = sessionRef.doc(beatItSession.sessionid);
+    await docRef.set(beatItSession.toMap());
     return id;
   }
 
@@ -59,31 +56,52 @@ class FireBeatItRealtimeService {
         .collection("sessions")
         .doc(sessionID)
         .delete();
-    Map<String, dynamic> ref = (await FirebaseFirestore.instance.collection("Sessions").doc(sessionID).get().then((DocumentSnapshot doc){
+    Map<String, dynamic> ref = (await sessionRef.doc(sessionID).get().then((DocumentSnapshot doc){
       final data = doc.data() as Map<String, dynamic>;
       return data;
     }));
-    ref["usersadded"] = "${ref["usersadded"]}, $person";
+    ref["usersadded"] = {person : respond};
     await FirebaseFirestore.instance.collection("Sessions").doc(sessionID).update(ref);
     return respond;
   }
-}
 
-class ListenData{
-  ListenData();
 
-  final DatabaseReference reference = FirebaseDatabase.instance.ref();
+  Stream<String> getBeatString(String sessionID){
+    return sessionRef.doc(sessionID).snapshots().asyncMap((snapshot){
+      if (snapshot.exists){
+        final data = snapshot.data() as Map<String, dynamic>;
+        final String beatString = data["beatString"];
 
-  Listen(String sessionID, SoundEngine? soundEngine, LoadBeatCallback? onLoadBeat){
-    final sessionRef = reference.child("beatItSessions").child(sessionID).child("beatString");
-    sessionRef.onValue.listen((DatabaseEvent event) async {
-      print("we inside the music");
-      print(event.snapshot.value.toString());
-      soundEngine!.beatString = event.snapshot.value.toString();
-      onLoadBeat!(event.snapshot.value.toString());
+        if (beatString != ""){
+          return beatString.toString();
+        }
+      }
+      return "ERROR";
     });
   }
-  void stopListeningToChanges() {
-    reference.onValue.drain();
+
+  stopStreams(String sessionID){
+    sessionRef.doc(sessionID).snapshots().drain();
   }
+
+  Future<void> setBeatString(String sessionID, String beatString) async {
+    try{
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable("setBeatString");
+
+      final result = await callable.call({
+        'sessionID' : sessionID,
+        'beatString' : beatString,
+      });
+      final data = result.data as Map<String, dynamic>;
+      final succes = data['success'] as bool;
+      if (succes){
+        print("Succes this client got the beat string");
+      } else{
+        print("Error this client did not get ");
+      }
+    } catch (error){
+      print("whoops, could not call setBeatString statement");
+    }
+  }
+
 }
