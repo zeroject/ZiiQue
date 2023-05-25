@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
-
 import '../BeatBoard/beat_board_app_widget.dart';
+
+bool isLoading = false;
 
 class CreateDesktop extends StatefulWidget {
   const CreateDesktop(BuildContext context, {super.key});
@@ -26,7 +27,6 @@ class _CreateDesktopState extends State<CreateDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
 
     return Scaffold(
       body: Container(
@@ -170,10 +170,12 @@ class _CreateDesktopState extends State<CreateDesktop> {
 
 class Functions {
   Future<void> validateAndSumbit(email, password, firstName, lastName, context) async {
+    isLoading = true;
     await AuthService().signUpWithEmailAndPassword(email, password);
     await AuthService().signInWithEmailAndPassword(email, password);
     await UserService().createUser(FirebaseAuth.instance.currentUser, firstName, lastName);
-
+    Future.delayed(const Duration(seconds: 1));
+    isLoading = false;
   }
 }
 
@@ -197,7 +199,6 @@ class _CreateMobileState extends State<CreateMobile> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
 
     return Scaffold(
       appBar: AppBar(

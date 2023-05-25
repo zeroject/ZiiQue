@@ -110,14 +110,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                       alignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text("Private"),
-                                        Switch(
-                                          value: tickChange, 
-                                          activeColor: Colors.blue, 
-                                          onChanged: (bool value){
-                                            setState(() {
-                                              tickChange = value;
-                                            });
-                                          }),
+                                        Switch(value: tickChange, activeColor: Colors.blue, onChanged: (bool value){setState(() {tickChange = value;});}),
                                         const Text("Public To Friends")
                                       ]
                                       

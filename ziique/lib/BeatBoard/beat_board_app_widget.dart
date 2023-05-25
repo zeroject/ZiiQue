@@ -128,8 +128,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
         beatList: const [1, 2],
         settingsButHeight: 60,
         settingsButWidth: 290,
-        settingsPageDesktop: SettingsPageMobile(context),
-        settingsPageMobile: SettingsPageMobile(context),
+        settingsPageDesktop: SettingsPageMobile(context, initalScene: "Account",),
+        settingsPageMobile: SettingsPageMobile(context, initalScene: "Account",),
         offsetHeight: 360,
         createAccButHeight: 40,
         createAccButWidth: 200,
@@ -171,18 +171,20 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                left: 8, right: 8, top: 40),
+                                left: 4, right: 4, top: 40),
                             child: Container(
                               decoration: const BoxDecoration(color: Colors.black),
                               child: Row(
                                 children: [
+                                  SizedBox(
+                                    width: 4,
+                                  ),
                                   ElevatedButton(
                                       onPressed: () {
                                         _play();
                                       },
                                       child: const Text(
                                         'Play',
-                                        style: TextStyle(fontSize: 8),
                                       )),
                                       ElevatedButton(
                                       onPressed: () {
@@ -190,8 +192,6 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                       },
                                       child: const Text(
                                         'Clear',
-                                        style: TextStyle(fontSize: 8),
-                                        selectionColor: Color.fromARGB(255, 93, 43, 186),
 
                                       )),
                                   SizedBox(
@@ -305,7 +305,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                                 ));
                                       }),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width - 312,
+                                    width: MediaQuery.of(context).size.width - 596,
                                   ),
                                   DropdownButton<String>(
                                     value: dropdownValue,
@@ -449,13 +449,13 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                   Center(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 8, right: 8, top: 30),
+                          const EdgeInsets.only(left: 4, right: 4, top: 30),
                       child: Container(
                         decoration: const BoxDecoration(color: Colors.black),
                         child: Row(
                           children: [
                             const SizedBox(
-                              width: 10,
+                              width: 4,
                             ),
                             ElevatedButton(
                                 onPressed: () {
@@ -491,7 +491,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                       changeBPM(int.parse(value)),
                                 )),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width - 312,
+                              width: MediaQuery.of(context).size.width - 596,
                             ),
                         DropdownButton<String>(
                           value: dropdownValue,

@@ -15,9 +15,10 @@ import '../models/fire_user.dart' as fire_user;
 import 'package:qr_flutter/qr_flutter.dart';
 
 
-String scene = "Account";
+String scene = "";
 String friendcode = beatuser!.uid;
 beat_user.User? beatuser;
+bool initialSceneSet = false;
 
 
 const snackBar = SnackBar(content: Text('Code has been copied!'));
@@ -25,8 +26,9 @@ const snackBar = SnackBar(content: Text('Code has been copied!'));
 const editDisplayNameSnackBar = SnackBar(content: Text('Your Display Name has been updated!'));
 
 class SettingsPageMobile extends StatefulWidget {
-    const SettingsPageMobile(BuildContext context, {super.key});
+  const SettingsPageMobile(BuildContext context, {super.key, required this.initalScene});
 
+  final String initalScene;
   @override
   State<SettingsPageMobile> createState() => _SettingsPageMobileState();
 }
@@ -39,6 +41,7 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
   fire_user.User fireuser = FirebaseAuth.instance.currentUser!;
   final Future<beat_user.User?> userquery = Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
   TextEditingController changeDisplayName = TextEditingController();
+  
 
 
 
@@ -53,6 +56,10 @@ class _SettingsPageMobileState extends State<SettingsPageMobile> {
                 child: LoadingScreen(),
               );
           } else{
+            if (!initialSceneSet){
+              initialSceneSet = true;
+              scene = widget.initalScene;
+            }
             beatuser = snapshot.data;
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
@@ -254,6 +261,7 @@ Widget accountBuild(BuildContext context){
                                 ),
                               ElevatedButton(onPressed: (){
                                 ChangeCredentialsService().changeDisplayName(changeDisplayName.text);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPageMobile(context, initalScene: "Account")));
                                 ScaffoldMessenger.of(context).showSnackBar(editDisplayNameSnackBar);
                               }, child: const Text('Set Name', style: TextStyle(color: Colors.white),)),
                               ],
@@ -687,6 +695,7 @@ Widget paymentBuild(BuildContext context){
                                           List<String> friends = beatuser!.friends;
                                           friends.add(addFriendController.text);
                                           UserService().updateFriendList(friends);
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPageMobile(context, initalScene: "Friends")));
                                         }, 
                                         child: const Text("Add Friend with code", 
                                           style: TextStyle(
