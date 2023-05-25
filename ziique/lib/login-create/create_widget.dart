@@ -4,6 +4,8 @@ import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 
+import '../BeatBoard/beat_board_app_widget.dart';
+
 class CreateDesktop extends StatefulWidget {
   const CreateDesktop(BuildContext context, {super.key});
 
@@ -146,8 +148,7 @@ class _CreateDesktopState extends State<CreateDesktop> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              BeatBoardDesktop(context)));
+                                          builder: (context) => BeatBoardDesktop(context)));
                                 },
                                 child: const Text(
                                   "Create Account",
@@ -168,12 +169,11 @@ class _CreateDesktopState extends State<CreateDesktop> {
 }
 
 class Functions {
-  Future<void> validateAndSumbit(
-      email, password, firstName, lastName, context) async {
+  Future<void> validateAndSumbit(email, password, firstName, lastName, context) async {
     await AuthService().signUpWithEmailAndPassword(email, password);
     await AuthService().signInWithEmailAndPassword(email, password);
-    await UserService()
-        .createUser(FirebaseAuth.instance.currentUser, firstName, lastName);
+    await UserService().createUser(FirebaseAuth.instance.currentUser, firstName, lastName);
+
   }
 }
 
@@ -205,7 +205,7 @@ class _CreateMobileState extends State<CreateMobile> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              '../assets/images/ZiiQue-Logo.png',
+              'assets/images/ZiiQue-Logo.png',
               height: 120,
               width: 120,
               alignment: Alignment.topCenter,
@@ -218,7 +218,7 @@ class _CreateMobileState extends State<CreateMobile> {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("../assets/images/Ziique_back.png"),
+              image: AssetImage("assets/images/Ziique_back.png"),
               fit: BoxFit.none,
             ),
           ),
@@ -322,8 +322,7 @@ class _CreateMobileState extends State<CreateMobile> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BeatBoardDesktop(context)));
+                                                builder: (context) => BeatBoardApp(context)));
                                       },
                                       child: const Text(
                                         "Create Account",

@@ -14,12 +14,11 @@ void main() async {
   String host = "";
   WidgetsFlutterBinding.ensureInitialized();
   if(kIsWeb){
-    host = "localhost";
+    
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.web,
     );
   } else {
-    host = "10.0.2.2";
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -27,10 +26,13 @@ void main() async {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   }
   if (!kReleaseMode){
-    FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
-    FirebaseAuth.instance.useAuthEmulator(host, 9099);
-    FirebaseStorage.instance.useStorageEmulator(host, 9199);
-    FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
+    if (kIsWeb){
+      host = "localhost";
+      FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
+      FirebaseAuth.instance.useAuthEmulator(host, 9099);
+      FirebaseStorage.instance.useStorageEmulator(host, 9199);
+      FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
+    }
   }
   runApp(const MyApp());
 }

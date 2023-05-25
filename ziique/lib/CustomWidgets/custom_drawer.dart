@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:ziique/BeatBoard/beat_board_app_widget.dart';
 import 'package:ziique/CustomWidgets/custom_friend_invlist.dart';
 import 'package:ziique/FireService/RealtimeData/fire_beatIt_realtime_service.dart';
 import '../models/user.dart' as our_user;
@@ -71,6 +73,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  ListenData listenData = ListenData();
   late final Stream<QuerySnapshot> _userInvStream;
   final Future<our_user.User?> userquery = Future(
       () => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
@@ -97,10 +100,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         OutlinedButton(
                           onPressed: () async {
                             our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                            FireBeatItRealtimeService().deleteSession(user!.sessionID, snapshot.data!.uid);
-                            user.inSession = false;
+                            //FireBeatItRealtimeService().deleteSession(user!.sessionID, snapshot.data!.uid); // TODO Change Function
+                            user!.inSession = false;
                             user.sessionID = "";
                             UserService().updateUser(user);
+                            listenData.stopListeningToChanges();
                             Navigator.pop(context);
                           },
                           child: const Text(
@@ -145,6 +149,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       tileRadius: 10,
                                       soundEngine: widget.soundEngine,
                                     onLoadBeat: widget.onLoadBeat,
+                                    listenData: listenData,
                                   );
                           },
                         ),
@@ -181,9 +186,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       AuthService().signOut();
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  widget.beatBoardDesktop));
+                                          kIsWeb ? MaterialPageRoute(
+                                              builder: (context) => widget.beatBoardDesktop) : 
+                                          MaterialPageRoute(builder: (context) => BeatBoardApp(context)));
                                     },
                                     child: const Text(
                                       "Log Out",
@@ -208,7 +213,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 return ListView(
                                   shrinkWrap: true,
                                   children: doc.data!.docs.map((DocumentSnapshot document) {
-                                    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                                     return ListTile(
                                       title: const Text("Session INV"),
                                       subtitle: const Text("From User TODO ADD USER NAME HERE"),
@@ -218,7 +222,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                         user!.sessionID = document.id;
                                         user.inSession = true;
                                         UserService().updateUser(user);
-                                        FireBeatItRealtimeService().listenToData(document.id, widget.soundEngine);
+                                        listenData.Listen(document.id, widget.soundEngine, widget.onLoadBeat);
                                         Navigator.pop;
                                       },
                                     );
@@ -238,8 +242,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ] else ...[
                     Column(
                       children: [
-                        SizedBox(
-                          height: widget.offsetHeight,
+                        kIsWeb ? SizedBox(
+                          height: widget.offsetHeight
+                        ) : SizedBox(
+                          height: MediaQuery.of(context).size.height - 300,
                         ),
                         const Align(
                           alignment: Alignment.center,
@@ -319,20 +325,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        widget.settingsPageMobile));
-                          },
-                          child: const Text("Account Settings",
-                              style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
