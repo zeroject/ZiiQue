@@ -32,12 +32,6 @@ void main() async {
       FirebaseAuth.instance.useAuthEmulator(host, 9099);
       FirebaseStorage.instance.useStorageEmulator(host, 9199);
       FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
-    }else{
-      host = "10.0.2.2";
-      FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
-      FirebaseAuth.instance.useAuthEmulator(host, 9099);
-      FirebaseStorage.instance.useStorageEmulator(host, 9199);
-      FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
     }
   }
   runApp(const MyApp());
