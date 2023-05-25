@@ -179,7 +179,7 @@ String nodeString(int position, int rowCount, int beat) {
 }
 
 //returns a list of ints, each int is a node
-List<int> nodeInt()
+List<int> nodeInt( int beatMax)
 {
   List<int> nodePosition = [];
   Map rowMap = {
@@ -191,7 +191,7 @@ List<int> nodeInt()
   };
   String rowString = "";
   String pos = "";
-  int column = 8 * 4;
+  int column = beatMax * 4;
   List<String> beatList = beatString.split(";");
   beatList.removeLast();
    for(int i = 0; i < beatList.length; i++)
