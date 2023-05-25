@@ -290,8 +290,12 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   ),
                                   DropdownButton<String>(
                                     value: dropdownValue,
+                                    style: const TextStyle(color: Colors.deepPurple),
                                     onChanged: (value) {
-                                      _changeTheme(value.toString());
+                                      setState(() {
+                                        _changeTheme(value.toString());
+                                        dropdownValue = value!;
+                                      });
                                     },
                                     items: <String>[
                                       'House',
@@ -448,24 +452,28 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                               width: MediaQuery.of(context).size.width - 1100,
                             ),
                         DropdownButton<String>(
-                          value: dropdownValue,
-                          onChanged: (value) {
-                            _changeTheme(value.toString());
-                          },
-                          items: <String>[
-                            'House',
-                            'Hip-Hop',
-                            'Acoustic',
-                            'Hardstyle',
-                          ].map<DropdownMenuItem<String>>(
-                                (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            },
-                          ).toList(),
-                          ),
+                                    value: dropdownValue,
+                                    style: const TextStyle(color: Colors.deepPurple),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _changeTheme(value.toString());
+                                        dropdownValue = value!;
+                                      });
+                                    },
+                                    items: <String>[
+                                      'House',
+                                      'Hip-Hop',
+                                      'Acoustic',
+                                      'Hardstyle',
+                                    ].map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      },
+                                    ).toList(),
+                            ),
                           ],
                         ),
                       ),
