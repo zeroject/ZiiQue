@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:ziique/Settings/settings_widget.dart';
 
 import '../FireService/fire_beat_Service.dart';
 import '../FireService/fire_user_service.dart';
@@ -99,6 +100,7 @@ class CustomFriendListView extends StatelessWidget{
                                     profileImgUrl: beatuser!.profileImgUrl
                                     )
                                   );
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPageMobile(context, initalScene: 'Friends',)));
                                 },
                                 child: const Text("Yes"))
                           ],

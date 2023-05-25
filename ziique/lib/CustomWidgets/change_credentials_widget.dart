@@ -108,7 +108,9 @@ class _CustomCredentialsChangeState extends State<CustomCredentialsChange> {
                             .credential(email: emailController.text, password: passwordController.text);
                             
                             await AuthService().reauthenticate(credential);
-                            await ChangeCredentialsService().changePassword(firstTextFieldController.text);
+                            await ChangeCredentialsService().changePassword(firstTextFieldController.text).then((value) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Your ${widget.emailOrPassword} has been updated!')));
+                            });
                           },
                           child: const Text("Cancel")),
                         OutlinedButton(
