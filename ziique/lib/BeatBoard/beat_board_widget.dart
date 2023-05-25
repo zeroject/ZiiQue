@@ -60,7 +60,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   void _addToBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.addToBeat(input, row, beat);
     if (user!.inSession){
-      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print(user.sessionID);
     }
   }
@@ -68,7 +68,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   void _removeFromBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.removeFromBeat(input, row, beat);
     if (user!.inSession){
-      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print(user.sessionID);
     }
   }
@@ -91,6 +91,15 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   void _changeTheme(String theme){
     soundEngine.changeTheme(theme);
+  }
+
+  void _clear()
+  {
+    soundEngine.beatString = "";
+    //set all bools to false
+    for (int i = 0; i < boolList.length; i++){
+      boolList[i] = false;
+    }
   }
 
   void changeBPM(int bpm) {
@@ -175,6 +184,15 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                       child: const Text(
                                         'Play',
                                         style: TextStyle(fontSize: 8),
+                                      )),
+                                      ElevatedButton(
+                                      onPressed: () {
+                                        _clear();
+                                      },
+                                      child: const Text(
+                                        'Clear',
+                                        style: TextStyle(fontSize: 8),
+                                         selectionColor: Color.fromARGB(255, 93, 43, 186),
                                       )),
                                   SizedBox(
                                       width: 100,
@@ -434,6 +452,15 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                   'Play',
                                   style: TextStyle(fontSize: 8),
                                 )),
+                                ElevatedButton(
+                                      onPressed: () {
+                                        _clear();
+                                      },
+                                      child: const Text(
+                                        'Clear',
+                                        style: TextStyle(fontSize: 8),
+                                         selectionColor: Color.fromARGB(255, 93, 43, 186),
+                                      )),
                             const SizedBox(
                               width: 30,
                             ),

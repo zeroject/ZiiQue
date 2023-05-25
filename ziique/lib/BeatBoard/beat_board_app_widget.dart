@@ -92,6 +92,15 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
     soundEngine.changeTheme(theme);
   }
 
+  void _clear()
+  {
+    soundEngine.beatString = "";
+    //set all bools to false
+    for (int i = 0; i < boolList.length; i++){
+      boolList[i] = false;
+    }
+  }
+
   void changeBPM(int bpm) {
     soundEngine.changeBPM(bpm);
   }
@@ -174,6 +183,16 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                       child: const Text(
                                         'Play',
                                         style: TextStyle(fontSize: 8),
+                                      )),
+                                      ElevatedButton(
+                                      onPressed: () {
+                                        _clear();
+                                      },
+                                      child: const Text(
+                                        'Clear',
+                                        style: TextStyle(fontSize: 8),
+                                        selectionColor: Color.fromARGB(255, 93, 43, 186),
+
                                       )),
                                   SizedBox(
                                       width: 100,
@@ -446,6 +465,15 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                   'Play',
                                   style: TextStyle(fontSize: 8),
                                 )),
+                                ElevatedButton(
+                                      onPressed: () {
+                                        _clear();
+                                      },
+                                      child: const Text(
+                                        'Clear',
+                                        style: TextStyle(fontSize: 8),
+                                         selectionColor: Color.fromARGB(255, 93, 43, 186),
+                                      )),
                             const SizedBox(
                               width: 30,
                             ),
