@@ -35,12 +35,15 @@ exports.setBeatString = functions.https.onCall(async (data, context) => {
       const beatString = data.beatString;
   
       // Create a new document in Firestore with the session ID as the document ID
-      await admin.firestore().collection('Sessions').doc(sessionID).update({
+      await admin.firestore().collection('Sessions').doc(sessionID).set({
         beatString: beatString
       });
   
       return { success: true, message: `Session document created with ID: ${sessionID}` };
     } catch (error) {
+
+      console.log('sessionID is: ' + sessionID);
       throw new functions.https.HttpsError('internal', 'An error occurred while creating the session document.', error);
+      
     }
   });
