@@ -62,7 +62,6 @@ num convertBPMToTime(num placement)
 
 void changeTheme(String newTheme)
 {
-  print(newTheme);
   switch (newTheme) {
     case "House":
     soundFiles["A"] = "Clap.wav";
@@ -150,7 +149,6 @@ void playSingleSoundMobile(int soundIndex)
 
 void addToBeat(int pos, int rowMax, int beatMax)
 {
-  print(pos);
   String node = nodeString(pos, rowMax, beatMax);
   node += ";";
   beatString = beatString + node;
@@ -189,7 +187,6 @@ String nodeString(int position, int rowCount, int beat) {
     if (i == position) {
       node += beatMap[currentRow];
       node += (pos % rowL).toString();
-      print(node);
       break;
     }
     else if (greens.contains(i) && i != 0)
@@ -244,7 +241,6 @@ List<int> nodeInt( int beatMax)
 //returns a list of lists of nodes, each list contains all nodes of a specific placement, sorted by time
 List<List<Node>> convertStringToNodes(String beatString)
 {
-  print(beatString);
   List<String> beatList = beatString.split(";");
   List<Node> nodeA = [];
   List<Node> nodeB = [];
