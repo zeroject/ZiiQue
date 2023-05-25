@@ -60,7 +60,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   void _addToBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.addToBeat(input, row, beat);
     if (user!.inSession){
-      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print(user.sessionID);
     }
   }
@@ -68,7 +68,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   void _removeFromBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.removeFromBeat(input, row, beat);
     if (user!.inSession){
-      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print(user.sessionID);
     }
   }
