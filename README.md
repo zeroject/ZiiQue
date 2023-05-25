@@ -26,7 +26,7 @@ There are two ways of using the app
 * Or you can download the APK below and load it on to your Android Phone
 
 # Know issues with Ziique
-Currently the feature to download MP3's is not avalible, we've had trouble trying to get that feature to work, and required us to do WAY more work than expected, so we have decided to drop that feature for now, and focus on getting everything else to work as best as we can.
+Currently the feature to download MP3's is not available, we've had trouble trying to get that feature to work, and required us to do WAY more work than expected, so we have decided to drop that feature for now, and focus on getting everything else to work as best as we can.
 
 # Copyright
 
