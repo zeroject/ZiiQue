@@ -219,7 +219,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                         user!.sessionID = document.id;
                                         user.inSession = true;
                                         UserService().updateUser(user);
-                                        FireBeatItRealtimeService().getBeatString(document.id);
+                                        FireBeatItRealtimeService().getBeatString(document.id, widget.onLoadBeat);
                                         Navigator.pop;
                                       },
                                     );

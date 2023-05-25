@@ -71,10 +71,10 @@ class FireBeatItRealtimeService {
    getBeatString(String sessionID, LoadBeatCallback? loadbeat) async {
     String result = "";
     await multiBeatRef.doc(sessionID).get();
-    multiBeatRef.doc(sessionID).snapshots().listen(onDone: (){print("you are not done");}, onError: (error) => print("hovsa : $error"),(DocumentSnapshot snapshot) {
+    multiBeatRef.doc(sessionID).snapshots().listen(onDone: (){print("you are not done");}, onError: (error) => print("hovsa : $error"),(event) {
       print("Should update the beatstring");
-      if (snapshot.exists) {
-        final data = snapshot.data() as Map<String, dynamic>;
+      if (event.exists) {
+        final data = event.data() as Map<String, dynamic>;
         // Process the updated document data here
         final String updatedString = data['beatString'];
         result = updatedString;
