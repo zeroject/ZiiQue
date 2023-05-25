@@ -17,7 +17,7 @@ int numberOfBars = 8;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
 
-final snack = SnackBar(content: const Text("You have been inv to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
+final snack = SnackBar(content: const Text("You have been invited to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
 SoundEngine soundEngine = SoundEngine();
 Notifier notifer = Notifier();
 LoadBeat _loadBeat = LoadBeat();

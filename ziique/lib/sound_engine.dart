@@ -11,7 +11,7 @@ bool shouldPlay = false;
 
 String beatString = "";
 
-String sourceFolder = "assets/samples/";
+String sourceFolder = "samples/";
 String theme = "Hip-Hop/";
 Map soundFiles = {
   "A": "808.mp3",
@@ -97,33 +97,7 @@ void changeTheme(String newTheme)
   theme = newTheme + "/";
 }
 
-void playSingleSound(int soundIndex, int beat)
-{
-  AudioPlayer player = AudioPlayer();
-  String sound ="";
-  
-  switch (soundIndex) {
-    case 0:
-     sound = soundFiles["A"];
-      break;
-      case 33:
-      sound = soundFiles["B"];
-      break;
-      case 66:
-      sound = soundFiles["C"];
-      break;
-      case 99:
-      sound = soundFiles["D"];
-      break;
-      case 132:
-      sound = soundFiles["E"];
-      break;
-  }
-  player.play(DeviceFileSource(sourceFolder + theme + sound));
-  
-}
-
-void playSingleSoundMobile(int soundIndex, int beat)
+void playSingleSound(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
   String sound ="";
@@ -145,7 +119,33 @@ void playSingleSoundMobile(int soundIndex, int beat)
       sound = soundFiles["E"];
       break;
   }
-  player.play(DeviceFileSource(sourceFolder + theme + sound));
+  player.play(AssetSource(sourceFolder + theme + sound));
+  
+}
+
+void playSingleSoundMobile(int soundIndex)
+{
+  AudioPlayer player = AudioPlayer();
+  String sound ="";
+  
+  switch (soundIndex) {
+    case 0:
+     sound = soundFiles["A"];
+      break;
+      case 17:
+      sound = soundFiles["B"];
+      break;
+      case 34:
+      sound = soundFiles["C"];
+      break;
+      case 51:
+      sound = soundFiles["D"];
+      break;
+      case 68:
+      sound = soundFiles["E"];
+      break;
+  }
+  player.play(AssetSource(sourceFolder + theme + sound));
   
 }
 

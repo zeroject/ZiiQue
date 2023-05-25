@@ -131,7 +131,7 @@ Widget accountBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -141,7 +141,7 @@ Widget accountBuild(BuildContext context){
                     child:Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: SizedBox(
-                      width: 390,
+                      width: 370,
                       child: Column(
                       children: [
                         ProfileImage(
@@ -319,7 +319,7 @@ Widget paymentBuild(BuildContext context){
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 600,
+            width: 580,
             height: MediaQuery.of(context).size.height - 56,
             color: Colors.black26.withOpacity(1),
 
@@ -332,7 +332,7 @@ Widget paymentBuild(BuildContext context){
                   children: [
                     OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                    !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
                     OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                   ],
@@ -340,7 +340,7 @@ Widget paymentBuild(BuildContext context){
                 Container(
                   color: const Color.fromARGB(255, 57, 54, 54),
                   child: Padding(
-                  padding: const EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(20),
                   child: SizedBox(
                     width: 390,
                     child: Column(
@@ -411,7 +411,7 @@ Widget paymentBuild(BuildContext context){
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 600,
+              width: 580,
               height: MediaQuery.of(context).size.height - 56,
               color: Colors.black26.withOpacity(1),
 
@@ -424,7 +424,7 @@ Widget paymentBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -432,7 +432,7 @@ Widget paymentBuild(BuildContext context){
                   Container(
                     color: const Color.fromARGB(255, 57, 54, 54),
                     child: Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -497,7 +497,7 @@ Widget paymentBuild(BuildContext context){
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 600,
+                width: 580,
                 height: MediaQuery.of(context).size.height - 56,
                 color: Colors.black26.withOpacity(1),
 
@@ -510,7 +510,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
                         OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -518,7 +518,7 @@ Widget paymentBuild(BuildContext context){
                       Container(
                         color: const Color.fromARGB(255, 57, 54, 54),
                         child: Padding(
-                        padding: const EdgeInsets.only(top: 30,bottom: 30,left: 50,right: 50),
+                        padding: const EdgeInsets.only(top: 20,bottom: 20,left: 40,right: 40),
                           child: Column(
                             children: const [
                               SizedBox(
@@ -575,7 +575,7 @@ Widget paymentBuild(BuildContext context){
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 600,
+                width: 580,
                 height: MediaQuery.of(context).size.height - 56,
                 color: Colors.black26.withOpacity(1),
 
@@ -588,7 +588,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) :
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
                         OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -596,7 +596,7 @@ Widget paymentBuild(BuildContext context){
                     Container(
                       color: const Color.fromARGB(255, 57, 54, 54),
                       child: Padding(
-                        padding: const EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           children: [
                             SizedBox(
