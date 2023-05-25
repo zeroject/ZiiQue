@@ -37,7 +37,9 @@ exports.setBeatString = functions.https.onCall(async (data, context) => {
       // Create a new document in Firestore with the session ID as the document ID
       await admin.firestore().collection('Sessions').doc(sessionID).set({
         beatString: beatString
-      });
+      },
+        {merge: true},
+      );
   
       return { success: true, message: `Session document created with ID: ${sessionID}` };
     } catch (error) {
