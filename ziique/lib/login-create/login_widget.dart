@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_auth_service.dart';
+
+import '../BeatBoard/beat_board_app_widget.dart';
+
+bool isLoading = false;
 
 class LoginDesktop extends StatelessWidget {
   LoginDesktop(BuildContext context, {super.key});
@@ -198,8 +203,11 @@ class LoginMobile extends StatelessWidget {
 
 class Functions {
   Future<void> validateAndSumbit(email, password, context) async {
+    isLoading = true;
     await AuthService().signInWithEmailAndPassword(email, password);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BeatBoardDesktop(context)));
+    Future.delayed(const Duration(seconds: 1));
+    kIsWeb ? Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardDesktop(context))) : 
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BeatBoardApp(context)));
+    isLoading = false;
   }
 }

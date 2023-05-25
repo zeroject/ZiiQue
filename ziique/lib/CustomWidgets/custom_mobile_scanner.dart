@@ -54,7 +54,7 @@ class _CustomMobileScannerState extends State<CustomMobileScanner> {
               tempList.add(barcode.barcodes.last.rawValue.toString());
               UserService().updateFriendList(tempList);
               SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-              Navigator.push(context, MaterialPageRoute(builder: (contex) => SettingsPageMobile(context)));
+              Navigator.push(context, MaterialPageRoute(builder: (contex) => SettingsPageMobile(context, initalScene: "Friends")));
             }
           ),
           MobileScannerOverlay(overlayColour: Colors.black.withOpacity(0.5))

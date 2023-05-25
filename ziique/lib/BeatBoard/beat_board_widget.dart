@@ -129,8 +129,8 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
         beatList: const [1, 2],
         settingsButHeight: 60,
         settingsButWidth: 290,
-        settingsPageDesktop: SettingsPageMobile(context),
-        settingsPageMobile: SettingsPageMobile(context),
+        settingsPageDesktop: SettingsPageMobile(context, initalScene: "Friends"),
+        settingsPageMobile: SettingsPageMobile(context, initalScene: "Friends"),
         offsetHeight: 360,
         createAccButHeight: 40,
         createAccButWidth: 200,
@@ -264,7 +264,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                               const InputDecoration(
                                                                   hintText:
                                                                       "Description"),
-                                                          maxLines: 3,
+                                                          maxLines: 2,
                                                         ),
                                                       ],
                                                     ),
