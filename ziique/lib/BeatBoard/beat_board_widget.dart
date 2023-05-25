@@ -345,29 +345,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                   return ElevatedButton(
                                                     style: ElevatedButton
                                                         .styleFrom(
-                                                            backgroundColor: (alpha
-                                                                        .calcGreenBut(
-                                                                            i,
-                                                                            numberOfBars) ==
-                                                                    0)
-                                                                ? Colors.green
-                                                                : BeatColor(
-                                                                            bar:
-                                                                                numberOfBars)
-                                                                        .getColor(
-                                                                            i)
-                                                                    ? (boolList[i] ==
-                                                                            true)
-                                                                        ? Colors.grey[
-                                                                            900]
-                                                                        : Colors
-                                                                            .grey
-                                                                    : (boolList[i] ==
-                                                                            true)
-                                                                        ? Colors.grey[
-                                                                            900]
-                                                                        : Colors
-                                                                            .blueGrey),
+                                                            backgroundColor: (alpha.calcGreenBut(i, numberOfBars) == 0) ? Colors.green
+                                                                : BeatColor( bar: numberOfBars).getColor(i) ? (boolList[i] == true)
+                                                                        ? Colors.grey[900] : Colors.grey
+                                                                    : (boolList[i] == true) ? Colors.grey[900]
+                                                                        : Colors.blueGrey),
                                                     onPressed: () {
                                                       reload(() {
                                                         alpha.greenBut == 0
@@ -617,7 +599,7 @@ class LoadBeat {
 
   List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
     bools.every((element) => false);
-    nodes = soundEngine.nodeInt();
+    nodes = soundEngine.nodeInt(numberOfBars);
     for (var node in nodes) {
       bools[node] = true;
     }

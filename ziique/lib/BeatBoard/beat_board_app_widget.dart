@@ -192,7 +192,7 @@ class LoadBeat {
 
   List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
     bools.every((element) => false);
-    nodes = soundEngine.nodeInt();
+    nodes = soundEngine.nodeInt(numberOfBars);
     for (var node in nodes) {
       bools[node] = true;
     }
