@@ -71,6 +71,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  ListenData listenData = ListenData();
   late final Stream<QuerySnapshot> _userInvStream;
   final Future<our_user.User?> userquery = Future(
       () => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
@@ -97,10 +98,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         OutlinedButton(
                           onPressed: () async {
                             our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                            FireBeatItRealtimeService().deleteSession(user!.sessionID, snapshot.data!.uid);
-                            user.inSession = false;
+                            //FireBeatItRealtimeService().deleteSession(user!.sessionID, snapshot.data!.uid); // TODO Change Function
+                            user!.inSession = false;
                             user.sessionID = "";
                             UserService().updateUser(user);
+                            listenData.stopListeningToChanges();
                             Navigator.pop(context);
                           },
                           child: const Text(
@@ -145,6 +147,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                       tileRadius: 10,
                                       soundEngine: widget.soundEngine,
                                     onLoadBeat: widget.onLoadBeat,
+                                    listenData: listenData,
                                   );
                           },
                         ),
@@ -218,7 +221,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                         user!.sessionID = document.id;
                                         user.inSession = true;
                                         UserService().updateUser(user);
-                                        FireBeatItRealtimeService().listenToData(document.id, widget.soundEngine);
+                                        listenData.Listen(document.id, widget.soundEngine, widget.onLoadBeat);
                                         Navigator.pop;
                                       },
                                     );

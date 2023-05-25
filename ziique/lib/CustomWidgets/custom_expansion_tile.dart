@@ -19,7 +19,8 @@ class CustomExpansionTile extends StatefulWidget {
       required this.tileRadius,
       required this.beat,
       this.soundEngine,
-      this.onLoadBeat
+      this.onLoadBeat,
+        this.listenData,
       });
 
   final Beat? beat;
@@ -28,6 +29,7 @@ class CustomExpansionTile extends StatefulWidget {
   final double tileRadius;
   final SoundEngine? soundEngine;
   final LoadBeatCallback? onLoadBeat;
+  final ListenData? listenData;
   final bool isFriendBeat;
 
   @override
@@ -190,7 +192,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         widget.beat, FirebaseAuth.instance.currentUser!.uid);
                     user.inSession = true;
                     UserService().updateUser(user);
-                    FireBeatItRealtimeService().listenToData(user.sessionID, widget.soundEngine);
+                    widget.listenData!.Listen(user.sessionID, widget.soundEngine, widget.onLoadBeat);
                     Navigator.pop(context);
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),

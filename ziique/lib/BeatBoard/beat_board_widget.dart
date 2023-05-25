@@ -52,25 +52,24 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController descriptionController = TextEditingController();
 
   void loadBeat(String beatString){
-    print("TEST");
-    print(boolList);
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
     soundEngine.beatString = beatString;
-    print(boolList);
     internalSetter((){});
   }
 
   void _addToBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.addToBeat(input, row, beat);
     if (user!.inSession){
-      FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString);
+      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      print(user.sessionID);
     }
   }
 
   void _removeFromBeatLoggedin(int input, int row, int beat, beat_user.User? user){
     soundEngine.removeFromBeat(input, row, beat);
     if (user!.inSession){
-      FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString);
+      //FireBeatItRealtimeService().updateData(user.sessionID, soundEngine.beatString); //TODO Change function to firestore
+      print(user.sessionID);
     }
   }
 
@@ -621,7 +620,6 @@ class LoadBeat {
     for (var node in nodes) {
       bools[node] = true;
     }
-    print(bools);
     return bools;
   }
 }
