@@ -6,7 +6,7 @@
 
 Ziique was first build in 2022 as a Exam project, and now has been picked up agian to be remade from the bottom up with new knowledge that has been learned from earlier project. Ziique main feature is to build beats fast and easy, the second objective is making producers work together on a beat in real time with the help of Beat-It-Together feature.
 
-Ziique is capable of theese things:
+Ziique is capable of these things:
 * Creating Beats and store them in the cloud.
 * Be able to create Beats together.
 * Premade sounds to be used in your beats, in 4 different themes.
