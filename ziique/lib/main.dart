@@ -17,10 +17,12 @@ void main() async {
   if(kIsWeb){
     
     await Firebase.initializeApp(
+      name: "Ziique Web",
       options: DefaultFirebaseOptions.web,
     );
   } else {
     await Firebase.initializeApp(
+      name: "Ziique App",
       options: DefaultFirebaseOptions.currentPlatform,
     );
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
