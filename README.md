@@ -9,11 +9,12 @@ Ziique was first build in 2022 as a Exam project, and now has been picked up agi
 Ziique is capable of theese things:
 * Creating Beats and store them in the cloud.
 * Be able to create Beats together.
-* Premade sounds to be used in your beats.
-* Able to pick op where u left off.
-* The abilty to download your beats as sound files.
-* Upload your own sounds to Ziique to be used.
-* Sound effects to create unique sounds.
+* Premade sounds to be used in your beats, in 4 different themes.
+  - House
+  - Hip-Hop
+  - Acoustic
+  - Hardstyle
+* Able to pick op where you left off.
 
 # Description
 Ziique is a music maker application for mobile phone and website, with the option to make beats together online in real time, with our premuim feature Beat-It-Together™. Ziique is build for the ease use, that means Ziique can adapt to whatever screen you are using, so what is important stays the most visible. Ziique is built with the framework Flutter that is one of the reason why Ziique can adapt to nearly any scenario, the backend is hosted on google firebase. That goes for the users data, login credentials and the beats + sound files.
