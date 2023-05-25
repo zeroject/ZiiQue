@@ -320,7 +320,7 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   int j = 0;
   int i = 0;
   //create a timer, that counts up, in miliseconds
-  Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+  Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
     if (shouldPlay == true)
@@ -333,6 +333,7 @@ void playNodes(List<Node> nodes, int playerCount, num time)
           }
 
          players[j].play(AssetSource(nodes[i].source));
+         players[j].dispose;
          (i == nodes.length -1) ? timer.cancel() : i++;  
     }
     }else 

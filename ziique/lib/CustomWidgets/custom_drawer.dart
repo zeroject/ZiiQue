@@ -210,7 +210,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 return ListView(
                                   shrinkWrap: true,
                                   children: doc.data!.docs.map((DocumentSnapshot document) {
-                                    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                                     return ListTile(
                                       title: const Text("Session INV"),
                                       subtitle: const Text("From User TODO ADD USER NAME HERE"),

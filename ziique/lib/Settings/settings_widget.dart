@@ -131,7 +131,7 @@ Widget accountBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : const Text(""),
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -332,7 +332,7 @@ Widget paymentBuild(BuildContext context){
                   children: [
                     OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                    !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
+                    !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : const Text(""),
                     OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                   ],
@@ -424,7 +424,7 @@ Widget paymentBuild(BuildContext context){
                     children: [
                       OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
+                      !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : const Text(""),
                       OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                     ],
@@ -510,7 +510,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : const Text(""),
                         OutlinedButton(onPressed: (){scene = 'Security'; setState((){});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -588,7 +588,7 @@ Widget paymentBuild(BuildContext context){
                       children: [
                         OutlinedButton(onPressed: (){scene = 'Account'; setState(() {});}, child: const Text('Account', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Payment'; setState(() {});}, child: const Text('Payment', style: TextStyle(fontSize: 24, color: Colors.white),)),
-                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : Text(""),
+                        !kIsWeb ? OutlinedButton(onPressed: (){scene = 'Notifications'; setState(() {});}, child: const Text('Notifications', style: TextStyle(fontSize: 24, color: Colors.white),)) : const Text(""),
                         OutlinedButton(onPressed: (){scene = 'Security'; setState(() {});}, child: const Text('Security', style: TextStyle(fontSize: 24, color: Colors.white),)),
                         OutlinedButton(onPressed: (){scene = 'Friends'; setState(() {});}, child: const Text('Friends', style: TextStyle(fontSize: 24, color: Colors.white),)),
                       ],
@@ -635,7 +635,7 @@ Widget paymentBuild(BuildContext context){
                                     onPressed: (){
                                       Navigator.push(context, MaterialPageRoute(builder:(context) => CustomMobileScanner(context, user: beatuser!,)));
                                     },
-                                    child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))) : Text("")
+                                    child: const Text("Scan QR-code", style: TextStyle(color: Colors.white,))) : const Text("")
                                       ],
                                     ),
                                   ),
@@ -645,7 +645,7 @@ Widget paymentBuild(BuildContext context){
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
-                                    beatuser!.friends.isNotEmpty ? Text("Your friends:") : Text(""),
+                                    beatuser!.friends.isNotEmpty ? const Text("Your friends:") : const Text(""),
                                     CustomFriendListView(
                                       beatuser: beatuser
                                       ),

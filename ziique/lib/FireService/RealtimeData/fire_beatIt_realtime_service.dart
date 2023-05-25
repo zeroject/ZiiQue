@@ -3,7 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
-import 'package:ziique/BeatBoard/beat_board_widget.dart';
 import 'package:ziique/FireService/fire_beat_Service.dart';
 import 'package:ziique/models/beatitsession.dart';
 import 'package:ziique/sound_engine.dart';
@@ -42,7 +41,7 @@ class FireBeatItRealtimeService {
       return id;
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        
       }
       throw Exception("Could not create Beat It Together session");
     }
@@ -52,7 +51,6 @@ class FireBeatItRealtimeService {
     final sessionRef = ref.child("beatItSessions").child(sessionID);
     final snapshot = await sessionRef.child("hostID").get();
     if (userID == snapshot.value) {
-      print("should delete the current session");
       sessionRef.remove();
     }
   }
