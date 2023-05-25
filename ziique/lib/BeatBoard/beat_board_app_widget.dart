@@ -346,7 +346,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                                                             i,
                                                                             numberOfBars) ==
                                                                     0)
-                                                                ? Colors.green
+                                                                ? alpha.getColor(numberOfBars, i)
                                                                 : BeatColor(
                                                                             bar:
                                                                                 numberOfBars)
@@ -387,10 +387,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                                         minRange = 1;
                                                       });
                                                     },
-                                                    child: Text(
-                                                      alpha.getAlphebat(
-                                                          i, numberOfBars),
-                                                      style: const TextStyle(
+                                                    child: const Text("",
+                                                      style: TextStyle(
                                                           color: Colors.white),
                                                     ),
                                                   );
@@ -519,7 +517,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                                                 .calcGreenBut(i,
                                                                     numberOfBars) ==
                                                             0)
-                                                        ? Colors.green
+                                                        ? alpha.getColor(numberOfBars, i)
                                                         : BeatColor(
                                                                     bar:
                                                                         numberOfBars)
@@ -554,10 +552,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                                                     minRange = 1;
                                                   });
                                                 },
-                                                child: Text(
-                                                  alpha.getAlphebat(
-                                                      i, numberOfBars),
-                                                  style: const TextStyle(
+                                                child: const Text("",
+                                                  style: TextStyle(
                                                       color: Colors.white),
                                                 ),
                                               );
@@ -584,6 +580,27 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
 }
 
 class Alpha {
+Map colors = {
+    0: Colors.green,
+    1: const Color.fromARGB(255, 2, 164, 245),
+    2: const Color.fromARGB(255, 227, 11, 11),
+    3: const Color.fromARGB(255, 202, 48, 195),
+    4: const Color.fromARGB(255, 210, 194, 12),
+  };
+
+  Color getColor(int beat, int pos)
+  {
+    num baseVal = (numberOfBars * 4) + 1;
+    num green = 0;
+    for (num i = 0; i < numberOfRows; i++) {
+      if (pos == (baseVal * i))
+      {
+      green = (baseVal * i);
+      }
+    }
+          return colors[green / baseVal];
+  }
+
   Alpha() {
     for (int i = 65; i <= 90; i++) {
       alphabets.add(String.fromCharCode(i));

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
+import 'package:ziique/Settings/settings_widget.dart';
 import 'package:ziique/models/user.dart' as beat_user;
 
 class CustomMobileScanner extends StatefulWidget{
@@ -43,11 +45,16 @@ class _CustomMobileScannerState extends State<CustomMobileScanner> {
         children: [
           MobileScanner(
           controller: scannerController,
+          onScannerStarted: (args){
+            SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+          },
           onDetect: (barcode){
               List<String> tempList;
               tempList = widget.user.friends;
-              tempList.add(barcode.raw.toString());
+              tempList.add(barcode.barcodes.last.rawValue.toString());
               UserService().updateFriendList(tempList);
+              SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+              Navigator.push(context, MaterialPageRoute(builder: (contex) => SettingsPageMobile(context)));
             }
           ),
           MobileScannerOverlay(overlayColour: Colors.black.withOpacity(0.5))
