@@ -53,11 +53,8 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
   TextEditingController descriptionController = TextEditingController();
 
   void loadBeat(String beatString){
-    print("TEST");
-    print(boolList);
     boolList = _loadBeat.loadBeat(soundEngine, boolList);
     soundEngine.beatString = beatString;
-    print(boolList);
     internalSetter((){});
   }
 
@@ -84,7 +81,6 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
   }
 
   void _playSingleSound(int soundName) {
-    print(boolList.length); 
     soundEngine.playSingleSoundMobile(soundName);
   }
 
@@ -621,7 +617,6 @@ class LoadBeat {
     for (var node in nodes) {
       bools[node] = true;
     }
-    print(bools);
     return bools;
   }
 }

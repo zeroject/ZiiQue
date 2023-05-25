@@ -19,7 +19,7 @@ class UserService{
     if (user == null) return null;
     return beat_user.User.fromMap(user);
     } catch (error) {
-      print(error);
+      rethrow;
     }
     return null;
   }

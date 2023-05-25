@@ -147,6 +147,7 @@ void playSingleSoundMobile(int soundIndex)
   
 }
 
+
 void addToBeat(int pos, int rowMax, int beatMax)
 {
   String node = nodeString(pos, rowMax, beatMax);
@@ -318,8 +319,11 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
   int i = 0;
+  for (var player in players) {
+    player.setSource(AssetSource(nodes.first.source));
+  }
   //create a timer, that counts up, in miliseconds
-  Timer timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+  Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
     if (shouldPlay == true)
@@ -330,8 +334,8 @@ void playNodes(List<Node> nodes, int playerCount, num time)
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
-
-         players[j].play(DeviceFileSource(nodes[i].source));
+          players[j].seek(Duration.zero);
+          players[j].resume();
          (i == nodes.length -1) ? timer.cancel() : i++;  
     }
     }else 
@@ -365,7 +369,7 @@ play()
 
       if (nodes[i].isNotEmpty)
       {
-      playNodes(nodes[i], 2, maxTime);
+      playNodes(nodes[i], 7, maxTime);
       }
     }
 }
