@@ -51,8 +51,9 @@ class _CustomMobileScannerState extends State<CustomMobileScanner> {
           onDetect: (barcode){
               List<String> tempList;
               tempList = widget.user.friends;
-              tempList.add(barcode.raw);
+              tempList.add(barcode.barcodes.last.rawValue.toString());
               UserService().updateFriendList(tempList);
+              SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
               Navigator.push(context, MaterialPageRoute(builder: (contex) => SettingsPageMobile(context)));
             }
           ),
