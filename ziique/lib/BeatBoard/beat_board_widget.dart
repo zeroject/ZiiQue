@@ -35,6 +35,7 @@ class BeatBoardDesktop extends StatefulWidget {
 
 class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   late StateSetter internalSetter;
+  late StateSetter startStopSession;
   final Future<String> _calculation = Future<String>.delayed(
     const Duration(milliseconds: 1200),
     () => 'Data Loaded',
@@ -53,7 +54,15 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
   TextEditingController descriptionController = TextEditingController();
 
   void loadBeat(String beatString){
-    boolList = _loadBeat.loadBeat(soundEngine, boolList);
+    List<int> nodes = [];
+    print(boolList);
+    boolList.every((element) => false);
+    print(boolList);
+    nodes = soundEngine.nodeInt(numberOfBars);
+    for (var node in nodes) {
+      boolList[node] = true;
+    }
+    print(boolList);
     soundEngine.beatString = beatString;
     internalSetter((){});
   }
@@ -70,7 +79,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     soundEngine.removeFromBeat(input, row, beat);
     if (user!.inSession){
       FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
-      print(user.sessionID);
+      print("Should update boarded");
     }
   }
 
@@ -112,6 +121,9 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    const String start = "Start Session";
+    const String stop = "Stop Session";
+    bool cValue = false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),
@@ -307,6 +319,20 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                   ],
                                                 ));
                                       }),
+                                  ElevatedButton(onPressed: () async {
+                                    beat_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
+                                    if (cValue == false){
+                                      cValue = true;
+                                      String id = await fireBeatItRealtimeService.createSession(soundEngine.beatString, FirebaseAuth.instance.currentUser!.uid);
+                                      fireBeatItRealtimeService.getBeatString(id, loadBeat);
+                                      startStopSession(() {});
+                                    }
+                                    }, child: StatefulBuilder(
+                                      builder: (context, switchValue) {
+                                        startStopSession = switchValue;
+                                        return cValue ?  const Text("In Session") : const Text(start);
+                                      }
+                                    )),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width -
                                         1100,
