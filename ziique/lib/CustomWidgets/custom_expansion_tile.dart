@@ -142,7 +142,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                           by: widget.beat!.by,
                                           beatString: widget.soundEngine!.beatString,
                                           description: descriptionController.text,
-                                          publicity: widget.beat!.publicity
+                                          publicity: tickChange ? "Public" : "Private"
                                           ));
                                     Navigator.pop(context);
                                   }
