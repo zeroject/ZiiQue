@@ -99,6 +99,9 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
     for (int i = 0; i < boolList.length; i++){
       boolList[i] = false;
     }
+    setState(() {
+      boolList;
+    });
   }
 
   void changeBPM(int bpm) {
