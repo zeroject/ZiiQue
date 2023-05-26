@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_drawer.dart';
+import 'package:ziique/CustomWidgets/custom_friend_invlist.dart';
 import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/login-create/create_widget.dart';
@@ -353,7 +354,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                         child: Expanded(
                                           child: ListView(
                                             children: [
-                                              CustomFriendListView(beatuser: beatuser),
+                                              CustomFriendInvListView(beatuser: beatuser, sessionID: beatuser!.sessionID),
                                             ],
                                           ),
                                         ),
