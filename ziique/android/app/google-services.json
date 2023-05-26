@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "620903528169",
+    "firebase_url": "https://ziique-e74ad-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ziique-e74ad",
+    "storage_bucket": "ziique-e74ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620903528169:android:35345067a70ec357c46278",
+        "android_client_info": {
+          "package_name": "com.example.ziique"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ysZWfQ90zHK28rldWc7QJhBk9x5ypH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
