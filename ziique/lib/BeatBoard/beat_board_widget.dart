@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:ziique/CustomWidgets/custom_drawer.dart';
+import 'package:ziique/CustomWidgets/custom_friend_listview.dart';
 import 'package:ziique/FireService/fire_user_service.dart';
 import 'package:ziique/login-create/create_widget.dart';
 import 'package:ziique/login-create/login_widget.dart';
@@ -343,7 +345,32 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                     )),
                                   ElevatedButton(onPressed: ()
                                   {
-
+                                    showDialog(context: context, builder: (context) => AlertDialog(
+                                      title: Text("Friends:"),
+                                      content: SizedBox(
+                                        height: 150,
+                                        width: 300,
+                                        child: Expanded(
+                                          child: ListView(
+                                            children: [
+                                              CustomFriendListView(beatuser: beatuser),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }, 
+                                          child: Text("Cancel")),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }, 
+                                          child: Text("Ok"))
+                                      ],
+                                    ));
                                   }, child: const Text("Add Friends")),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width -
