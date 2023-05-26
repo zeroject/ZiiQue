@@ -351,13 +351,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                       content: SizedBox(
                                         height: 150,
                                         width: 300,
-                                        child: Expanded(
                                           child: ListView(
                                             children: [
                                               CustomFriendInvListView(beatuser: beatuser, sessionID: beatuser!.sessionID),
                                             ],
                                           ),
-                                        ),
                                       ),
                                       actions: [
                                         TextButton(

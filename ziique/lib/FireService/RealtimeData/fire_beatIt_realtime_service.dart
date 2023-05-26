@@ -45,7 +45,7 @@ class FireBeatItRealtimeService {
     await FirebaseFirestore.instance
         .collection(CollectionNames.users)
         .doc(friend.uid)
-        .collection("Sessions")
+        .collection("sessions")
         .doc(sessionID)
         .set({"hostID": FirebaseAuth.instance.currentUser!.uid});
   }

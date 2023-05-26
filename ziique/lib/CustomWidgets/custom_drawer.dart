@@ -81,7 +81,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     if(FirebaseAuth.instance.currentUser != null){
-      _userInvStream = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).collection("Sessions").snapshots();
+      _userInvStream = FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).collection("sessions").snapshots();
     }
     return SizedBox(
       width: widget.drawerWidth,
