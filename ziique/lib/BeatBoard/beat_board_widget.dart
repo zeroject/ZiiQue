@@ -24,7 +24,6 @@ var dropdownValue = "Hip-Hop";
 final snack = SnackBar(content: const Text("You have been invited to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
 SoundEngine soundEngine = SoundEngine();
 Notifier notifer = Notifier();
-LoadBeat _loadBeat = LoadBeat();
 final Future<beat_user.User?> userquery =
     Future(() => UserService().getUser(FirebaseAuth.instance.currentUser!.uid));
 beat_user.User? beatuser;
@@ -690,21 +689,6 @@ class Alpha {
       return alphabets[i == 1 ? 1 : i ~/ ((numberOfBars * 4) + 1)];
     }
     return i.toString();
-  }
-}
-
-class LoadBeat {
-  LoadBeat();
-
-  List<int> nodes = [];
-
-  List<bool> loadBeat(SoundEngine soundEngine, List<bool> bools) {
-    bools.every((element) => false);
-    nodes = soundEngine.nodeInt(numberOfBars);
-    for (var node in nodes) {
-      bools[node] = true;
-    }
-    return bools;
   }
 }
 
