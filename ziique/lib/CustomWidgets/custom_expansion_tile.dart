@@ -104,7 +104,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                     TextFormField(
                                       controller: descriptionController,
                                       decoration: const InputDecoration(hintText: "Description"),
-                                      maxLines: 3,
+                                      maxLines: 2,
                                     ),
                                     ButtonBar(
                                       alignment: MainAxisAlignment.spaceBetween,
@@ -115,7 +115,10 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                             return Switch(
                                               value: tickChange,
                                               activeColor: Colors.blue, 
-                                              onChanged: (bool value){setState(() {tickChange = value;});});
+                                              onChanged: (bool value){
+                                                setState(() {tickChange = value;});
+                                                print(tickChange);
+                                                });
                                           }
                                         ),
                                         const Text("Public To Friends")
@@ -182,15 +185,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                               ));
                     },
                     child: const Text("Delete Beat", style: TextStyle(color: Colors.white),)) : const Text(""),
-                !widget.isFriendBeat ? OutlinedButton(
-                  style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
-                  onPressed: () async {
-                    our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Start Session", style: TextStyle(color: Colors.white),
-                  ),
-                ) : const Text("")
               ],
             )
           ],
