@@ -94,146 +94,124 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 children: <Widget>[
                   if (widget.firebaseAuthUser) ...[
                     if (snapshot.hasData) ...[
-                      if (snapshot.data!.inSession == true) ...[
-                        CustomFriendInvListView(beatuser: snapshot.data, sessionID: snapshot.data!.sessionID),
-                        OutlinedButton(
-                          onPressed: () async {
-                            our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                            FireBeatItRealtimeService().stopStreams(user!.sessionID);
-                            user.inSession = false;
-                            user.sessionID = "";
-                            UserService().updateUser(user);
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Stop Session",
-                            style: TextStyle(color: Colors.white),
+                      SizedBox(
+                        height: widget.drawerHeadHeight,
+                        child: DrawerHeader(
+                          decoration: BoxDecoration(
+                            color: widget.backgroundColor,
                           ),
-                        ),
-                      ] else ...[
-                        SizedBox(
-                          height: widget.drawerHeadHeight,
-                          child: DrawerHeader(
-                            decoration: BoxDecoration(
-                              color: widget.backgroundColor,
-                            ),
-                            child: Stack(
-                              children: const [
-                                Positioned(
-                                  bottom: 8.0,
-                                  left: 4.0,
-                                  child: Text(
-                                    "YOUR BEATS",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
+                          child: Stack(
+                            children: const [
+                              Positioned(
+                                bottom: 8.0,
+                                left: 4.0,
+                                child: Text(
+                                  "YOUR BEATS",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                        FirestoreListView<Beat>(
-                          shrinkWrap: true,
-                          query: BeatService()
-                              .getAllBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
-                          itemBuilder: (BuildContext context, snapshot) {
-                            Beat beatTOget = snapshot.data();
-                                  return CustomExpansionTile(
-                                      isFriendBeat: false,
-                                      beat: beatTOget,
-                                      fontSize: 20,
-                                      tileColor:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                      tileRadius: 10,
-                                      soundEngine: widget.soundEngine,
-                                    onLoadBeat: widget.onLoadBeat,
-                                  );
-                          },
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: SizedBox(
-                                  width: widget.settingsButWidth,
-                                  height: widget.settingsButHeight,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  widget.settingsPageDesktop));
-                                    },
-                                    child: const Text("Account Settings",
-                                        style: TextStyle(color: Colors.white)),
+                      ),
+                      FirestoreListView<Beat>(
+                        shrinkWrap: true,
+                        query: BeatService()
+                            .getAllBeatsFromUser(FirebaseAuth.instance.currentUser!.uid),
+                        itemBuilder: (BuildContext context, snapshot) {
+                          Beat beatTOget = snapshot.data();
+                          return CustomExpansionTile(
+                            isFriendBeat: false,
+                            beat: beatTOget,
+                            fontSize: 20,
+                            tileColor:
+                            const Color.fromARGB(255, 255, 255, 255),
+                            tileRadius: 10,
+                            soundEngine: widget.soundEngine,
+                            onLoadBeat: widget.onLoadBeat,
+                          );
+                        },
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: SizedBox(
+                                width: widget.settingsButWidth,
+                                height: widget.settingsButHeight,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            widget.settingsPageDesktop));
+                                  },
+                                  child: const Text("Account Settings",
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: SizedBox(
+                                width: widget.settingsButWidth,
+                                height: widget.settingsButHeight,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    AuthService().signOut();
+                                    Navigator.push(
+                                        context,
+                                        kIsWeb ? MaterialPageRoute(
+                                            builder: (context) => widget.beatBoardDesktop) :
+                                        MaterialPageRoute(builder: (context) => BeatBoardApp(context)));
+                                  },
+                                  child: const Text(
+                                    "Log Out",
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: SizedBox(
-                                  width: widget.settingsButWidth,
-                                  height: widget.settingsButHeight,
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      AuthService().signOut();
-                                      Navigator.push(
-                                          context,
-                                          kIsWeb ? MaterialPageRoute(
-                                              builder: (context) => widget.beatBoardDesktop) : 
-                                          MaterialPageRoute(builder: (context) => BeatBoardApp(context)));
-                                    },
-                                    child: const Text(
-                                      "Log Out",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 100,
-                          child: StreamBuilder<QuerySnapshot>(
-                              stream: _userInvStream,
-                              builder: (context, doc){
-                                if (doc.hasError){}
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 100,
+                        child: StreamBuilder<QuerySnapshot>(
+                            stream: _userInvStream,
+                            builder: (context, doc){
+                              if (doc.hasError){}
 
-                                if (doc.connectionState == ConnectionState.waiting){
+                              if (doc.connectionState == ConnectionState.waiting){
 
-                                }
-                                return ListView(
-                                  shrinkWrap: true,
-                                  children: doc.data!.docs.map((DocumentSnapshot document) {
-                                    return ListTile(
-                                      title: const Text("Session INV"),
-                                      subtitle: const Text("From User TODO ADD USER NAME HERE"),
-                                      onTap: () async {
-                                        FireBeatItRealtimeService().respondInvToBeatItSession(document.id, snapshot.data!.uid, true);
-                                        our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                                        user!.sessionID = document.id;
-                                        user.inSession = true;
-                                        UserService().updateUser(user);
-                                        FireBeatItRealtimeService().getBeatString(document.id, widget.onLoadBeat);
-                                        Navigator.pop;
-                                      },
-                                    );
-                                  }).toList(),
-                                );
                               }
-                          ),
-                        )
-                      ],
+                              return ListView(
+                                shrinkWrap: true,
+                                children: doc.data!.docs.map((DocumentSnapshot document) {
+                                  return ListTile(
+                                    title: const Text("Session INV"),
+                                    subtitle: const Text("From User TODO ADD USER NAME HERE"),
+                                    onTap: () async {
+                                      FireBeatItRealtimeService().respondInvToBeatItSession(document.id, snapshot.data!.uid, true);
+                                      our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
+                                      user!.sessionID = document.id;
+                                      user.inSession = true;
+                                      UserService().updateUser(user);
+                                      FireBeatItRealtimeService().getBeatString(document.id, widget.onLoadBeat);
+                                      Navigator.pop;
+                                    },
+                                  );
+                                }).toList(),
+                              );
+                            }
+                        ),
+                      )
                     ] else ...[
-                      const CircularProgressIndicator(),
-                      const CircularProgressIndicator(),
-                      const CircularProgressIndicator(),
-                      const CircularProgressIndicator(),
                       const CircularProgressIndicator(),
                     ]
                   ] else ...[
