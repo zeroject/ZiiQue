@@ -21,7 +21,6 @@ class UserService{
     } catch (error) {
       rethrow;
     }
-    return null;
   }
 
   Future<void> createUser(fire_user.User? userUid, String firstName, String lastName) async {
