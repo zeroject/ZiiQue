@@ -78,8 +78,8 @@ class FireBeatItRealtimeService {
         final String updatedString = data['beatString'];
         result = updatedString;
         print('Updated String: $updatedString');
-        loadbeat!(result);
-        loadbeat!(result);
+        loadbeat!(updatedString);
+        loadbeat!(updatedString);
       } else {
         print('Document does not exist.');
       }
