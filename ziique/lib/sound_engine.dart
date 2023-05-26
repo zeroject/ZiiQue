@@ -92,58 +92,60 @@ void changeTheme(String newTheme)
     soundFiles["E"] = "Snare.wav";
       break;
   }
-  theme = "$newTheme/";
+  theme = newTheme + "/";
 }
 
 void playSingleSound(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
-  String sound ="";
   
   switch (soundIndex) {
     case 0:
-     sound = soundFiles["A"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["A"]));
       break;
       case 33:
-      sound = soundFiles["B"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["B"]));
       break;
       case 66:
-      sound = soundFiles["C"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["C"]));
       break;
       case 99:
-      sound = soundFiles["D"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["D"]));
       break;
       case 132:
-      sound = soundFiles["E"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["E"]));
       break;
   }
-  player.play(AssetSource(sourceFolder + theme + sound));
+ Future.delayed(const Duration(milliseconds: 100), () {
+    player.resume();
+  });
   
 }
 
 void playSingleSoundMobile(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
-  String sound ="";
   
   switch (soundIndex) {
     case 0:
-     sound = soundFiles["A"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["A"]));
       break;
       case 17:
-      sound = soundFiles["B"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["B"]));
       break;
       case 34:
-      sound = soundFiles["C"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["C"]));
       break;
       case 51:
-      sound = soundFiles["D"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["D"]));
       break;
       case 68:
-      sound = soundFiles["E"];
+      player.setSource(AssetSource( sourceFolder + theme + soundFiles["E"]));
       break;
   }
-  player.play(AssetSource(sourceFolder + theme + sound));
+  Future.delayed(const Duration(milliseconds: 100), () {
+    player.resume();
+  });
   
 }
 
@@ -320,10 +322,14 @@ void playNodes(List<Node> nodes, int playerCount, num time)
   int j = 0;
   int i = 0;
   for (var player in players) {
+    print(nodes.first.source);
     player.setSource(AssetSource(nodes.first.source));
+    player.setPlayerMode(PlayerMode.lowLatency);
   }
-  //create a timer, that counts up, in miliseconds
-  Timer timer =  Timer.periodic(const Duration(milliseconds: 10), (timer) {
+
+  //added a future.delayed to make sure the players are loaded before playing
+  Future.delayed(const Duration(milliseconds: 1000), () {
+    Timer timer =  Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
     if (shouldPlay == true)
@@ -334,9 +340,9 @@ void playNodes(List<Node> nodes, int playerCount, num time)
          {
           j == playerCount -1 ? j = 0 : j++;  
           }
-          players[j].seek(Duration.zero);
           players[j].resume();
          (i == nodes.length -1) ? timer.cancel() : i++;  
+         
     }
     }else 
     {
@@ -348,6 +354,10 @@ void playNodes(List<Node> nodes, int playerCount, num time)
       shouldPlay = false;
     }
   });
+  });
+
+  //create a timer, that counts up, in miliseconds
+  
 }
 
 play()
