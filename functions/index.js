@@ -20,7 +20,7 @@ const logger = require("firebase-functions/logger");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-admin.initializeApp({projectId: 'ziique-7aa1b'});
+admin.initializeApp({projectId: 'ziique-e74ad'});
 
 const firestore = admin.firestore();
 
