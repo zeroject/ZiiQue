@@ -55,28 +55,27 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   void loadBeat(String beatString){
     List<int> nodes = [];
-    print(boolList);
-    boolList.every((element) => false);
-    print(boolList);
+    boolList = boolList.map<bool>((e) => false).toList();
     nodes = soundEngine.nodeInt(numberOfBars);
     for (var node in nodes) {
       boolList[node] = true;
     }
-    print(boolList);
     soundEngine.beatString = beatString;
     internalSetter((){});
   }
 
-  void _addToBeatLoggedin(int input, int row, int beat, beat_user.User? user){
+  Future<void> _addToBeatLoggedin(int input, int row, int beat) async {
     soundEngine.addToBeat(input, row, beat);
+    beat_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
     if (user!.inSession){
       FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print(user.sessionID);
     }
   }
 
-  void _removeFromBeatLoggedin(int input, int row, int beat, beat_user.User? user){
+  Future<void> _removeFromBeatLoggedin(int input, int row, int beat) async {
     soundEngine.removeFromBeat(input, row, beat);
+    beat_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
     if (user!.inSession){
       FireBeatItRealtimeService().setBeatString(user.sessionID, soundEngine.beatString);
       print("Should update boarded");
@@ -171,6 +170,7 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                   );
                 } else {
                   beatuser = snapshot2.data;
+                  cValue = beatuser!.inSession;
                   return Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
@@ -321,18 +321,30 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                       }),
                                   ElevatedButton(onPressed: () async {
                                     beat_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                                    if (cValue == false){
+                                    if (user!.inSession == false){
                                       cValue = true;
                                       String id = await fireBeatItRealtimeService.createSession(soundEngine.beatString, FirebaseAuth.instance.currentUser!.uid);
+                                      user!.sessionID = id;
+                                      user.inSession = true;
+                                      UserService().updateUser(user);
                                       fireBeatItRealtimeService.getBeatString(id, loadBeat);
                                       startStopSession(() {});
+                                    } else {
+                                      user.inSession = false;
+                                      user.sessionID = "";
+                                      UserService().updateUser(user);
+                                      cValue = false;
                                     }
                                     }, child: StatefulBuilder(
                                       builder: (context, switchValue) {
                                         startStopSession = switchValue;
-                                        return cValue ?  const Text("In Session") : const Text(start);
+                                        return cValue ?  const Text("Quit session") : const Text(start);
                                       }
                                     )),
+                                  ElevatedButton(onPressed: ()
+                                  {
+
+                                  }, child: const Text("Add Friends")),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width -
                                         1100,
@@ -408,13 +420,11 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
                                                             ? _removeFromBeatLoggedin(
                                                             i,
                                                             numberOfRows,
-                                                            numberOfBars,
-                                                            snapshot2.data)
+                                                            numberOfBars,)
                                                             : _addToBeatLoggedin(
                                                             i,
                                                             numberOfRows,
-                                                            numberOfBars,
-                                                            snapshot2.data));
+                                                            numberOfBars,));
                                                         boolList[i] =
                                                             !boolList[i];
                                                         maxRange =
