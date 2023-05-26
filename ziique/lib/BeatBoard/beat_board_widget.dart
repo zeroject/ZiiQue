@@ -100,6 +100,9 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
     //set all bools to false
     for (int i = 0; i < boolList.length; i++){
       boolList[i] = false;
+      setState(() {
+        boolList;
+      });
     }
   }
 
