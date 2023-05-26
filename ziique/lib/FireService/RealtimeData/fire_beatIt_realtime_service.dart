@@ -23,14 +23,14 @@ class FireBeatItRealtimeService {
   int timesplayed = 0;
   int versionID = 1;
 
-  Future<String> createSession(Beat? beat, String hostUID) async{
+  Future<String> createSession(String beatString, String hostUID) async{
     String id = uuid.v4();
     BeatItSession beatItSession = BeatItSession(
         sessionid: id,
         usersadded: users,
         creationTime: DateTime.now().toString(),
         lastModified: DateTime.now().toString(),
-        beatString: beat!.beatString,
+        beatString: beatString,
         timeschanged: timeschanged,
         timesplayed: timesplayed,
         hostID: hostUID,
@@ -70,7 +70,6 @@ class FireBeatItRealtimeService {
 
    getBeatString(String sessionID, LoadBeatCallback? loadbeat) async {
     String result = "";
-    await multiBeatRef.doc(sessionID).get();
     multiBeatRef.doc(sessionID).snapshots().listen(onDone: (){print("you are not done");}, onError: (error) => print("hovsa : $error"),(event) {
       print("Should update the beatstring");
       if (event.exists) {
@@ -79,6 +78,7 @@ class FireBeatItRealtimeService {
         final String updatedString = data['beatString'];
         result = updatedString;
         print('Updated String: $updatedString');
+        loadbeat!(result);
         loadbeat!(result);
       } else {
         print('Document does not exist.');

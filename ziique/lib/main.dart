@@ -27,16 +27,6 @@ void main() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   }
-  if (!kReleaseMode){
-    if (kIsWeb){
-      host = "localhost";
-      FirebaseFirestore.instance.useFirestoreEmulator(host, 8000, sslEnabled: false);
-      FirebaseAuth.instance.useAuthEmulator(host, 9099);
-      FirebaseStorage.instance.useStorageEmulator(host, 9199);
-      FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
-      FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
-    }
-  }
   runApp(const MyApp());
 }
 

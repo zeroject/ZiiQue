@@ -186,11 +186,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   style: OutlinedButton.styleFrom(backgroundColor: Colors.blueAccent),
                   onPressed: () async {
                     our_user.User? user = await UserService().getUser(FirebaseAuth.instance.currentUser!.uid);
-                    user!.sessionID = await FireBeatItRealtimeService().createSession(
-                        widget.beat, FirebaseAuth.instance.currentUser!.uid);
-                    user.inSession = true;
-                    UserService().updateUser(user);
-                    FireBeatItRealtimeService().getBeatString(user.sessionID, widget.onLoadBeat);
                     Navigator.pop(context);
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),
