@@ -16,6 +16,7 @@ int numberOfRows = 5;
 int numberOfBars = 8;
 int maxRange = (numberOfBars * 4);
 int minRange = 1;
+var dropdownValue = "Hip-Hop";
 
 final snack = SnackBar(content: const Text("You have been invited to a session"), action: SnackBarAction(label: "accpet", onPressed: (){}));
 SoundEngine soundEngine = SoundEngine();
@@ -108,7 +109,6 @@ class _BeatBoardDesktopState extends State<BeatBoardDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    var dropdownValue;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 44, 41, 41),

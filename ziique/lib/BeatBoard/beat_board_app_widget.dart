@@ -176,7 +176,7 @@ class _BeatBoardAppState extends State<BeatBoardApp> {
                               decoration: const BoxDecoration(color: Colors.black),
                               child: Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 4,
                                   ),
                                   ElevatedButton(

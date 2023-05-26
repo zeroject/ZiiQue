@@ -92,7 +92,7 @@ void changeTheme(String newTheme)
     soundFiles["E"] = "Snare.wav";
       break;
   }
-  theme = newTheme + "/";
+  theme = "$newTheme/";
 }
 
 void playSingleSound(int soundIndex)

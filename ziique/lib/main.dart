@@ -17,7 +17,6 @@ void main() async {
   if(kIsWeb){
     
     await Firebase.initializeApp(
-      name: "Ziique Web",
       options: DefaultFirebaseOptions.web,
     );
   } else {
@@ -27,7 +26,7 @@ void main() async {
     );
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-  }/*
+  }
   if (!kReleaseMode){
     if (kIsWeb){
       host = "localhost";
@@ -37,7 +36,7 @@ void main() async {
       FirebaseDatabase.instance.useDatabaseEmulator(host, 9000);
       FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
     }
-  }*/
+  }
   runApp(const MyApp());
 }
 

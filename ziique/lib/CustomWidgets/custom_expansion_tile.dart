@@ -110,7 +110,14 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                       alignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text("Private"),
-                                        Switch(value: tickChange, activeColor: Colors.blue, onChanged: (bool value){setState(() {tickChange = value;});}),
+                                        StatefulBuilder(
+                                          builder: (context, StateSetter setState) {
+                                            return Switch(
+                                              value: tickChange,
+                                              activeColor: Colors.blue, 
+                                              onChanged: (bool value){setState(() {tickChange = value;});});
+                                          }
+                                        ),
                                         const Text("Public To Friends")
                                       ]
                                       
@@ -183,7 +190,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         widget.beat, FirebaseAuth.instance.currentUser!.uid);
                     user.inSession = true;
                     UserService().updateUser(user);
-                    FireBeatItRealtimeService().getBeatString(user!.sessionID, widget.onLoadBeat);
+                    FireBeatItRealtimeService().getBeatString(user.sessionID, widget.onLoadBeat);
                     Navigator.pop(context);
                   },
                   child: const Text("Start Session", style: TextStyle(color: Colors.white),
