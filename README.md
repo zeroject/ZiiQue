@@ -28,6 +28,30 @@ There are two ways of using the app
 # Know issues with Ziique
 Currently the feature to download MP3's is not available, we've had trouble trying to get that feature to work, and required us to do WAY more work than expected, so we have decided to drop that feature for now, and focus on getting everything else to work as best as we can.
 
+# Firebase Rules
+FireStore:
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth.token != null && request.auth.uid != null;
+    }
+  }
+}
+
+Firebase Storage:
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth.token != null && request.auth.uid != null;
+    }
+  }
+}
+
+
 # Copyright
 
 Copyright 2023 ZomR. All rights reserved.
