@@ -98,54 +98,52 @@ void changeTheme(String newTheme)
 void playSingleSound(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
+  String sound ="";
   
   switch (soundIndex) {
     case 0:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["A"]));
+     sound = soundFiles["A"];
       break;
       case 33:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["B"]));
+      sound = soundFiles["B"];
       break;
       case 66:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["C"]));
+      sound = soundFiles["C"];
       break;
       case 99:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["D"]));
+      sound = soundFiles["D"];
       break;
       case 132:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["E"]));
+      sound = soundFiles["E"];
       break;
   }
- Future.delayed(const Duration(milliseconds: 100), () {
-    player.resume();
-  });
+  player.play(AssetSource(sourceFolder + theme + sound));
   
 }
 
 void playSingleSoundMobile(int soundIndex)
 {
   AudioPlayer player = AudioPlayer();
+  String sound ="";
   
   switch (soundIndex) {
     case 0:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["A"]));
+     sound = soundFiles["A"];
       break;
       case 17:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["B"]));
+      sound = soundFiles["B"];
       break;
       case 34:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["C"]));
+      sound = soundFiles["C"];
       break;
       case 51:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["D"]));
+      sound = soundFiles["D"];
       break;
       case 68:
-      player.setSource(AssetSource( sourceFolder + theme + soundFiles["E"]));
+      sound = soundFiles["E"];
       break;
   }
-  Future.delayed(const Duration(milliseconds: 100), () {
-    player.resume();
-  });
+  player.play(AssetSource(sourceFolder + theme + sound));
   
 }
 
@@ -316,19 +314,19 @@ List<List<Node>> convertStringToNodes(String beatString)
   }
 
 //play each node from the list at its specified time in miliseconds starting from 0
-void playNodes(List<Node> nodes, int playerCount, num time)
-{
+Future<void> playNodes(List<Node> nodes, int playerCount, num time)
+async {
   List<AudioPlayer> players = getPlayers(playerCount);
   int j = 0;
   int i = 0;
   for (var player in players) {
     print(nodes.first.source);
-    player.setSource(AssetSource(nodes.first.source));
+    await player.setSource(AssetSource(nodes.first.source));
     player.setPlayerMode(PlayerMode.lowLatency);
   }
 
   //added a future.delayed to make sure the players are loaded before playing
-  Future.delayed(const Duration(milliseconds: 1000), () {
+  Future.delayed(const Duration(milliseconds: 100), () {
     Timer timer =  Timer.periodic(const Duration(milliseconds: 10), (timer) {
     //calculate the elapsed time, starting at 0
     //if the timer is at the time of the node, play the node
@@ -341,8 +339,8 @@ void playNodes(List<Node> nodes, int playerCount, num time)
           j == playerCount -1 ? j = 0 : j++;  
           }
           players[j].resume();
+          players[j].seek(const Duration(milliseconds: 0));
          (i == nodes.length -1) ? timer.cancel() : i++;  
-         
     }
     }else 
     {
